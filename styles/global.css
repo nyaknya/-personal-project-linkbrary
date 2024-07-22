@@ -1,3 +1,16 @@
+:root {
+  --color-primary: #6d6afe;
+  --color-red: #ff5b56;
+  --color-black: #111322;
+  --color-white: #ffffff;
+
+  --color-gray05: #f0f6ff;
+  --color-gray05: #e7effb;
+  --color-gray05: #ccd5e3;
+  --color-gray05: #9fa6b2;
+  --color-gray05: #3e3e43;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -17,4 +30,9 @@ input {
   border: 0;
   outline: 0;
   font-family: "pretendard", sans-serif;
+}
+
+a {
+  color: unset;
+  text-decoration: none;
 }
