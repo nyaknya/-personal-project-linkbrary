@@ -9,6 +9,9 @@
   --color-gray05: #ccd5e3;
   --color-gray05: #9fa6b2;
   --color-gray05: #3e3e43;
+
+  --color-blue: #6d6afe;
+  --color-skyblue: #6ae3fe;
 }
 
 * {
@@ -17,7 +20,7 @@
   font-family: "pretendard", sans-serif;
 }
 
-body {
+html {
   font-size: 62.5%;
 }
 

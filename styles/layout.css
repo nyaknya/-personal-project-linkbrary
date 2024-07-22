@@ -1,6 +1,21 @@
 header {
   padding: 20px 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-header button {
+.cta-button a {
+  display: block;
+  width: 128px;
+  text-align: center;
+  font-size: 1.8rem;
+  background: linear-gradient(
+    to right,
+    var(--color-blue),
+    var(--color-skyblue)
+  );
+  color: var(--color-white);
+  border-radius: 8px;
+  padding: 16px 20px;
 }
