@@ -1,8 +1,16 @@
 header {
-  padding: 20px 200px;
+  width: 100%;
+  padding: 0px 200px;
+  background: var(--color-gray05);
+}
+
+.header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 20px 0;
 }
 
 .cta-button a {

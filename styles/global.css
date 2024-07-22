@@ -5,19 +5,22 @@
   --color-white: #ffffff;
 
   --color-gray05: #f0f6ff;
-  --color-gray05: #e7effb;
-  --color-gray05: #ccd5e3;
-  --color-gray05: #9fa6b2;
-  --color-gray05: #3e3e43;
+  --color-gray04: #e7effb;
+  --color-gray03: #ccd5e3;
+  --color-gray02: #9fa6b2;
+  --color-gray01: #3e3e43;
 
   --color-blue: #6d6afe;
   --color-skyblue: #6ae3fe;
+  --color-pink: #ff9f9f;
 }
 
 * {
   padding: 0;
   margin: 0;
   font-family: "pretendard", sans-serif;
+  box-sizing: border-box;
+  letter-spacing: -0.02em;
 }
 
 html {
