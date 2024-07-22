@@ -1,0 +1,29 @@
+header {
+  width: 100%;
+  padding: 0px 200px;
+  background: var(--color-gray05);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.cta-button a {
+  display: block;
+  width: 128px;
+  text-align: center;
+  font-size: 1.8rem;
+  background: linear-gradient(
+    to right,
+    var(--color-blue),
+    var(--color-skyblue)
+  );
+  color: var(--color-white);
+  border-radius: 8px;
+  padding: 16px 20px;
+}

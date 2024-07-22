@@ -1,0 +1,28 @@
+.visual-container {
+  padding-top: 70px;
+  height: 953px;
+  background: var(--color-gray05) url(/images/visual_image.png) no-repeat center
+    bottom;
+}
+
+.visual-container h2 {
+  text-align: center;
+  font-size: 6.4rem;
+  line-height: 1.2em;
+}
+
+.visual-container h2 strong {
+  background: linear-gradient(to right, var(--color-blue), var(--color-pink));
+  color: transparent;
+  -webkit-background-clip: text;
+}
+
+.visual-container .cta-button {
+  margin: 40px auto 0;
+  text-align: center;
+}
+
+.visual-container .cta-button a {
+  margin: 0 auto;
+  width: 350px;
+}
