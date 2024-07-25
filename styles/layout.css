@@ -2,6 +2,9 @@ header {
   width: 100%;
   padding: 0px 200px;
   background: var(--color-gray05);
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
 .header-container {
@@ -37,7 +40,7 @@ header {
 footer {
   padding: 32px 104px 108px;
   color: var(--color-white);
-  background: var(--color-dark);
+  background: var(--color-black);
   font-size: 1.6rem;
 }
 
