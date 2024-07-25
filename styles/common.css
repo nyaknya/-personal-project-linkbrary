@@ -1,5 +1,6 @@
 .visual-container {
   padding-top: 70px;
+  margin-bottom: 70px;
   height: 953px;
   background: var(--color-gray05) url(/images/visual_image.png) no-repeat center
     bottom;
@@ -25,4 +26,56 @@
 .visual-container .cta-button a {
   margin: 0 auto;
   width: 350px;
+}
+
+.main-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.main-container .text-area h2 {
+  font-size: 4.8rem;
+  font-weight: 700;
+  padding-bottom: 10px;
+}
+
+.main-container .text-area p {
+  font-size: 16px;
+  line-height: 1.5em;
+  color: #6b6b6b;
+}
+
+.main-container .image-area img {
+  padding: 50px 0;
+  max-width: 550px;
+}
+
+.main-section-save strong {
+  background: linear-gradient(to right, var(--color-pink), var(--color-blue));
+}
+
+.main-section-manage strong {
+  background: linear-gradient(to right, var(--color-yellow), var(--color-blue));
+}
+
+.main-section-share strong {
+  background: linear-gradient(
+    to right,
+    var(--color-primary),
+    var(--color-skyblue)
+  );
+}
+
+.main-section-search strong {
+  background: linear-gradient(
+    to right,
+    var(--color-blue),
+    var(--color-skyblue)
+  );
+}
+
+.main-container strong {
+  color: transparent;
+  -webkit-background-clip: text;
 }
