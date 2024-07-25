@@ -35,5 +35,28 @@ header {
 }
 
 footer {
-  padding: 0 104px;
+  padding: 32px 104px 108px;
+  color: var(--color-white);
+  background: var(--color-dark);
+  font-size: 1.6rem;
+}
+
+footer .footer-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+footer .copyright {
+  color: #676767;
+}
+
+footer .footer-nav {
+  display: flex;
+  color: #fff;
+  gap: 30px;
+}
+
+footer .sns-link ul {
+  display: flex;
+  gap: 12px;
 }
