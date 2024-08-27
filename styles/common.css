@@ -79,3 +79,8 @@
   color: transparent;
   -webkit-background-clip: text;
 }
+
+/* --- 로그인/회원가입 페이지 --- */
+.sign-page{
+  background-color: var(--color-gray05);
+}
