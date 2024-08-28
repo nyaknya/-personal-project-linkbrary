@@ -10,8 +10,6 @@
   --color-gray02: #9fa6b2;
   --color-gray01: #3e3e43;
 
-  --color-dark: #111322;
-
   --color-blue: #6fbaff;
   --color-skyblue: #6ae3fe;
   --color-pink: #ff9f9f;
@@ -32,6 +30,7 @@ html {
 
 button {
   outline: 0;
+  border: 0;
 }
 
 textarea,
