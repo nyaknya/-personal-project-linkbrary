@@ -271,4 +271,8 @@
     padding: 0 32px;
   }
   
+  .sign-page .cta-button button{
+    font-size: 1.6rem;
+  }
+
 }
