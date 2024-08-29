@@ -114,13 +114,8 @@ footer .sns-link ul {
   }  
 } 
 
-/* 태블릿 */
-@media all and (min-width:768px) and (max-width:1199px) { 
-
-} 
-
 /* 모바일 */
-@media (min-width: 375px) and (max-width: 767px) {
+@media (max-width: 767px) {
   .cta-button a,  .cta-button button{
     width: 80px;
     font-size: 1.4rem;

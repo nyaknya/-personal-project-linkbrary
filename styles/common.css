@@ -92,6 +92,10 @@
   text-align: center;
 }
 
+.sign-page .container{
+  max-width: 400px;
+}
+
 .sign-header {
   padding-bottom: 30px;
 }
@@ -203,7 +207,7 @@
 } 
 
 /* 모바일 */
-@media (min-width: 375px) and (max-width: 767px) {
+@media (max-width: 767px) {
   .visual-container {
     height: 400px;
     padding-top: 28px;
@@ -257,6 +261,14 @@
 
   .main-section-manage .image-area, .main-section-search .image-area{
     order: 3;  
+  }
+
+  .sign-page main, .sign-page .container form, .form-item{
+    width: 100%;
+  }
+
+  .sign-page main{
+    padding: 0 32px;
   }
   
 }
