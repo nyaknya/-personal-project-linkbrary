@@ -96,3 +96,39 @@ footer .sns-link ul {
   display: flex;
   gap: 12px;
 }
+
+
+.pc-blind{
+  display: none;
+}
+
+
+/* 태블릿 이하 */
+@media (max-width: 1199px) {
+  header{
+    padding: 0 32px;
+  }
+
+  .pc-blind{
+    display: unset;
+  }  
+} 
+
+/* 모바일 */
+@media (max-width: 767px) {
+  .cta-button a,  .cta-button button{
+    width: 80px;
+    font-size: 1.4rem;
+  }
+
+  footer{
+    position: relative;
+    height: 200px;
+    padding: 32px;
+  }
+
+  footer .copyright{
+    position: absolute;
+    bottom: 32px;
+  }
+}
