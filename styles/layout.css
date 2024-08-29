@@ -96,3 +96,21 @@ footer .sns-link ul {
   display: flex;
   gap: 12px;
 }
+
+
+/* 태블릿 이하 */
+@media (max-width: 1199px) {
+  header{
+    padding: 0 32px;
+  }
+} 
+
+/* 태블릿 */
+@media all and (min-width:768px) and (max-width:1199px) { 
+
+} 
+
+/* 모바일 */
+@media (min-width: 375px) and (max-width: 767px) {
+
+}
