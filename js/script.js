@@ -1,0 +1,52 @@
+// 유저
+const USER = {
+  id: "test@codeit.com",
+  password: "codeit101",
+};
+
+// 유효성
+const EMAIL_PATTERN = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/;
+const PASSWORD_PATTERN = /(?=.*[0-9])(?=.*[A-Za-z])^.{8,}$/;
+
+// 요소
+const $emailInput = document.querySelector("#email");
+
+/* -------- */
+
+// 에러 메시지 생성
+function createErrorMessage(text) {
+  const errorMessage = document.createElement("span");
+  errorMessage.classList.add("error-message");
+  errorMessage.textContent = text;
+  return errorMessage;
+}
+
+// 에러 메시지 요소 뒤에 추가
+function addErrorMessage(element, text) {
+  let errorMessage = element.parentNode.querySelector(".error-message");
+
+  if (!errorMessage) {
+    element.insertAdjacentElement("afterend", createErrorMessage(text));
+  } else {
+    errorMessage.textContent = text;
+  }
+}
+
+// 오류 해제
+function removeError(element) {
+  let errorMessage = element.parentNode.querySelector(".error-message");
+  if (errorMessage) {
+    errorMessage.remove();
+  }
+  element.classList.remove("input-error");
+}
+
+// 이메일
+$emailInput.addEventListener("focusout", function () {
+  if ($emailInput.value.trim() === "") {
+    addErrorMessage(this, "이메일을 입력해주세요.");
+    this.classList.add("input-error");
+  } else {
+    removeError(this);
+  }
+});
