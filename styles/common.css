@@ -81,7 +81,7 @@
 }
 
 /* --- 로그인/회원가입 페이지 --- */
-.sign-page{
+.sign-page {
   background-color: var(--color-gray05);
   width: 100%;
   height: 100vh;
@@ -92,7 +92,7 @@
   text-align: center;
 }
 
-.sign-page .container{
+.sign-page .container {
   max-width: 400px;
 }
 
@@ -100,37 +100,36 @@
   padding-bottom: 30px;
 }
 
-.sign-header .image-area{
+.sign-header .image-area {
   padding-bottom: 16px;
 }
 
-.sign-header .image-area img{
+.sign-header .image-area img {
   width: 210px;
 }
 
-.sign-header .text-area{
+.sign-header .text-area {
   font-size: 1.6rem;
 }
 
-.sign-header .text-area a{
+.sign-header .text-area a {
   color: var(--color-primary);
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: 0.3s opacity;
 }
 
-.sign-header .text-area a:hover{
+.sign-header .text-area a:hover {
   opacity: 0.7;
 }
 
-
-.sign-page .container form{
+.sign-page .container form {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.form-item{
+.form-item {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -140,11 +139,11 @@
   gap: 12px;
 }
 
-.form-item label{
+.form-item label {
   font-size: 1.4rem;
 }
 
-.form-item input{
+.form-item input {
   width: 100%;
   height: 60px;
   padding: 15px 18px;
@@ -152,22 +151,22 @@
   border: 1px solid var(--color-gray03);
 }
 
-.form-item input:focus{
+.form-item input:focus {
   border: 1px solid var(--color-primary);
 }
 
-.form-item img{
+.form-item img {
   position: absolute;
   right: 22px;
   top: 48px;
   cursor: pointer;
 }
 
-.sign-page .cta-button button{
+.sign-page .cta-button button {
   width: 100%;
 }
 
-.sns-login{
+.sns-login {
   margin-top: 32px;
   display: flex;
   justify-content: space-between;
@@ -179,32 +178,40 @@
   border: 1px solid var(--color-gray03);
 }
 
-.sns-login .image-area{
+.sns-login .image-area {
   display: flex;
   gap: 16px;
 }
 
-.sns-login a{
+.sns-login a {
   transition: 0.3s all;
 }
 
-.sns-login a:hover{
+.sns-login a:hover {
   opacity: 0.7;
 }
 
+/* 오류 케이스 추가 */
+input.input-error {
+  border-color: var(--color-red);
+}
+
+.error-message {
+  font-size: 1.4rem;
+  color: var(--color-red);
+}
 
 /* 태블릿 이하 */
 @media (max-width: 1199px) {
-
-} 
+}
 
 /* 태블릿 */
-@media all and (min-width:768px) and (max-width:1199px) { 
+@media all and (min-width: 768px) and (max-width: 1199px) {
   .visual-container {
     height: 768px;
     background-size: 698px;
   }
-} 
+}
 
 /* 모바일 */
 @media (max-width: 767px) {
@@ -219,21 +226,21 @@
     font-size: 3.2rem;
   }
 
-  .visual-container .cta-button{
+  .visual-container .cta-button {
     margin-top: 24px;
   }
 
   .visual-container .cta-button a {
     width: 200px;
   }
-  
-  .main-container{
+
+  .main-container {
     padding: 0 32px 20px;
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .main-container:last-child{
+  .main-container:last-child {
     padding-bottom: 40px;
   }
 
@@ -241,7 +248,7 @@
     font-size: 2.4rem;
   }
 
-  .main-container .text-area h2 br{
+  .main-container .text-area h2 br {
     display: none;
   }
 
@@ -249,7 +256,7 @@
     font-size: 1.5rem;
   }
 
-  .main-container .text-area p br{
+  .main-container .text-area p br {
     display: none;
   }
 
@@ -259,20 +266,22 @@
     padding: 24px 0;
   }
 
-  .main-section-manage .image-area, .main-section-search .image-area{
-    order: 3;  
+  .main-section-manage .image-area,
+  .main-section-search .image-area {
+    order: 3;
   }
 
-  .sign-page main, .sign-page .container form, .form-item{
+  .sign-page main,
+  .sign-page .container form,
+  .form-item {
     width: 100%;
   }
 
-  .sign-page main{
+  .sign-page main {
     padding: 0 32px;
   }
-  
-  .sign-page .cta-button button{
+
+  .sign-page .cta-button button {
     font-size: 1.6rem;
   }
-
 }
