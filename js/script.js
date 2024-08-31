@@ -10,6 +10,8 @@ const PASSWORD_PATTERN = /(?=.*[0-9])(?=.*[A-Za-z])^.{8,}$/;
 
 // 요소
 const $emailInput = document.querySelector("#email");
+const $signUpEmailInput = document.querySelector(".sign-up-page #email");
+const $signInEmailInput = document.querySelector(".sign-in-page #email");
 
 /* -------- */
 
@@ -51,5 +53,13 @@ $emailInput.addEventListener("focusout", function () {
     this.classList.add("input-error");
   } else {
     removeError(this);
+  }
+});
+
+// 회원가입 이메일
+$signUpEmailInput.addEventListener("focusout", function () {
+  if (this.value === USER.id) {
+    addErrorMessage(this, "이미 사용 중인 이메일입니다.");
+    this.classList.add("input-error");
   }
 });
