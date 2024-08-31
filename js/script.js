@@ -65,10 +65,16 @@ $signUpEmailInput &&
       this.classList.add("input-error");
     }
   });
+
 // 공통 비밀번호 로직
 $passwordInput.addEventListener("focusout", function () {
   if (this.value.trim() === "") {
     addErrorMessage(this, "비밀번호를 입력해주세요.");
     this.classList.add("input-error");
+  } else if (!PASSWORD_PATTERN.test(this.value)) {
+    addErrorMessage(this, "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.");
+    this.classList.add("input-error");
+  } else {
+    removeError(this);
   }
 });
