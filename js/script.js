@@ -10,6 +10,7 @@ const PASSWORD_PATTERN = /(?=.*[0-9])(?=.*[A-Za-z])^.{8,}$/;
 
 // 요소
 const $emailInput = document.querySelector("#email");
+const $passwordInput = document.querySelector("#password");
 const $signUpEmailInput = document.querySelector(".sign-up-page #email");
 const $signInEmailInput = document.querySelector(".sign-in-page #email");
 
@@ -57,9 +58,17 @@ $emailInput.addEventListener("focusout", function () {
 });
 
 // 회원가입 이메일
-$signUpEmailInput.addEventListener("focusout", function () {
-  if (this.value === USER.id) {
-    addErrorMessage(this, "이미 사용 중인 이메일입니다.");
+$signUpEmailInput &&
+  $signUpEmailInput.addEventListener("focusout", function () {
+    if (this.value === USER.id) {
+      addErrorMessage(this, "이미 사용 중인 이메일입니다.");
+      this.classList.add("input-error");
+    }
+  });
+// 공통 비밀번호 로직
+$passwordInput.addEventListener("focusout", function () {
+  if (this.value.trim() === "") {
+    addErrorMessage(this, "비밀번호를 입력해주세요.");
     this.classList.add("input-error");
   }
 });
