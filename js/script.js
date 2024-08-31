@@ -13,7 +13,11 @@ const $emailInput = document.querySelector("#email");
 const $passwordInput = document.querySelector("#password");
 const $signUpEmailInput = document.querySelector(".sign-up-page #email");
 const $signInEmailInput = document.querySelector(".sign-in-page #email");
-const $passworConfirmdInput = document.querySelector("#passwordConfirm");
+const $passwordConfirmInput = document.querySelector("#passwordConfirm");
+const $passwordToggle = document.querySelector(".password-area img");
+const $passwordConfirmToggle = document.querySelector(
+  ".password-confirm-area img"
+);
 
 /* -------- */
 
@@ -45,6 +49,16 @@ function removeError(element) {
   element.classList.remove("input-error");
 }
 
+// 비밀번호 보이기/끄기 토글
+function passwordVisibleToggle(input, toggle) {
+  const isPasswordVisible = input.getAttribute("type") === "text";
+  input.setAttribute("type", isPasswordVisible ? "password" : "text");
+  toggle.setAttribute(
+    "src",
+    isPasswordVisible ? "/images/eye_on.svg" : "/images/eye_off.svg"
+  );
+}
+
 // 공통 이메일 로직
 $emailInput.addEventListener("focusout", function () {
   if (this.value.trim() === "") {
@@ -67,7 +81,7 @@ $signUpEmailInput &&
     }
   });
 
-// 공통 비밀번호 로직
+// 비밀번호 유효성 검사
 $passwordInput.addEventListener("focusout", function () {
   if (this.value.trim() === "") {
     addErrorMessage(this, "비밀번호를 입력해주세요.");
@@ -80,9 +94,19 @@ $passwordInput.addEventListener("focusout", function () {
   }
 });
 
-$passworConfirmdInput &&
-  $passworConfirmdInput.addEventListener("focusout", function () {
-    if (this.value != $passwordInput.value) {
+// 비밀번호 보이기/끄기 토글 이벤트
+$passwordToggle.addEventListener("click", function () {
+  passwordVisibleToggle($passwordInput, $passwordToggle);
+});
+
+$passwordConfirmToggle.addEventListener("click", function () {
+  passwordVisibleToggle($passwordConfirmInput, $passwordConfirmToggle);
+});
+
+// 비밀번호 확인
+$passwordConfirmInput &&
+  $passwordConfirmInput.addEventListener("focusout", function () {
+    if (this.value !== $passwordInput.value) {
       addErrorMessage(this, "비밀번호가 일치하지 않아요.");
       this.classList.add("input-error");
     } else {
