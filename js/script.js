@@ -41,10 +41,13 @@ function removeError(element) {
   element.classList.remove("input-error");
 }
 
-// 이메일
+// 공통 이메일 로직
 $emailInput.addEventListener("focusout", function () {
-  if ($emailInput.value.trim() === "") {
+  if (this.value.trim() === "") {
     addErrorMessage(this, "이메일을 입력해주세요.");
+    this.classList.add("input-error");
+  } else if (!EMAIL_PATTERN.test(this.value)) {
+    addErrorMessage(this, "올바른 이메일 주소가 아닙니다.");
     this.classList.add("input-error");
   } else {
     removeError(this);
