@@ -13,6 +13,7 @@ const $emailInput = document.querySelector("#email");
 const $passwordInput = document.querySelector("#password");
 const $signUpEmailInput = document.querySelector(".sign-up-page #email");
 const $signInEmailInput = document.querySelector(".sign-in-page #email");
+const $passworConfirmdInput = document.querySelector("#passwordConfirm");
 
 /* -------- */
 
@@ -78,3 +79,13 @@ $passwordInput.addEventListener("focusout", function () {
     removeError(this);
   }
 });
+
+$passworConfirmdInput &&
+  $passworConfirmdInput.addEventListener("focusout", function () {
+    if (this.value != $passwordInput.value) {
+      addErrorMessage(this, "비밀번호가 일치하지 않아요.");
+      this.classList.add("input-error");
+    } else {
+      removeError(this);
+    }
+  });
