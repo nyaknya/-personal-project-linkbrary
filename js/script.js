@@ -18,6 +18,7 @@ const $passwordToggle = document.querySelector(".password-area img");
 const $passwordConfirmToggle = document.querySelector(
   ".password-confirm-area img"
 );
+const $signUpButton = document.querySelector(".sign-up-page form button");
 
 /* -------- */
 
@@ -148,3 +149,32 @@ $passwordConfirmInput &&
   $passwordConfirmToggle.addEventListener("click", function () {
     passwordVisibleToggle($passwordConfirmInput, $passwordConfirmToggle);
   });
+
+$signUpButton.addEventListener("click", function (e) {
+  e.preventDefault(); // 폼 제출 방지
+
+  let isFormValid = true;
+
+  // 이메일 유효성 검사
+  if ($signUpEmailInput) {
+    isFormValid &= validateEmail($signUpEmailInput);
+  }
+
+  // 비밀번호 유효성 검사
+  isFormValid &= validatePassword($passwordInput);
+
+  // 비밀번호 확인 검사
+  if ($passwordConfirmInput) {
+    isFormValid &= validatePasswordConfirm(
+      $passwordInput,
+      $passwordConfirmInput
+    );
+  }
+
+  // 전체 폼이 유효한 경우 제출
+  if (isFormValid) {
+    alert("회원가입 성공!");
+  } else {
+    alert("올바른 회원가입 시도가 아닙니다.");
+  }
+});
