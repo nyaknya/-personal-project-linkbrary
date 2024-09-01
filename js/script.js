@@ -31,8 +31,8 @@ function createErrorMessage(text) {
   return errorMessage;
 }
 
-// 에러 메시지 요소 뒤에 추가
-function addErrorMessage(element, text) {
+// 에러 메시지 표시
+function showError(element, text) {
   let errorMessage = element.parentNode.querySelector(".error-message");
 
   if (!errorMessage) {
@@ -40,9 +40,10 @@ function addErrorMessage(element, text) {
   } else {
     errorMessage.textContent = text;
   }
+  element.classList.add("input-error");
 }
 
-// 오류 해제
+// 에러 메시지 제거
 function removeError(element) {
   let errorMessage = element.parentNode.querySelector(".error-message");
   if (errorMessage) {
@@ -66,16 +67,13 @@ function validateEmail(input) {
   let isValid = true;
 
   if (input.value.trim() === "") {
-    addErrorMessage(input, "이메일을 입력해주세요.");
-    input.classList.add("input-error");
+    showError(input, "이메일을 입력해주세요.");
     isValid = false;
   } else if (!EMAIL_PATTERN.test(input.value)) {
-    addErrorMessage(input, "올바른 이메일 주소가 아닙니다.");
-    input.classList.add("input-error");
+    showError(input, "올바른 이메일 주소가 아닙니다.");
     isValid = false;
   } else {
     removeError(input);
-    input.classList.remove("input-error");
   }
 
   return isValid;
@@ -86,19 +84,13 @@ function validatePassword(input) {
   let isValid = true;
 
   if (input.value.trim() === "") {
-    addErrorMessage(input, "비밀번호를 입력해주세요.");
-    input.classList.add("input-error");
+    showError(input, "비밀번호를 입력해주세요.");
     isValid = false;
   } else if (!PASSWORD_PATTERN.test(input.value)) {
-    addErrorMessage(
-      input,
-      "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요."
-    );
-    input.classList.add("input-error");
+    showError(input, "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.");
     isValid = false;
   } else {
     removeError(input);
-    input.classList.remove("input-error");
   }
 
   return isValid;
@@ -109,12 +101,10 @@ function validatePasswordConfirm(passwordInput, passwordConfirmInput) {
   let isValid = true;
 
   if (passwordConfirmInput.value !== passwordInput.value) {
-    addErrorMessage(passwordConfirmInput, "비밀번호가 일치하지 않아요.");
-    passwordConfirmInput.classList.add("input-error");
+    showError(passwordConfirmInput, "비밀번호가 일치하지 않아요.");
     isValid = false;
   } else {
     removeError(passwordConfirmInput);
-    passwordConfirmInput.classList.remove("input-error");
   }
 
   return isValid;
@@ -124,19 +114,22 @@ function validatePasswordConfirm(passwordInput, passwordConfirmInput) {
 function validateLogin(emailInput, passwordInput) {
   let isValid = true;
 
-  isValid &= validateEmail(emailInput);
-  isValid &= validatePassword(passwordInput);
+  if (!validateEmail(emailInput)) {
+    isValid = false;
+  }
+
+  if (!validatePassword(passwordInput)) {
+    isValid = false;
+  }
 
   // 추가로 이메일과 비밀번호가 맞는지 검증
   if (emailInput.value !== USER.id) {
-    addErrorMessage(emailInput, "이메일을 확인해주세요.");
-    emailInput.classList.add("input-error");
+    showError(emailInput, "이메일을 확인해주세요.");
     isValid = false;
   }
 
   if (passwordInput.value !== USER.password) {
-    addErrorMessage(passwordInput, "비밀번호를 확인해주세요.");
-    passwordInput.classList.add("input-error");
+    showError(passwordInput, "비밀번호를 확인해주세요.");
     isValid = false;
   }
 
@@ -145,18 +138,20 @@ function validateLogin(emailInput, passwordInput) {
 
 /* ---이벤트 분리---  */
 
-$emailInput.addEventListener("focusout", function () {
-  validateEmail(this);
-});
+$emailInput &&
+  $emailInput.addEventListener("focusout", function () {
+    validateEmail(this);
+  });
 
 $signUpEmailInput &&
   $signUpEmailInput.addEventListener("focusout", function () {
     validateEmail(this);
   });
 
-$passwordInput.addEventListener("focusout", function () {
-  validatePassword(this);
-});
+$passwordInput &&
+  $passwordInput.addEventListener("focusout", function () {
+    validatePassword(this);
+  });
 
 $passwordConfirmInput &&
   $passwordConfirmInput.addEventListener("focusout", function () {
@@ -164,32 +159,36 @@ $passwordConfirmInput &&
   });
 
 // 비밀번호 보이기/끄기 토글 이벤트
-$passwordToggle.addEventListener("click", function () {
-  passwordVisibleToggle($passwordInput, $passwordToggle);
-});
+$passwordToggle &&
+  $passwordToggle.addEventListener("click", function () {
+    passwordVisibleToggle($passwordInput, $passwordToggle);
+  });
 
-$passwordConfirmInput &&
+$passwordConfirmToggle &&
   $passwordConfirmToggle.addEventListener("click", function () {
     passwordVisibleToggle($passwordConfirmInput, $passwordConfirmToggle);
   });
 
+// 회원가입 버튼 클릭 이벤트
 $signUpButton &&
   $signUpButton.addEventListener("click", function (e) {
     e.preventDefault();
 
     let isFormValid = true;
 
-    if ($signUpEmailInput) {
-      isFormValid &= validateEmail($signUpEmailInput);
+    if ($signUpEmailInput && !validateEmail($signUpEmailInput)) {
+      isFormValid = false;
     }
 
-    isFormValid &= validatePassword($passwordInput);
+    if (!validatePassword($passwordInput)) {
+      isFormValid = false;
+    }
 
-    if ($passwordConfirmInput) {
-      isFormValid &= validatePasswordConfirm(
-        $passwordInput,
-        $passwordConfirmInput
-      );
+    if (
+      $passwordConfirmInput &&
+      !validatePasswordConfirm($passwordInput, $passwordConfirmInput)
+    ) {
+      isFormValid = false;
     }
 
     if (isFormValid) {
@@ -200,6 +199,7 @@ $signUpButton &&
     }
   });
 
+// 로그인 버튼 클릭 이벤트
 $signInButton &&
   $signInButton.addEventListener("click", function (e) {
     e.preventDefault();
