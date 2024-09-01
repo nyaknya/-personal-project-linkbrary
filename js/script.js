@@ -59,57 +59,92 @@ function passwordVisibleToggle(input, toggle) {
   );
 }
 
+function validateEmail(input) {
+  let isValid = true;
+
+  if (input.value.trim() === "") {
+    addErrorMessage(input, "이메일을 입력해주세요.");
+    input.classList.add("input-error");
+    isValid = false;
+  } else if (!EMAIL_PATTERN.test(input.value)) {
+    addErrorMessage(input, "올바른 이메일 주소가 아닙니다.");
+    input.classList.add("input-error");
+    isValid = false;
+  } else {
+    removeError(input);
+    input.classList.remove("input-error");
+  }
+
+  return isValid;
+}
+
+function validatePassword(input) {
+  let isValid = true;
+
+  if (input.value.trim() === "") {
+    addErrorMessage(input, "비밀번호를 입력해주세요.");
+    input.classList.add("input-error");
+    isValid = false;
+  } else if (!PASSWORD_PATTERN.test(input.value)) {
+    addErrorMessage(
+      input,
+      "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요."
+    );
+    input.classList.add("input-error");
+    isValid = false;
+  } else {
+    removeError(input);
+    input.classList.remove("input-error");
+  }
+
+  return isValid;
+}
+
+function validatePasswordConfirm(passwordInput, passwordConfirmInput) {
+  let isValid = true;
+
+  if (passwordConfirmInput.value !== passwordInput.value) {
+    addErrorMessage(passwordConfirmInput, "비밀번호가 일치하지 않아요.");
+    passwordConfirmInput.classList.add("input-error");
+    isValid = false;
+  } else {
+    removeError(passwordConfirmInput);
+    passwordConfirmInput.classList.remove("input-error");
+  }
+
+  return isValid;
+}
+
+/* ---이벤트 분리---  */
+
 // 공통 이메일 로직
 $emailInput.addEventListener("focusout", function () {
-  if (this.value.trim() === "") {
-    addErrorMessage(this, "이메일을 입력해주세요.");
-    this.classList.add("input-error");
-  } else if (!EMAIL_PATTERN.test(this.value)) {
-    addErrorMessage(this, "올바른 이메일 주소가 아닙니다.");
-    this.classList.add("input-error");
-  } else {
-    removeError(this);
-  }
+  validateEmail(this);
 });
 
 // 회원가입 이메일
 $signUpEmailInput &&
   $signUpEmailInput.addEventListener("focusout", function () {
-    if (this.value === USER.id) {
-      addErrorMessage(this, "이미 사용 중인 이메일입니다.");
-      this.classList.add("input-error");
-    }
+    validateEmail(this);
   });
 
 // 비밀번호 유효성 검사
 $passwordInput.addEventListener("focusout", function () {
-  if (this.value.trim() === "") {
-    addErrorMessage(this, "비밀번호를 입력해주세요.");
-    this.classList.add("input-error");
-  } else if (!PASSWORD_PATTERN.test(this.value)) {
-    addErrorMessage(this, "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.");
-    this.classList.add("input-error");
-  } else {
-    removeError(this);
-  }
+  validatePassword(this);
 });
+
+// 비밀번호 확인
+$passwordConfirmInput &&
+  $passwordConfirmInput.addEventListener("focusout", function () {
+    validatePasswordConfirm($passwordInput, this);
+  });
 
 // 비밀번호 보이기/끄기 토글 이벤트
 $passwordToggle.addEventListener("click", function () {
   passwordVisibleToggle($passwordInput, $passwordToggle);
 });
 
-$passwordConfirmToggle.addEventListener("click", function () {
-  passwordVisibleToggle($passwordConfirmInput, $passwordConfirmToggle);
-});
-
-// 비밀번호 확인
 $passwordConfirmInput &&
-  $passwordConfirmInput.addEventListener("focusout", function () {
-    if (this.value !== $passwordInput.value) {
-      addErrorMessage(this, "비밀번호가 일치하지 않아요.");
-      this.classList.add("input-error");
-    } else {
-      removeError(this);
-    }
+  $passwordConfirmToggle.addEventListener("click", function () {
+    passwordVisibleToggle($passwordConfirmInput, $passwordConfirmToggle);
   });
