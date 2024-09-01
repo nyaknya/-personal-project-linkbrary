@@ -174,6 +174,7 @@ $signUpButton.addEventListener("click", function (e) {
   // 전체 폼이 유효한 경우 제출
   if (isFormValid) {
     alert("회원가입 성공!");
+    window.location.href = "/folder";
   } else {
     alert("올바른 회원가입 시도가 아닙니다.");
   }
