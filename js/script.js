@@ -1,7 +1,7 @@
 // 유저
 const USER = {
-  id: "test@codeit.com",
-  password: "codeit101",
+  email: "test@codeit.com",
+  password: "sprint101",
 };
 
 // 유효성
@@ -111,29 +111,36 @@ function validatePasswordConfirm(passwordInput, passwordConfirmInput) {
 }
 
 // 로그인 유효성 검사
-function validateLogin(emailInput, passwordInput) {
-  let isValid = true;
-
-  if (!validateEmail(emailInput)) {
-    isValid = false;
+async function validateLogin(emailInput, passwordInput) {
+  if (!validateEmail(emailInput) || !validatePassword(passwordInput)) {
+    return false;
   }
 
-  if (!validatePassword(passwordInput)) {
-    isValid = false;
-  }
+  try {
+    const response = await fetch("https://bootcamp-api.codeit.kr/api/sign-in", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: emailInput.value,
+        password: passwordInput.value,
+      }),
+    });
 
-  // 추가로 이메일과 비밀번호가 맞는지 검증
-  if (emailInput.value !== USER.id) {
-    showError(emailInput, "이메일을 확인해주세요.");
-    isValid = false;
-  }
+    const data = await response.json();
 
-  if (passwordInput.value !== USER.password) {
-    showError(passwordInput, "비밀번호를 확인해주세요.");
-    isValid = false;
+    if (response.ok) {
+      console.log("로그인 성공:", data);
+      return true;
+    } else {
+      console.error("로그인 실패:", data.error?.message || "알 수 없는 오류");
+      return false;
+    }
+  } catch (error) {
+    console.error("네트워크 또는 서버 오류:", error);
+    return false;
   }
-
-  return isValid;
 }
 
 /* ---이벤트 분리---  */
@@ -201,10 +208,10 @@ $signUpButton &&
 
 // 로그인 버튼 클릭 이벤트
 $signInButton &&
-  $signInButton.addEventListener("click", function (e) {
+  $signInButton.addEventListener("click", async function (e) {
     e.preventDefault();
 
-    let isFormValid = validateLogin($signInEmailInput, $passwordInput);
+    let isFormValid = await validateLogin($signInEmailInput, $passwordInput);
 
     if (isFormValid) {
       alert("로그인 성공!");
