@@ -185,8 +185,10 @@ $emailInput &&
 
 $signUpEmailInput &&
   $signUpEmailInput.addEventListener("focusout", async function () {
-    validateEmail(this);
-    await validateEmailOverlap(this);
+    const isEmailValid = await validateEmail(this);
+    if (isEmailValid === true) {
+      await validateEmailOverlap(this);
+    }
   });
 
 $passwordInput &&
