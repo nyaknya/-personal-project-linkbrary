@@ -216,7 +216,7 @@ $passwordConfirmToggle &&
 
 // 회원가입 버튼 클릭 이벤트
 $signUpButton &&
-  $signUpButton.addEventListener("click", function (e) {
+  $signUpButton.addEventListener("click", async function (e) {
     e.preventDefault();
 
     let isFormValid = true;
@@ -238,7 +238,37 @@ $signUpButton &&
 
     if (isFormValid) {
       alert("회원가입 성공!");
-      window.location.href = "/folder";
+
+      try {
+        const response = await fetch(
+          "https://bootcamp-api.codeit.kr/api/sign-up",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: $signUpEmailInput.value,
+              password: $passwordInput.value,
+            }),
+          }
+        );
+
+        const data = await response.json();
+        const accessToken = await data.data.accessToken;
+
+        if (response.ok) {
+          localStorage.setItem("joinAccessToken", accessToken);
+          window.location.href = "/folder";
+          return true;
+        } else {
+          console.error(data.error?.message || "알 수 없는 오류");
+          return false;
+        }
+      } catch (error) {
+        console.error("네트워크 또는 서버 오류:", error);
+        return false;
+      }
     } else {
       alert("올바른 회원가입 시도가 아닙니다.");
     }
