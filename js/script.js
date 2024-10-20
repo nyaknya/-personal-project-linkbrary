@@ -166,7 +166,7 @@ async function validateLogin(emailInput, passwordInput) {
 
     if (response.ok) {
       console.log("로그인 성공:", data);
-      localStorage.setItem("loginAccessToken", accessToken);
+      localStorage.setItem("accessToken", accessToken);
       return true;
     } else {
       console.error("로그인 실패:", data.error?.message || "알 수 없는 오류");
@@ -258,7 +258,7 @@ $signUpButton &&
         const accessToken = await data.data.accessToken;
 
         if (response.ok) {
-          localStorage.setItem("joinAccessToken", accessToken);
+          localStorage.setItem("accessToken", accessToken);
           window.location.href = "/folder";
           return true;
         } else {
