@@ -110,6 +110,39 @@ function validatePasswordConfirm(passwordInput, passwordConfirmInput) {
   return isValid;
 }
 
+// (회원가입) 이메일 중복 유효성 검사
+async function validateEmailOverlap(input) {
+  try {
+    const response = await fetch(
+      "https://bootcamp-api.codeit.kr/api/check-email",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: input.value,
+        }),
+      }
+    );
+
+    // 상태 코드로 응답 처리
+    if (response.status === 200) {
+      console.log("이메일 사용 가능");
+      removeError(input); // 이메일 사용 가능 시 에러 제거
+    } else if (response.status >= 400 && response.status < 500) {
+      console.error("중복된 이메일입니다.");
+      showError(input, "중복된 이메일입니다."); // 중복된 이메일 처리
+    } else {
+      console.error("알 수 없는 서버 오류");
+      showError(input, "이메일 중복 여부 확인 중 오류가 발생했습니다.");
+    }
+  } catch (error) {
+    console.error("네트워크 또는 서버 오류:", error);
+    showError(input, "네트워크 오류가 발생했습니다. 다시 시도해 주세요.");
+  }
+}
+
 // 로그인 유효성 검사
 async function validateLogin(emailInput, passwordInput) {
   if (!validateEmail(emailInput) || !validatePassword(passwordInput)) {
@@ -151,8 +184,11 @@ $emailInput &&
   });
 
 $signUpEmailInput &&
-  $signUpEmailInput.addEventListener("focusout", function () {
-    validateEmail(this);
+  $signUpEmailInput.addEventListener("focusout", async function () {
+    const isEmailValid = await validateEmail(this);
+    if (isEmailValid === true) {
+      await validateEmailOverlap(this);
+    }
   });
 
 $passwordInput &&
