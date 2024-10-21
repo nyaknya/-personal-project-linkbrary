@@ -1,7 +1,5 @@
 {
   "extends": [
-    "airbnb",
-    "airbnb-typescript",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:prettier/recommended"
@@ -14,7 +12,8 @@
   "rules": {
     "prettier/prettier": "error",
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "react/react-in-jsx-scope": "off"
   },
   "settings": {
     "react": {

@@ -10,6 +10,10 @@ html {
   font-size: 62.5%;
 }
 
+body {
+  font-size: 1.6rem;
+}
+
 button {
   outline: 0;
   border: 0;
@@ -30,4 +34,11 @@ a {
 ul,
 li {
   list-style: none;
+}
+
+// ===== 공통 클래스 =====
+.container {
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
 }
