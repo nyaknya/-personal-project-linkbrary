@@ -1,0 +1,14 @@
+.user-profile {
+  @include flex-arrange;
+  gap: 8px;
+
+  img {
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+  }
+
+  span {
+    font-size: 1.4rem;
+  }
+}
