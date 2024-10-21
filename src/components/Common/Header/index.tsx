@@ -10,7 +10,9 @@ interface HedaerProps {
 export default function Header({ isStiky = true }: HedaerProps) {
   return (
     <header>
-      <div className={cn('container')}>테스트</div>
+      <div className={cn('container')}>
+        <img src="/images/logo.svg" alt="로고" />
+      </div>
     </header>
   );
 }
