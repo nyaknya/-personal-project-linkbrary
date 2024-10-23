@@ -7,14 +7,18 @@ function App() {
   const [folderData, setFolderData] = useState(null);
 
   const fetchFolderData = async () => {
-    const data = await apiRequest({ endpoint: '/api/sample/user' });
-    setFolderData(data);
+    try {
+      const data = await apiRequest({ endpoint: '/api/sample/folder' });
+      setFolderData(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
     try {
       fetchFolderData();
-      console.log;
+      console.log(folderData);
     } catch (error) {
       console.error(error);
     }
