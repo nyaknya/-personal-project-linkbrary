@@ -9,7 +9,7 @@ function App() {
   const fetchFolderData = async () => {
     try {
       const data = await apiRequest({ endpoint: '/api/sample/folder' });
-      setFolderData(data);
+      setFolderData(data.folder);
     } catch (error) {
       console.error(error);
     }
@@ -18,25 +18,24 @@ function App() {
   useEffect(() => {
     try {
       fetchFolderData();
-      console.log(folderData);
     } catch (error) {
       console.error(error);
     }
   }, []);
 
   if (!folderData) {
-    return null;
+    return <span>Loading...</span>;
   }
 
   return (
     <>
       <Header />
       <main>
-        {/* <Titlebar
-          userImage={folderData.folder.owner.profileImageSource}
-          userName={folderData.folder.owner.name}
-          folderName={folderData.folder.name}
-        /> */}
+        <Titlebar
+          userImage={folderData.owner.profileImageSource}
+          userName={folderData.owner.name}
+          folderName={folderData.name}
+        />
       </main>
     </>
   );
