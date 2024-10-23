@@ -4,7 +4,7 @@ import Titlebar from './components/Shared/Titlebar';
 import apiRequest from './utils/apiRequest';
 
 function App() {
-  const [folderData, setFolderData] = useState(null);
+  const [folderData, setFolderData] = useState<FolderData | null>(null);
 
   const fetchFolderData = async () => {
     try {
