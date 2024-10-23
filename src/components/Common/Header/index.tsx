@@ -9,14 +9,23 @@ const cn = classNames.bind(styles);
 
 export default function Header() {
   const [userProfile, setUserProfile] = useState(null);
+
   const fetchUserData = async () => {
-    const data = await apiRequest({ endpoint: '/api/sample/user' });
-    setUserProfile(data);
+    try {
+      const data = await apiRequest({ endpoint: '/api/sample/user' });
+      setUserProfile(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
-    fetchUserData();
-  });
+    try {
+      fetchUserData();
+    } catch (error) {
+      console.error();
+    }
+  }, []);
 
   if (!userProfile) {
     return <span>Loading...</span>;

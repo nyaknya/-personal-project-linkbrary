@@ -1,0 +1,22 @@
+.title-bar {
+  padding: 20px 0 60px;
+  background: $gray05;
+  text-align: center;
+
+  .image-box {
+    @include flex-arrange;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+
+    img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+  }
+
+  h2 {
+    @include font-style(4rem, black, 600);
+  }
+}
