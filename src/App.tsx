@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Header from './components/Common/Header';
 import Titlebar from './components/Shared/Titlebar';
+import Searchbar from './components/Searchbar';
 import apiRequest from './utils/apiRequest';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           userName={folderData.owner.name}
           folderName={folderData.name}
         />
+        <Searchbar />
       </main>
     </>
   );
