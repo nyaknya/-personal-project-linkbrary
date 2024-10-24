@@ -13,7 +13,11 @@ export default function CardList({ data }: CardListProps) {
     <div className={`container ${cn('card-list-box')}`}>
       <ul>
         {data.map((link) => {
-          return <Card key={link.id} link={link} />;
+          return (
+            <li key={link.id}>
+              <Card link={link} />
+            </li>
+          );
         })}
       </ul>
     </div>
