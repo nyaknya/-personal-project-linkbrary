@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import Header from './components/Common/Header';
 import Titlebar from './components/Shared/Titlebar';
+import Searchbar from './components/Searchbar';
 import apiRequest from './utils/apiRequest';
+import CardList from './components/Common/CardList';
 
 function App() {
   const [folderData, setFolderData] = useState<FolderData | null>(null);
@@ -10,6 +12,7 @@ function App() {
     try {
       const data = await apiRequest({ endpoint: '/api/sample/folder' });
       setFolderData(data.folder);
+      console.log(data.folder);
     } catch (error) {
       console.error(error);
     }
@@ -36,6 +39,8 @@ function App() {
           userName={folderData.owner.name}
           folderName={folderData.name}
         />
+        <Searchbar />
+        <CardList data={folderData.links} />
       </main>
     </>
   );
