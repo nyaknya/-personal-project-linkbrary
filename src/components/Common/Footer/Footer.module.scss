@@ -1,0 +1,46 @@
+footer {
+  padding: 32px 104px 108px;
+  margin-top: 100px;
+  color: $white;
+  background: $black;
+  font-size: 1.6rem;
+
+  @media (max-width: 767px) {
+    position: relative;
+    height: 200px;
+    padding: 32px;
+  }
+
+  a {
+    transition: 0.3s all;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .copyright {
+    color: #676767;
+
+    @media (max-width: 767px) {
+      position: absolute;
+      bottom: 32px;
+    }
+  }
+
+  .footer-nav {
+    display: flex;
+    color: #fff;
+    gap: 30px;
+  }
+
+  .sns-link ul {
+    display: flex;
+    gap: 12px;
+  }
+}

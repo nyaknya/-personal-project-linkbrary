@@ -4,6 +4,7 @@ import Titlebar from './components/Shared/Titlebar';
 import Searchbar from './components/Searchbar';
 import apiRequest from './utils/apiRequest';
 import CardList from './components/Common/CardList';
+import Footer from './components/Common/Footer';
 
 function App() {
   const [folderData, setFolderData] = useState<FolderData | null>(null);
@@ -41,6 +42,7 @@ function App() {
         />
         <Searchbar />
         <CardList data={folderData.links} />
+        <Footer />
       </main>
     </>
   );
