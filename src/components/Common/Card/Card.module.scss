@@ -23,6 +23,10 @@
     }
   }
 
+  .time-stamp {
+    @include font-style(1.3rem, #666);
+  }
+
   p {
     overflow: hidden;
     color: #000;

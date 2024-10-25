@@ -1,7 +1,7 @@
 import styles from './Card.module.scss';
 import classNames from 'classnames/bind';
 import sliceDate from '../../../utils/sliceDate';
-import { SyntheticEvent } from 'react';
+import getElapsedTime from '../../../utils/getElapsedTime';
 
 const cn = classNames.bind(styles);
 
@@ -13,6 +13,7 @@ export default function Card({ link }: CardProps) {
   const { url, imageSource, title, description, createdAt } = link;
 
   const postDate = sliceDate(createdAt);
+  const getTimeAgo = getElapsedTime(createdAt);
 
   const handleSrc =
     imageSource && imageSource.trim() !== ''
@@ -26,12 +27,12 @@ export default function Card({ link }: CardProps) {
   };
 
   return (
-    <a href={url} className={cn('card')}>
+    <a href={url} className={cn('card')} target="blank">
       <div className={cn('image-box')}>
         <img src={handleSrc} onError={handleImageError} alt={title} />
       </div>
       <div className={cn('card-content')}>
-        <span className={cn('time-stamp')}></span>
+        <span className={cn('time-stamp')}>{getTimeAgo}</span>
         <p>{description}</p>
         <span className={cn('post-date')}>{postDate}</span>
       </div>
