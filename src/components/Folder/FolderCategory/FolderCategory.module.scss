@@ -1,0 +1,15 @@
+.folder-category {
+  @include flex-arrange(flex-start);
+  gap: 8px;
+
+  li {
+    border: 1px solid $primary;
+    border-radius: 5px;
+    padding: 8px 12px;
+
+    &.active {
+      background: $primary;
+      color: $white;
+    }
+  }
+}

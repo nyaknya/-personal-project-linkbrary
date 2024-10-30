@@ -48,13 +48,15 @@ interface FolderUserData {
   name: string;
 }
 
-interface FolderFilterKeywordData {
-  created_at: Date;
-  favorite: boolean;
+interface FolderCategoryData {
   id: number;
-  link: { count: number };
+  created_at: string;
   name: string;
   user_id: number;
+  favorite: boolean;
+  link: {
+    count: number;
+  };
 }
 
 type LinkDataType = FolderLinksData | SharedFolderLinksData;
