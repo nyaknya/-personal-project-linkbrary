@@ -1,50 +1,17 @@
-import { useEffect, useState } from 'react';
-import Header from './components/Common/Header';
-import Titlebar from './components/Shared/Titlebar';
-import Searchbar from './components/Searchbar';
-import apiRequest from './utils/apiRequest';
-import CardList from './components/Common/CardList';
-import Footer from './components/Common/Footer';
-import Loading from './components/Common/Loading';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-export default function App() {
-  const [folderData, setFolderData] = useState<FolderData | null>(null);
+import FolderPage from './pages/FolderPage';
+import SharedPage from './pages/SharedPage';
 
-  const fetchFolderData = async () => {
-    try {
-      const data = await apiRequest({ endpoint: '/api/sample/folder' });
-      setFolderData(data.folder);
-      console.log(data.folder);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    try {
-      fetchFolderData();
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
-
-  if (!folderData) {
-    return <Loading />;
-  }
-
+function App() {
   return (
-    <>
-      <Header />
-      <main>
-        <Titlebar
-          userImage={folderData.owner.profileImageSource}
-          userName={folderData.owner.name}
-          folderName={folderData.name}
-        />
-        <Searchbar />
-        <CardList data={folderData.links} />
-        <Footer />
-      </main>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/shared" element={<SharedPage />} />
+        <Route path="/folder" element={<FolderPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
+
+export default App;

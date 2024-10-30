@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Header from '../../components/Common/Header';
 import Titlebar from '../../components/Shared/Titlebar';
-import Searchbar from '../../components/Searchbar';
+import Searchbar from '../../components/Common/Searchbar';
 import apiRequest from '../../utils/apiRequest';
 import CardList from '../../components/Common/CardList';
 import Footer from '../../components/Common/Footer';
