@@ -10,3 +10,9 @@ header {
     padding: 18px 32px;
   }
 }
+
+header.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}

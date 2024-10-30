@@ -8,7 +8,11 @@ import Loading from '../Loading';
 
 const cn = classNames.bind(styles);
 
-export default function Header() {
+interface HeaderProps {
+  isSticky?: boolean;
+}
+
+export default function Header({ isSticky = true }: HeaderProps) {
   const [userProfile, setUserProfile] = useState(null);
 
   const fetchUserData = async () => {
@@ -34,7 +38,7 @@ export default function Header() {
   const { name, email, profileImageSource } = userProfile;
 
   return (
-    <header>
+    <header className={cn(isSticky ? 'sticky' : '')}>
       <div className={cn('container')}>
         <img src="/images/logo.svg" alt="로고" />
         {userProfile ? (

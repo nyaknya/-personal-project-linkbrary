@@ -7,7 +7,7 @@ import Titlebar from '../../components/Folder/Titlebar';
 export default function FolderPage() {
   return (
     <>
-      <Header />
+      <Header isSticky={false} />
       <Titlebar />
       <Searchbar />
       <NotSavedLink />
