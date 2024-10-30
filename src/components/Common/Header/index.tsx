@@ -4,6 +4,7 @@ import Button from '../Button';
 import apiRequest from '../../../utils/apiRequest';
 import UserProfile from './UserProfile';
 import { useEffect, useState } from 'react';
+import Loading from '../Loading';
 
 const cn = classNames.bind(styles);
 
@@ -28,7 +29,7 @@ export default function Header() {
   }, []);
 
   if (!userProfile) {
-    return <span>Loading...</span>;
+    return <Loading />;
   }
   const { name, email, profileImageSource } = userProfile;
 

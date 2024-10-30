@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import Header from './components/Common/Header';
-import Titlebar from './components/Shared/Titlebar';
-import Searchbar from './components/Searchbar';
-import apiRequest from './utils/apiRequest';
-import CardList from './components/Common/CardList';
-import Footer from './components/Common/Footer';
-import Loading from './components/Common/Loading';
+import Header from '../../components/Common/Header';
+import Titlebar from '../../components/Shared/Titlebar';
+import Searchbar from '../../components/Searchbar';
+import apiRequest from '../../utils/apiRequest';
+import CardList from '../../components/Common/CardList';
+import Footer from '../../components/Common/Footer';
+import Loading from '../../components/Common/Loading';
 
-export default function App() {
+export default function SharedPage() {
   const [folderData, setFolderData] = useState<FolderData | null>(null);
 
   const fetchFolderData = async () => {
