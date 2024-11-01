@@ -1,16 +1,17 @@
 import { create } from 'zustand';
 
-// 상태 인터페이스 정의
 interface FolderState {
   selectedCategory: string;
+  selectedCategoryId: number | null;
   setSelectedCategory: (category: string) => void;
+  setSelectedCategoryId: (id: number | null) => void;
 }
 
-// Zustand 스토어 생성
 const useFolderStore = create<FolderState>((set) => ({
   selectedCategory: '전체',
-  setSelectedCategory: (category: string) =>
-    set({ selectedCategory: category }),
+  selectedCategoryId: null,
+  setSelectedCategory: (category) => set({ selectedCategory: category }),
+  setSelectedCategoryId: (id) => set({ selectedCategoryId: id }),
 }));
 
 export default useFolderStore;

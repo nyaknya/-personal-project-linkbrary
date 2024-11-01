@@ -6,6 +6,7 @@ import NotSavedLink from '../../components/Folder/NotSavedLink';
 import Titlebar from '../../components/Folder/Titlebar';
 import apiRequest from '../../utils/apiRequest';
 import FolderCategory from '../../components/Folder/FolderCategory';
+import useFolderStore from '../../store/useFolderStore';
 
 export default function FolderPage() {
   const [folderListData, setFolderListData] = useState<
@@ -13,6 +14,7 @@ export default function FolderPage() {
   >(null);
   const [folderLinksData, setFolderLinksData] =
     useState<FolderLinksData | null>(null);
+  const { selectedCategory, selectedCategoryId } = useFolderStore();
 
   const fetchFolderListData = async () => {
     try {
@@ -41,8 +43,15 @@ export default function FolderPage() {
     }
   }, []);
 
-  console.log(folderListData);
+  useEffect(() => {
+    try {
+    } catch (error) {
+      console.error(error);
+    }
+  }, [selectedCategory]);
+
   console.log(folderLinksData);
+  console.log(selectedCategory);
 
   return (
     <>
