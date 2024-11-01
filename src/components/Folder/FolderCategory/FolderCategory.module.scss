@@ -6,6 +6,7 @@
     border: 1px solid $primary;
     border-radius: 5px;
     padding: 8px 12px;
+    cursor: pointer;
 
     &.active {
       background: $primary;
