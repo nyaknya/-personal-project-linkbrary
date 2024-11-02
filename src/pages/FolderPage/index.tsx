@@ -44,8 +44,6 @@ export default function FolderPage() {
     return <Loading />;
   }
 
-  console.log(folderLinksData);
-
   return (
     <>
       <Header isSticky={false} />
