@@ -3,7 +3,7 @@ import Header from '../../components/Common/Header';
 import Titlebar from '../../components/Shared/Titlebar';
 import Searchbar from '../../components/Common/Searchbar';
 import apiRequest from '../../utils/apiRequest';
-import CardList from '../../components/Common/CardList';
+import CardList from '../../components/Folder/CardList';
 import Footer from '../../components/Common/Footer';
 import Loading from '../../components/Common/Loading';
 

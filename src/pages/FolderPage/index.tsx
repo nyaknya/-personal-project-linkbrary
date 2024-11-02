@@ -7,7 +7,7 @@ import Titlebar from '../../components/Folder/Titlebar';
 import apiRequest from '../../utils/apiRequest';
 import FolderCategory from '../../components/Folder/FolderCategory';
 import useFolderStore from '../../store/useFolderStore';
-import CardList from '../../components/Common/CardList';
+import CardList from '../../components/Folder/CardList';
 import Loading from '../../components/Common/Loading';
 
 export default function FolderPage() {
