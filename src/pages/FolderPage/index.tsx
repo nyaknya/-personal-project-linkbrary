@@ -14,9 +14,9 @@ export default function FolderPage() {
   const [folderListData, setFolderListData] = useState<
     FolderCategoryData[] | null
   >(null);
-  const [folderLinksData, setFolderLinksData] = useState<
-    FolderLinksData[] | null
-  >(null);
+  const [folderLinksData, setFolderLinksData] = useState<LinkDataType[] | null>(
+    null,
+  );
   const { selectedCategory, selectedCategoryId } = useFolderStore();
 
   const fetchData = async () => {
@@ -42,6 +42,8 @@ export default function FolderPage() {
   if (!folderLinksData) {
     return <Loading />;
   }
+
+  console.log(folderLinksData);
 
   return (
     <>

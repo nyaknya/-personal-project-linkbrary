@@ -1,21 +1,10 @@
-interface SharedFolderLinksData {
+interface LinkDataType {
   id: number;
   createdAt?: Date | string;
   url: string;
   title: string;
-  description: string;
+  description?: string;
   imageSource?: string;
-}
-
-interface FolderLinksData {
-  created_at?: Date;
-  description: string;
-  folder_id?: number;
-  id: number;
-  updated_at?: Date;
-  image_source?: string;
-  title: string;
-  url: string;
 }
 
 interface FolderOwnerData {
@@ -27,7 +16,7 @@ interface FolderOwnerData {
 interface FolderData {
   count: number;
   id: number;
-  links: SharedFolderLinksData[];
+  links: LinkDataType[]; // LinkDataType 사용
   name: string;
   owner: FolderOwnerData;
 }
@@ -58,5 +47,3 @@ interface FolderCategoryData {
     count: number;
   };
 }
-
-type LinkDataType = FolderLinksData | SharedFolderLinksData;
