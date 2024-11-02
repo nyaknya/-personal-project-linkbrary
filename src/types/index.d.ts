@@ -1,4 +1,4 @@
-interface LinkDataType {
+export interface LinkDataType {
   id: number;
   createdAt?: Date | string;
   url: string;
@@ -7,28 +7,39 @@ interface LinkDataType {
   imageSource?: string;
 }
 
-interface FolderOwnerData {
+export interface FolderLinksType {
+  id: number;
+  created_at: string;
+  updated_at: string | null;
+  url: string;
+  title: string;
+  description: string;
+  image_source?: string;
+  folder_id: number;
+}
+
+export interface FolderOwnerData {
   id: number;
   name: string;
   profileImageSource: string;
 }
 
-interface FolderData {
+export interface FolderData {
   count: number;
   id: number;
-  links: LinkDataType[]; // LinkDataType 사용
+  links: LinkDataType[];
   name: string;
   owner: FolderOwnerData;
 }
 
-interface UserProfileData {
+export interface UserProfileData {
   email: string;
   id: number;
   name: string;
   profileImageSource?: string;
 }
 
-interface FolderUserData {
+export interface FolderUserData {
   auth_id?: string;
   created_at?: string;
   email: string;
@@ -37,7 +48,7 @@ interface FolderUserData {
   name: string;
 }
 
-interface FolderCategoryData {
+export interface FolderCategoryData {
   id: number;
   created_at: string;
   name: string;
@@ -46,4 +57,8 @@ interface FolderCategoryData {
   link: {
     count: number;
   };
+}
+
+export interface CardProps {
+  link: LinkDataType;
 }

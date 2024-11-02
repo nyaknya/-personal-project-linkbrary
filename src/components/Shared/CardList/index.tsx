@@ -1,3 +1,4 @@
+import { LinkDataType } from '../../../types';
 import Card from '../Card';
 import styles from './CardList.module.scss';
 import classNames from 'classnames/bind';

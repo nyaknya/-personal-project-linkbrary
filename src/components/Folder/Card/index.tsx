@@ -2,22 +2,23 @@ import styles from './Card.module.scss';
 import classNames from 'classnames/bind';
 import sliceDate from '../../../utils/sliceDate';
 import getElapsedTime from '../../../utils/getElapsedTime';
+import { FolderLinksType, LinkDataType } from '../../../types';
 
 const cn = classNames.bind(styles);
 
 interface CardProps {
-  link: LinkDataType;
+  link: FolderLinksType;
 }
 
 export default function Card({ link }: CardProps) {
-  const { url, imageSource, title, description, createdAt } = link;
+  const { url, image_source, title, description, created_at } = link;
 
-  const postDate = sliceDate(createdAt);
-  const getTimeAgo = getElapsedTime(createdAt);
+  const postDate = sliceDate(created_at);
+  const getTimeAgo = getElapsedTime(created_at);
 
   const handleSrc =
-    imageSource && imageSource.trim() !== ''
-      ? imageSource
+    image_source && image_source.trim() !== ''
+      ? image_source
       : 'images/defaultimg.png';
 
   const handleImageError = (

@@ -9,14 +9,15 @@ import FolderCategory from '../../components/Folder/FolderCategory';
 import useFolderStore from '../../store/useFolderStore';
 import CardList from '../../components/Folder/CardList';
 import Loading from '../../components/Common/Loading';
+import { FolderCategoryData, FolderLinksType } from '../../types';
 
 export default function FolderPage() {
   const [folderListData, setFolderListData] = useState<
     FolderCategoryData[] | null
   >(null);
-  const [folderLinksData, setFolderLinksData] = useState<LinkDataType[] | null>(
-    null,
-  );
+  const [folderLinksData, setFolderLinksData] = useState<
+    FolderLinksType[] | null
+  >(null);
   const { selectedCategory, selectedCategoryId } = useFolderStore();
 
   const fetchData = async () => {

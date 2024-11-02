@@ -6,6 +6,7 @@ import apiRequest from '../../utils/apiRequest';
 import CardList from '../../components/Shared/CardList';
 import Footer from '../../components/Common/Footer';
 import Loading from '../../components/Common/Loading';
+import { FolderData } from '../../types';
 
 export default function SharedPage() {
   const [folderData, setFolderData] = useState<FolderData | null>(null);

@@ -1,3 +1,4 @@
+import { FolderLinksType } from '../../../types';
 import Card from '../Card';
 import styles from './CardList.module.scss';
 import classNames from 'classnames/bind';
@@ -5,7 +6,7 @@ import classNames from 'classnames/bind';
 const cn = classNames.bind(styles);
 
 interface CardListProps {
-  data: LinkDataType[];
+  data: FolderLinksType[];
 }
 
 export default function CardList({ data }: CardListProps) {

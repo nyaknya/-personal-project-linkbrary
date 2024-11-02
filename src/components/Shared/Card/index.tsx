@@ -2,6 +2,7 @@ import styles from './Card.module.scss';
 import classNames from 'classnames/bind';
 import sliceDate from '../../../utils/sliceDate';
 import getElapsedTime from '../../../utils/getElapsedTime';
+import { LinkDataType } from '../../../types';
 
 const cn = classNames.bind(styles);
 
