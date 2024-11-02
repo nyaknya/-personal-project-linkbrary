@@ -7,6 +7,10 @@
   text-align: center;
   box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.08);
 
+  @media (max-width: 767px) {
+    right: 20px;
+  }
+
   ul {
     display: flex;
     flex-direction: column;

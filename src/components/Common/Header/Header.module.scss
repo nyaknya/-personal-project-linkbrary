@@ -4,6 +4,10 @@ header {
 
   & > div {
     @include flex-arrange(space-between, center);
+
+    @media (max-width: 767px) {
+      padding: 0 !important;
+    }
   }
 
   @media (max-width: 767px) {

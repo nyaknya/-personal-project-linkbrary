@@ -1,6 +1,10 @@
 .title-bar {
   padding: 60px 320px 90px;
   background: $gray05;
+
+  @media (max-width: 767px) {
+    padding: 24px 32px 40px;
+  }
 }
 
 .link-add-bar {
@@ -14,6 +18,11 @@
   border: 1px solid $primary;
   border-radius: 15px;
 
+  @media (max-width: 767px) {
+    padding: 8px 10px;
+    width: 100%;
+  }
+
   input {
     width: 100%;
     padding-left: 35px;
@@ -26,7 +35,7 @@
   }
 
   button {
-    width: 80px;
+    width: 88px;
     border-radius: 8px;
     padding: 16px 10px;
     font-size: 1.4rem;

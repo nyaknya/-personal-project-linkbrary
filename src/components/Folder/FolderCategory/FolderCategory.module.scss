@@ -1,6 +1,7 @@
 .folder-category {
   @include flex-arrange(flex-start);
   gap: 8px;
+  flex-wrap: wrap;
 
   li {
     border: 1px solid $primary;

@@ -4,20 +4,21 @@ import sliceDate from '../../../utils/sliceDate';
 import getElapsedTime from '../../../utils/getElapsedTime';
 import { FolderLinksType } from '../../../types';
 import CardDropdown from '../CardDropdown';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import useOutSideClick from '../../../hooks/useOutSideClick';
 
 const cn = classNames.bind(styles);
 
 interface CardProps {
   link: FolderLinksType;
+  isOpen: boolean;
+  onToggleDropdown: () => void;
 }
 
-export default function Card({ link }: CardProps) {
-  const [toggleDropdown, setToggleDropdown] = useState(false);
+export default function Card({ link, isOpen, onToggleDropdown }: CardProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
-
   const { url, image_source, title, description, created_at } = link;
+
   const postDate = sliceDate(created_at);
   const getTimeAgo = getElapsedTime(created_at);
 
@@ -32,20 +33,16 @@ export default function Card({ link }: CardProps) {
     event.currentTarget.src = 'images/defaultimg.png';
   };
 
-  const handleToggleDropdown = (e: React.MouseEvent<HTMLImageElement>) => {
-    e.stopPropagation();
-    e.preventDefault();
-    setToggleDropdown((prev) => !prev);
-  };
-
   useOutSideClick({
     ref: dropdownRef,
-    callback: () => setToggleDropdown(false),
+    callback: () => {
+      if (isOpen) onToggleDropdown();
+    },
   });
 
   return (
     <a href={url} className={cn('card')} target="blank">
-      {toggleDropdown && (
+      {isOpen && (
         <div ref={dropdownRef}>
           <CardDropdown />
         </div>
@@ -64,7 +61,11 @@ export default function Card({ link }: CardProps) {
           <img
             src="/images/kebab.svg"
             alt="케밥 버튼"
-            onClick={handleToggleDropdown}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              onToggleDropdown();
+            }}
           />
         </span>
         <p>{description}</p>
