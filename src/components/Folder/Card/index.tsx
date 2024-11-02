@@ -29,6 +29,11 @@ export default function Card({ link }: CardProps) {
 
   return (
     <a href={url} className={cn('card')} target="blank">
+      <img
+        src="/images/star.svg"
+        alt="즐겨찾기"
+        className={cn('bookmark-icon')}
+      />
       <div className={cn('image-box')}>
         <img src={handleSrc} onError={handleImageError} alt={title} />
       </div>
