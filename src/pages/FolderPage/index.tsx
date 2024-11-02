@@ -8,6 +8,7 @@ import apiRequest from '../../utils/apiRequest';
 import FolderCategory from '../../components/Folder/FolderCategory';
 import useFolderStore from '../../store/useFolderStore';
 import CardList from '../../components/Folder/CardList';
+import CardTitlebar from '../../components/Folder/CardTitlebar';
 import Loading from '../../components/Common/Loading';
 import { FolderCategoryData, FolderLinksType } from '../../types';
 
@@ -47,14 +48,18 @@ export default function FolderPage() {
   return (
     <>
       <Header isSticky={false} />
-      <Titlebar />
-      <Searchbar />
-      <FolderCategory list={folderListData} />
-      {folderLinksData.length > 0 ? (
-        <CardList data={folderLinksData} />
-      ) : (
-        <NotSavedLink />
-      )}
+      <main>
+        <Titlebar />
+        <Searchbar />
+        <FolderCategory list={folderListData} />
+        <CardTitlebar />
+        {folderLinksData.length > 0 ? (
+          <CardList data={folderLinksData} />
+        ) : (
+          <NotSavedLink />
+        )}
+      </main>
+
       <Footer />
     </>
   );

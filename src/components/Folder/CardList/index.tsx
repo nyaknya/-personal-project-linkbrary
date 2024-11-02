@@ -11,7 +11,7 @@ interface CardListProps {
 
 export default function CardList({ data }: CardListProps) {
   return (
-    <div className={`container ${cn('card-list-box')}`}>
+    <section className={`container ${cn('card-list-box')}`}>
       <ul>
         {data.map((link) => {
           return (
@@ -21,6 +21,6 @@ export default function CardList({ data }: CardListProps) {
           );
         })}
       </ul>
-    </div>
+    </section>
   );
 }

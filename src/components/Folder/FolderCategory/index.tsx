@@ -1,4 +1,5 @@
 import useFolderStore from '../../../store/useFolderStore';
+import { FolderCategoryData } from '../../../types';
 import Loading from '../../Common/Loading';
 import styles from './FolderCategory.module.scss';
 import classNames from 'classnames/bind';
@@ -18,29 +19,31 @@ export default function FolderCategory({ list }: FolderCategoryProps) {
   }
 
   return (
-    <ul className={`container ${cn('folder-category')}`}>
-      <li
-        className={selectedCategory === '전체' ? cn('active') : ''}
-        onClick={() => {
-          setSelectedCategory('전체');
-          setSelectedCategoryId(null);
-        }}
-      >
-        전체
-      </li>
-      {list.map((listitem) => (
+    <section>
+      <ul className={`container ${cn('folder-category')}`}>
         <li
-          key={listitem.id}
-          className={selectedCategory === listitem.name ? cn('active') : ''}
+          className={selectedCategory === '전체' ? cn('active') : ''}
           onClick={() => {
-            setSelectedCategory(listitem.name);
-            setSelectedCategoryId(listitem.id);
-            console.log('Updated selectedCategoryId:', listitem.id);
+            setSelectedCategory('전체');
+            setSelectedCategoryId(null);
           }}
         >
-          {listitem.name}
+          전체
         </li>
-      ))}
-    </ul>
+        {list.map((listitem) => (
+          <li
+            key={listitem.id}
+            className={selectedCategory === listitem.name ? cn('active') : ''}
+            onClick={() => {
+              setSelectedCategory(listitem.name);
+              setSelectedCategoryId(listitem.id);
+              console.log('Updated selectedCategoryId:', listitem.id);
+            }}
+          >
+            {listitem.name}
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

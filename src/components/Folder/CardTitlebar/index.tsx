@@ -6,8 +6,9 @@ const cn = classNames.bind(styles);
 export default function CardTitlebar() {
   const { selectedCategory } = useFolderStore();
   return (
-    <div className={cn('card-titlebar')}>
+    <section className={`container ${cn('card-titlebar')}`}>
       <h2>{selectedCategory}</h2>
-    </div>
+      {selectedCategory === '전체' ? null : <div></div>}
+    </section>
   );
 }
