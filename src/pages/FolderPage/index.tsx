@@ -19,46 +19,24 @@ export default function FolderPage() {
   >(null);
   const { selectedCategory, selectedCategoryId } = useFolderStore();
 
-  const fetchFolderListData = async () => {
+  const fetchData = async () => {
     try {
-      const data = await apiRequest({ endpoint: '/api/users/1/folders' });
-      setFolderListData(data.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+      const folderList = await apiRequest({ endpoint: '/api/users/1/folders' });
+      setFolderListData(folderList.data);
 
-  const fetchFolderAllLinksData = async () => {
-    try {
-      const data = await apiRequest({ endpoint: '/api/users/1/links' });
-      setFolderLinksData(data.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const fetchFolderEachLinksData = async () => {
-    try {
-      const data = await apiRequest({
-        endpoint: `/api/users/1/links?folderId=${selectedCategoryId}`,
-      });
-      setFolderLinksData(data.data);
+      const linksEndpoint =
+        selectedCategory === '전체'
+          ? '/api/users/1/links'
+          : `/api/users/1/links?folderId=${selectedCategoryId}`;
+      const folderLinks = await apiRequest({ endpoint: linksEndpoint });
+      setFolderLinksData(folderLinks.data);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    fetchFolderListData();
-    fetchFolderAllLinksData();
-  }, []);
-
-  useEffect(() => {
-    if (selectedCategory === '전체') {
-      fetchFolderAllLinksData();
-    } else {
-      fetchFolderEachLinksData();
-    }
+    fetchData();
   }, [selectedCategory]);
 
   if (!folderLinksData) {
