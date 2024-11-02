@@ -37,7 +37,6 @@ export default function FolderCategory({ list }: FolderCategoryProps) {
             onClick={() => {
               setSelectedCategory(listitem.name);
               setSelectedCategoryId(listitem.id);
-              console.log('Updated selectedCategoryId:', listitem.id);
             }}
           >
             {listitem.name}
