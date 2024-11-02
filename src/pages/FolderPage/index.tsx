@@ -7,13 +7,16 @@ import Titlebar from '../../components/Folder/Titlebar';
 import apiRequest from '../../utils/apiRequest';
 import FolderCategory from '../../components/Folder/FolderCategory';
 import useFolderStore from '../../store/useFolderStore';
+import CardList from '../../components/Common/CardList';
+import Loading from '../../components/Common/Loading';
 
 export default function FolderPage() {
   const [folderListData, setFolderListData] = useState<
     FolderCategoryData[] | null
   >(null);
-  const [folderLinksData, setFolderLinksData] =
-    useState<FolderLinksData | null>(null);
+  const [folderLinksData, setFolderLinksData] = useState<
+    FolderLinksData[] | null
+  >(null);
   const { selectedCategory, selectedCategoryId } = useFolderStore();
 
   const fetchFolderListData = async () => {
@@ -25,33 +28,42 @@ export default function FolderPage() {
     }
   };
 
-  const fetchFolderLinksData = async () => {
+  const fetchFolderAllLinksData = async () => {
     try {
       const data = await apiRequest({ endpoint: '/api/users/1/links' });
-      setFolderLinksData(data);
+      setFolderLinksData(data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchFolderEachLinksData = async () => {
+    try {
+      const data = await apiRequest({
+        endpoint: `/api/users/1/links?folderId=${selectedCategoryId}`,
+      });
+      setFolderLinksData(data.data);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    try {
-      fetchFolderListData();
-      fetchFolderLinksData();
-    } catch (error) {
-      console.error(error);
-    }
+    fetchFolderListData();
+    fetchFolderAllLinksData();
   }, []);
 
   useEffect(() => {
-    try {
-    } catch (error) {
-      console.error(error);
+    if (selectedCategory === '전체') {
+      fetchFolderAllLinksData();
+    } else {
+      fetchFolderEachLinksData();
     }
   }, [selectedCategory]);
 
-  console.log(folderLinksData);
-  console.log(selectedCategory);
+  if (!folderLinksData) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -59,7 +71,11 @@ export default function FolderPage() {
       <Titlebar />
       <Searchbar />
       <FolderCategory list={folderListData} />
-      <NotSavedLink />
+      {folderLinksData.length > 0 ? (
+        <CardList data={folderLinksData} />
+      ) : (
+        <NotSavedLink />
+      )}
       <Footer />
     </>
   );
