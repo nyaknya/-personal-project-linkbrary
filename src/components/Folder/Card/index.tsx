@@ -4,7 +4,8 @@ import sliceDate from '../../../utils/sliceDate';
 import getElapsedTime from '../../../utils/getElapsedTime';
 import { FolderLinksType } from '../../../types';
 import CardDropdown from '../CardDropdown';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import useOutSideClick from '../../../hooks/useOutSideClick';
 
 const cn = classNames.bind(styles);
 
@@ -14,8 +15,9 @@ interface CardProps {
 
 export default function Card({ link }: CardProps) {
   const [toggleDropdown, setToggleDropdown] = useState(false);
-  const { url, image_source, title, description, created_at } = link;
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
+  const { url, image_source, title, description, created_at } = link;
   const postDate = sliceDate(created_at);
   const getTimeAgo = getElapsedTime(created_at);
 
@@ -36,9 +38,18 @@ export default function Card({ link }: CardProps) {
     setToggleDropdown((prev) => !prev);
   };
 
+  useOutSideClick({
+    ref: dropdownRef,
+    callback: () => setToggleDropdown(false),
+  });
+
   return (
     <a href={url} className={cn('card')} target="blank">
-      {toggleDropdown && <CardDropdown />}
+      {toggleDropdown && (
+        <div ref={dropdownRef}>
+          <CardDropdown />
+        </div>
+      )}
       <img
         src="/images/star.svg"
         alt="즐겨찾기"
