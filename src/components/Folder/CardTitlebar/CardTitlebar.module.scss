@@ -1,4 +1,18 @@
 .card-titlebar {
   margin: 24px auto;
   height: 30px;
+
+  @include flex-arrange(space-between, center);
+
+  ul {
+    @include flex-arrange;
+    gap: 10px;
+
+    li {
+      @include flex-arrange;
+      gap: 5px;
+      color: $gray02;
+      cursor: pointer;
+    }
+  }
 }
