@@ -33,7 +33,13 @@
   }
 
   .time-stamp {
+    @include flex-arrange(space-between, center);
     @include font-style(1.3rem, #666);
+
+    img {
+      position: relative;
+      z-index: 10;
+    }
   }
 
   p {

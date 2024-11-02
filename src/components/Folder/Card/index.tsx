@@ -3,6 +3,8 @@ import classNames from 'classnames/bind';
 import sliceDate from '../../../utils/sliceDate';
 import getElapsedTime from '../../../utils/getElapsedTime';
 import { FolderLinksType } from '../../../types';
+import CardDropdown from '../CardDropdown';
+import { useState } from 'react';
 
 const cn = classNames.bind(styles);
 
@@ -11,6 +13,7 @@ interface CardProps {
 }
 
 export default function Card({ link }: CardProps) {
+  const [toggleDropdown, setToggleDropdown] = useState(false);
   const { url, image_source, title, description, created_at } = link;
 
   const postDate = sliceDate(created_at);
@@ -27,8 +30,15 @@ export default function Card({ link }: CardProps) {
     event.currentTarget.src = 'images/defaultimg.png';
   };
 
+  const handleToggleDropdown = (e: React.MouseEvent<HTMLImageElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setToggleDropdown((prev) => !prev);
+  };
+
   return (
     <a href={url} className={cn('card')} target="blank">
+      {toggleDropdown && <CardDropdown />}
       <img
         src="/images/star.svg"
         alt="즐겨찾기"
@@ -38,7 +48,14 @@ export default function Card({ link }: CardProps) {
         <img src={handleSrc} onError={handleImageError} alt={title} />
       </div>
       <div className={cn('card-content')}>
-        <span className={cn('time-stamp')}>{getTimeAgo}</span>
+        <span className={cn('time-stamp')}>
+          {getTimeAgo}{' '}
+          <img
+            src="/images/kebab.svg"
+            alt="케밥 버튼"
+            onClick={handleToggleDropdown}
+          />
+        </span>
         <p>{description}</p>
         <span className={cn('post-date')}>{postDate}</span>
       </div>
