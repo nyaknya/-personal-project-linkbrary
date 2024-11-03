@@ -1,11 +1,11 @@
 import Button from '../../Button';
 import Modal from '../Modal';
 
-interface FolderAddModal {
+interface FolderAddModalProps {
   onClose: () => void;
 }
 
-export default function FolderAddModal({ onClose }: FolderAddModal) {
+export default function FolderAddModal({ onClose }: FolderAddModalProps) {
   return (
     <Modal onClose={onClose} className="folder-add-modal">
       <h2>폴더 추가</h2>
