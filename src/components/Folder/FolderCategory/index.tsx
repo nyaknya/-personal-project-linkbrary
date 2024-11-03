@@ -1,3 +1,4 @@
+import useModal from '../../../hooks/useModal';
 import useFolderStore from '../../../store/useFolderStore';
 import { FolderCategoryData } from '../../../types';
 import Loading from '../../Common/Loading';
@@ -18,9 +19,15 @@ export default function FolderCategory({ list }: FolderCategoryProps) {
     return <Loading />;
   }
 
+  const { openModal } = useModal();
+
+  const handleAddClick = () => {
+    openModal({ type: 'folderAdd' });
+  };
+
   return (
-    <section>
-      <ul className={`container ${cn('folder-category')}`}>
+    <section className={`container ${cn('folder-category-wrap')}`}>
+      <ul className={cn('folder-category')}>
         <li
           className={selectedCategory === '전체' ? cn('active') : ''}
           onClick={() => {
@@ -43,6 +50,10 @@ export default function FolderCategory({ list }: FolderCategoryProps) {
           </li>
         ))}
       </ul>
+      <div className={cn('folder-add')} onClick={handleAddClick}>
+        <span>폴더 추가</span>
+        <img src="/images/add.svg" alt="폴더 추가 " />
+      </div>
     </section>
   );
 }

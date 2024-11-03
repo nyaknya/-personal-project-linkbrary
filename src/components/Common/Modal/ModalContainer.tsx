@@ -4,9 +4,11 @@ import useModalStore from '../../../store/useModalStore';
 import FolderAddModal from './FolderAddModal';
 import FolderDeleteModal from './FolderDeleteModal';
 import LinkDeleteModal from './LinkDeleteModal';
+import FolderEditModal from './FolderEditModal';
 
 const MODAL_COMPONENTS: { [key: string]: React.FC<any> } = {
   folderAdd: FolderAddModal,
+  folderEdit: FolderEditModal,
   folderDelete: FolderDeleteModal,
   linkDelete: LinkDeleteModal,
 };
