@@ -38,6 +38,13 @@ li {
   list-style: none;
 }
 
+#modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999;
+}
+
 // ===== 공통 클래스 =====
 .container {
   max-width: 1080px;

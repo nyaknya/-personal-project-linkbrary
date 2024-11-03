@@ -11,6 +11,7 @@ import CardList from '../../components/Folder/CardList';
 import CardTitlebar from '../../components/Folder/CardTitlebar';
 import Loading from '../../components/Common/Loading';
 import { FolderCategoryData, FolderLinksType } from '../../types';
+import ModalContainer from '../../components/Common/Modal/ModalContainer';
 
 export default function FolderPage() {
   const [folderListData, setFolderListData] = useState<
@@ -47,6 +48,11 @@ export default function FolderPage() {
 
   return (
     <>
+      <ModalContainer
+        onClose={() => {
+          console.log('클로즈');
+        }}
+      />
       <Header isSticky={false} />
       <main>
         <Titlebar />

@@ -8,11 +8,15 @@ interface ModalContainerProps {
 
 export default function ModalContainer({ onClose }: ModalContainerProps) {
   return (
-    <>
+    <div id="modal">
       <div className={cn('modal-inner')}>
-        <img src="/images/close.svg" onClick={onClose} />
+        <img
+          src="/images/close.svg"
+          onClick={onClose}
+          className={cn('close-button')}
+        />
       </div>
       <div className={cn('modal-background')} onClick={onClose}></div>
-    </>
+    </div>
   );
 }
