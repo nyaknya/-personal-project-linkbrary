@@ -15,7 +15,12 @@ export default function Modal({ onClose, children }: ModalProps) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    document.body.style.overflow = 'hidden';
     setIsMounted(true);
+
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, []);
 
   useOutsideClick({ ref: modalRef, callback: onClose, enabled: isMounted });
