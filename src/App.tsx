@@ -10,6 +10,7 @@ function App() {
         <Route path="/shared" element={<SharedPage />} />
         <Route path="/folder" element={<FolderPage />} />
       </Routes>
+      <div id="#modal" />
     </BrowserRouter>
   );
 }

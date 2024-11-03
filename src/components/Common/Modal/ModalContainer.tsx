@@ -1,28 +1,21 @@
-import { ReactNode } from 'react';
-import styles from './Modal.module.scss';
-import classNames from 'classnames/bind';
-const cn = classNames.bind(styles);
+import { createPortal } from 'react-dom';
+import useModalStore from '../../../store/useModalStore';
+import FolderAddModal from './FolderAddModal';
 
-interface ModalContainerProps {
-  onClose: () => void;
-  children: ReactNode;
-}
+const MODAL_COMPONENTS: { [key: string]: React.FC<any> } = {
+  folderAdd: FolderAddModal,
+};
 
-export default function ModalContainer({
-  onClose,
-  children,
-}: ModalContainerProps) {
-  return (
-    <div id="modal">
-      <div className={cn('modal-container')}>
-        <img
-          src="/images/close.svg"
-          onClick={onClose}
-          className={cn('close-button')}
-        />
-        <div className={cn('modal-inner')}>{children}</div>
-      </div>
-      <div className={cn('modal-background')} onClick={onClose}></div>
-    </div>
+export default function ModalContainer() {
+  const { isModalOpen, modalProps, closeModal } = useModalStore();
+
+  if (!isModalOpen) return null;
+
+  const ModalComponent = MODAL_COMPONENTS[isModalOpen];
+  if (!ModalComponent) return null;
+
+  return createPortal(
+    <ModalComponent {...modalProps} onClose={closeModal} />,
+    document.getElementById('modal')!,
   );
 }
