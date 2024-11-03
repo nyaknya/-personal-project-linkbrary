@@ -3,12 +3,15 @@ import { useEffect } from 'react';
 export type useOutSideClickProps<T> = {
   ref: React.RefObject<T>;
   callback: () => void;
+  enabled?: boolean;
 };
 
-export default function useOutSideClick<
+export default function useOutsideClick<
   T extends HTMLElement = HTMLDivElement,
->({ ref, callback }: useOutSideClickProps<T>) {
+>({ ref, callback, enabled = true }: useOutSideClickProps<T>) {
   useEffect(() => {
+    if (!enabled) return;
+
     const handleClickOutside = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         callback();
@@ -19,5 +22,5 @@ export default function useOutSideClick<
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [ref, callback]);
+  }, [ref, callback, enabled]);
 }

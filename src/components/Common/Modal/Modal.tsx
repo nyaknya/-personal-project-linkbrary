@@ -1,18 +1,24 @@
-import { useRef } from 'react';
+import { ReactNode, useRef, useEffect, useState } from 'react';
 import useOutsideClick from '../../../hooks/useOutSideClick';
 import classNames from 'classnames/bind';
 import styles from './Modal.module.scss';
 
 const cn = classNames.bind(styles);
 
-export default function Modal({ onClose, children, fix }) {
-  const modalRef = useRef(null);
+interface ModalProps {
+  onClose: () => void;
+  children: ReactNode;
+}
 
-  const handleClose = () => {
-    onClose();
-  };
+export default function Modal({ onClose, children }: ModalProps) {
+  const modalRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
-  useOutsideClick(modalRef, handleClose);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useOutsideClick({ ref: modalRef, callback: onClose, enabled: isMounted });
 
   return (
     <>

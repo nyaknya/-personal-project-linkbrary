@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createPortal } from 'react-dom';
 import useModalStore from '../../../store/useModalStore';
 import FolderAddModal from './FolderAddModal';
