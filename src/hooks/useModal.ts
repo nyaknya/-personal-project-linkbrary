@@ -4,7 +4,13 @@ import useModalStore from '../store/useModalStore';
 function useModal() {
   const { openModal, closeModal } = useModalStore();
 
-  const handleOpenModal = ({ type, props }: { type: string; props?: any }) => {
+  const handleOpenModal = ({
+    type,
+    props = {},
+  }: {
+    type: string;
+    props?: any;
+  }) => {
     openModal(type, props);
   };
 

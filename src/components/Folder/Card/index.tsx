@@ -44,7 +44,7 @@ export default function Card({ link, isOpen, onToggleDropdown }: CardProps) {
     <a href={url} className={cn('card')} target="blank">
       {isOpen && (
         <div ref={dropdownRef}>
-          <CardDropdown />
+          <CardDropdown url={url} />
         </div>
       )}
       <img
@@ -57,7 +57,7 @@ export default function Card({ link, isOpen, onToggleDropdown }: CardProps) {
       </div>
       <div className={cn('card-content')}>
         <span className={cn('time-stamp')}>
-          {getTimeAgo}{' '}
+          {getTimeAgo}
           <img
             src="/images/kebab.svg"
             alt="케밥 버튼"
