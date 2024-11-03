@@ -8,9 +8,10 @@ const cn = classNames.bind(styles);
 interface ModalProps {
   onClose: () => void;
   children: ReactNode;
+  className: string;
 }
 
-export default function Modal({ onClose, children }: ModalProps) {
+export default function Modal({ onClose, children, className }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -33,7 +34,7 @@ export default function Modal({ onClose, children }: ModalProps) {
           onClick={onClose}
           className={cn('close-button')}
         />
-        <div className={cn('modal-inner')}>{children}</div>
+        <div className={cn('modal-inner', className)}>{children}</div>
       </div>
       <div className={cn('modal-background')} onClick={onClose}></div>
     </>

@@ -1,3 +1,4 @@
+import Button from '../../Button';
 import Modal from '../Modal';
 
 interface FolderAddModal {
@@ -6,10 +7,16 @@ interface FolderAddModal {
 
 export default function FolderAddModal({ onClose }: FolderAddModal) {
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={onClose} className="folder-add-modal">
       <h2>폴더 추가</h2>
-      <input type="text" />
-      <button>추가하기</button>
+      <input type="text" placeholder="내용 입력" />
+      <Button
+        onClick={() => {
+          console.log('추후추가');
+        }}
+      >
+        추가하기
+      </Button>
     </Modal>
   );
 }

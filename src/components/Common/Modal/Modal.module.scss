@@ -20,5 +20,27 @@
     position: absolute;
     right: 16px;
     top: 16px;
+    cursor: pointer;
+  }
+
+  input {
+    width: 100%;
+    padding: 18px 15px;
+    margin-bottom: 15px;
+    background: $white;
+    border: 1px solid $gray03;
+    border-radius: 8px;
+    height: 60px;
+  }
+
+  button {
+    width: 100%;
+    font-size: 16px;
+  }
+}
+
+.folder-add-modal {
+  h2 {
+    margin-bottom: 24px;
   }
 }
