@@ -8,6 +8,13 @@ export default function CardTitlebar() {
   const { selectedCategory } = useFolderStore();
   const { openModal } = useModal();
 
+  const handleShareClick = () => {
+    openModal({
+      type: 'folderShare',
+      props: { folderName: selectedCategory },
+    });
+  };
+
   const handleEditClick = () => {
     openModal({
       type: 'folderEdit',
@@ -27,7 +34,7 @@ export default function CardTitlebar() {
       {selectedCategory === '전체' ? null : (
         <div>
           <ul>
-            <li>
+            <li onClick={handleShareClick}>
               <img src="/images/share.svg" alt="" />
               <span>공유</span>
             </li>

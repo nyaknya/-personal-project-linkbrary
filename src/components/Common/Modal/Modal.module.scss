@@ -49,7 +49,8 @@
 }
 
 .folder-delete-modal,
-.link-delete-modal {
+.link-delete-modal,
+.folder-share-modal {
   h2 {
     margin-bottom: 8px;
   }
@@ -66,5 +67,25 @@
     background: $red;
     border-radius: 8px;
     padding: 16px 20px;
+  }
+}
+
+.folder-share-modal {
+  ul {
+    @include flex-arrange;
+    gap: 32px;
+    text-align: center;
+
+    li {
+      display: flex;
+      flex-direction: column;
+      font-size: 13px;
+
+      img {
+        width: 42px;
+        height: 42px;
+        margin-bottom: 10px;
+      }
+    }
   }
 }

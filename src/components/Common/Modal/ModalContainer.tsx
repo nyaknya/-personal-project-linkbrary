@@ -5,11 +5,13 @@ import FolderAddModal from './FolderAddModal';
 import FolderDeleteModal from './FolderDeleteModal';
 import LinkDeleteModal from './LinkDeleteModal';
 import FolderEditModal from './FolderEditModal';
+import FolderShareModal from './FolderShareModal';
 
 const MODAL_COMPONENTS: { [key: string]: React.FC<any> } = {
   folderAdd: FolderAddModal,
   folderEdit: FolderEditModal,
   folderDelete: FolderDeleteModal,
+  folderShare: FolderShareModal,
   linkDelete: LinkDeleteModal,
 };
 
