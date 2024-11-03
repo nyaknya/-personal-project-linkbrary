@@ -48,11 +48,6 @@ export default function FolderPage() {
 
   return (
     <>
-      <ModalContainer
-        onClose={() => {
-          console.log('클로즈');
-        }}
-      />
       <Header isSticky={false} />
       <main>
         <Titlebar />
