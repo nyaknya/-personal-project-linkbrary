@@ -17,7 +17,7 @@ export default function CardDropdown({ url }: CardDropdownProps) {
 
   const handleAddClick = (e: React.MouseEvent<HTMLLIElement>) => {
     e.preventDefault();
-    openModal({ type: 'folderAdd' });
+    openModal({ type: 'linkFolderAdd', props: { linkUrl: '일단해봐' } });
   };
   return (
     <div className={cn('kebab-more-box')}>

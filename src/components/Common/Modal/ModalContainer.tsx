@@ -6,6 +6,7 @@ import FolderDeleteModal from './FolderDeleteModal';
 import LinkDeleteModal from './LinkDeleteModal';
 import FolderEditModal from './FolderEditModal';
 import FolderShareModal from './FolderShareModal';
+import LinkFolderAddModal from './LinkFolderAddModal';
 
 const MODAL_COMPONENTS: { [key: string]: React.FC<any> } = {
   folderAdd: FolderAddModal,
@@ -13,6 +14,7 @@ const MODAL_COMPONENTS: { [key: string]: React.FC<any> } = {
   folderDelete: FolderDeleteModal,
   folderShare: FolderShareModal,
   linkDelete: LinkDeleteModal,
+  linkFolderAdd: LinkFolderAddModal,
 };
 
 export default function ModalContainer() {

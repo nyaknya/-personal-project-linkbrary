@@ -9,7 +9,7 @@ export default function Titlebar() {
   const { openModal } = useModal();
 
   const handleAddClick = () => {
-    openModal({ type: 'folderAdd' });
+    openModal({ type: 'linkFolderAdd', props: { linkUrl: '일단해봐' } });
   };
 
   return (
