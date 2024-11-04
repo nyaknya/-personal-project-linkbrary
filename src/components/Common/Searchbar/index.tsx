@@ -6,8 +6,12 @@ import useSearchStore from '../../../store/useSearchStore';
 const cn = classNames.bind(styles);
 
 export default function Searchbar() {
-  const { setSearchTerm } = useSearchStore();
+  const { searchTerm, setSearchTerm } = useSearchStore();
   const [inputValue, setInputValue] = useState('');
+
+  const handleSearchClear = () => {
+    setSearchTerm('');
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -21,7 +25,7 @@ export default function Searchbar() {
 
   return (
     <section className="container">
-      <div className={` ${cn('search-box')}`}>
+      <div className={cn('search-box')}>
         <input
           type="text"
           placeholder="링크를 검색해 보세요."
@@ -29,7 +33,19 @@ export default function Searchbar() {
           onChange={handleChange}
           onKeyDown={handleKeyDown}
         />
-        <img src="/images/search.svg" alt="Search Icon" />
+        <img
+          src="/images/search.svg"
+          alt="Search Icon"
+          className={cn('search-icon', searchTerm ? 'active' : null)}
+        />
+        {searchTerm && (
+          <img
+            src="/images/close.svg"
+            alt="검색어 비우기"
+            className={cn('search-clear')}
+            onClick={handleSearchClear}
+          />
+        )}
       </div>
     </section>
   );

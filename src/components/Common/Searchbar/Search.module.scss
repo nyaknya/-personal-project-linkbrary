@@ -16,8 +16,16 @@
 
   img {
     position: absolute;
-    left: 16px;
     top: 50%;
     transform: translateY(-50%);
+
+    &.search-icon {
+      left: 16px;
+    }
+
+    &.search-clear {
+      right: 16px;
+      cursor: pointer;
+    }
   }
 }
