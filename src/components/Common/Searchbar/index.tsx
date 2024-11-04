@@ -34,7 +34,7 @@ export default function Searchbar() {
           onKeyDown={handleKeyDown}
         />
         <img
-          src="/images/search.svg"
+          src={searchTerm ? '/images/searchActive.svg' : '/images/search.svg'}
           alt="Search Icon"
           className={cn('search-icon', searchTerm ? 'active' : null)}
         />
