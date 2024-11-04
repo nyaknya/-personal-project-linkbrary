@@ -7,15 +7,17 @@ import CardList from '../../components/Shared/CardList';
 import Footer from '../../components/Common/Footer';
 import Loading from '../../components/Common/Loading';
 import { FolderData } from '../../types';
+import SearchMessage from '../../components/Common/SearchMessage';
+import useSearchStore from '../../store/useSearchStore';
 
 export default function SharedPage() {
   const [folderData, setFolderData] = useState<FolderData | null>(null);
+  const { searchTerm } = useSearchStore();
 
   const fetchFolderData = async () => {
     try {
       const data = await apiRequest({ endpoint: '/api/sample/folder' });
       setFolderData(data.folder);
-      console.log(data.folder);
     } catch (error) {
       console.error(error);
     }
@@ -43,6 +45,7 @@ export default function SharedPage() {
           folderName={folderData.name}
         />
         <Searchbar />
+        {searchTerm && <SearchMessage />}
         <CardList data={folderData.links} />
         <Footer />
       </main>

@@ -11,6 +11,8 @@ import CardList from '../../components/Folder/CardList';
 import CardTitlebar from '../../components/Folder/CardTitlebar';
 import Loading from '../../components/Common/Loading';
 import { FolderCategoryData, FolderLinksType } from '../../types';
+import useSearchStore from '../../store/useSearchStore';
+import SearchMessage from '../../components/Common/SearchMessage';
 
 export default function FolderPage() {
   const [folderListData, setFolderListData] = useState<
@@ -20,6 +22,7 @@ export default function FolderPage() {
     FolderLinksType[] | null
   >(null);
   const { selectedCategory, selectedCategoryId } = useFolderStore();
+  const { searchTerm } = useSearchStore();
 
   const fetchData = async () => {
     try {
@@ -51,6 +54,7 @@ export default function FolderPage() {
       <main>
         <Titlebar />
         <Searchbar />
+        {searchTerm && <SearchMessage />}
         <FolderCategory list={folderListData} />
         <CardTitlebar />
         {folderLinksData.length > 0 ? (

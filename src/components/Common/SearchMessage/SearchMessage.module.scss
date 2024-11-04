@@ -1,0 +1,8 @@
+.search-keyword {
+  @include font-style(3.2rem, $gray02, 600);
+  margin-bottom: 40px;
+
+  span {
+    color: $gray01;
+  }
+}

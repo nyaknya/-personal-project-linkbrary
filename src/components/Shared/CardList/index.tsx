@@ -2,6 +2,7 @@ import { LinkDataType } from '../../../types';
 import Card from '../Card';
 import styles from './CardList.module.scss';
 import classNames from 'classnames/bind';
+import useSearchStore from '../../../store/useSearchStore';
 
 const cn = classNames.bind(styles);
 
@@ -10,16 +11,25 @@ interface CardListProps {
 }
 
 export default function CardList({ data }: CardListProps) {
+  const { searchTerm } = useSearchStore();
+
+  const filteredData = data.filter(
+    (link) =>
+      (link.title &&
+        link.title.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (link.url && link.url.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (link.description &&
+        link.description.toLowerCase().includes(searchTerm.toLowerCase())),
+  );
+
   return (
     <section className={`container ${cn('card-list-box')}`}>
       <ul>
-        {data.map((link) => {
-          return (
-            <li key={link.id}>
-              <Card link={link} />
-            </li>
-          );
-        })}
+        {filteredData.map((link) => (
+          <li key={link.id}>
+            <Card link={link} />
+          </li>
+        ))}
       </ul>
     </section>
   );
