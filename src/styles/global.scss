@@ -1,0 +1,59 @@
+@import './variables';
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'pretendard', sans-serif;
+  box-sizing: border-box;
+  letter-spacing: -0.02em;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+}
+
+button {
+  outline: 0;
+  border: 0;
+}
+
+textarea,
+input {
+  border: 0;
+  outline: 0;
+  font-family: 'pretendard', sans-serif;
+}
+
+a {
+  color: unset;
+  text-decoration: none;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+#modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999;
+}
+
+// ===== 공통 클래스 =====
+.container {
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding: 0 32px;
+  }
+}
