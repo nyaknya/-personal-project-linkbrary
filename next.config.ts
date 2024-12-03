@@ -9,6 +9,16 @@ const nextConfig = {
       @use "src/styles/_mixins" as *;
     `,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*",
+      },
+    ],
+  },
+  reactStrictMode: true,
+  swcMinify: true,
 };
 
 export default nextConfig;

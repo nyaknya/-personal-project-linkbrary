@@ -39,6 +39,8 @@ export default function Searchbar() {
           src={searchTerm ? "/images/searchActive.svg" : "/images/search.svg"}
           alt="Search Icon"
           className={cn("search-icon", searchTerm ? "active" : null)}
+          width={16}
+          height={16}
         />
         {searchTerm && (
           <Image
@@ -46,6 +48,8 @@ export default function Searchbar() {
             alt="검색어 비우기"
             className={cn("search-clear")}
             onClick={handleSearchClear}
+            width={24}
+            height={24}
           />
         )}
       </div>
