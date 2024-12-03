@@ -10,12 +10,14 @@ interface InputProps {
   error?: string;
   type?: string;
   placeholder?: string;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 export default function Input({
   error,
   type = "text",
   placeholder = "내용 입력",
+  onBlur,
 }: InputProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -32,6 +34,7 @@ export default function Input({
         type={inputType}
         className={cn("input", { error: !!error })}
         placeholder={placeholder}
+        onBlur={onBlur}
       />
       {isPasswordType && (
         <Image
