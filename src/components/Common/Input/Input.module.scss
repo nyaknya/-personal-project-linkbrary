@@ -1,0 +1,33 @@
+.input-box {
+  position: relative;
+  width: 350px;
+
+  .input {
+    width: 100%;
+    padding: 18px 15px;
+    border-radius: 8px;
+    border: 1px solid $gray02;
+
+    &.error {
+      border-color: $red;
+    }
+
+    &:focus {
+      border-color: $primary;
+    }
+  }
+
+  img {
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    cursor: pointer;
+  }
+
+  span {
+    color: $red;
+    padding-top: 5px;
+    display: block;
+    @include font-style(1.4rem, $red, 400);
+  }
+}

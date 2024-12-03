@@ -1,4 +1,5 @@
 import ModalContainer from "@/components/Common/Modal/ModalContainer";
+
 import "../styles/globals.scss";
 import type { AppProps } from "next/app";
 
