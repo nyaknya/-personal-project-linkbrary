@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
+import Link from "next/link";
 
 import styles from "./Footer.module.scss";
 
@@ -13,54 +14,54 @@ export default function Footer() {
           <span>©codeit - 2023</span>
         </div>
         <nav className={cn("footer-nav")}>
-          <a href="/privacy">
+          <Link href="/privacy">
             <span>Privacy Policy</span>
-          </a>
-          <a href="/faq">
+          </Link>
+          <Link href="/faq">
             <span>FAQ</span>
-          </a>
+          </Link>
         </nav>
         <div className={cn("sns-link")}>
           <ul>
             <li>
-              <a href="https://www.facebook.com/" target="blank">
+              <Link href="https://www.facebook.com/" target="blank">
                 <Image
                   src="/images/facebook.svg"
                   alt="페이스북"
                   width={20}
                   height={20}
                 />
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="https://x.com/" target="blank">
+              <Link href="https://x.com/" target="blank">
                 <Image
                   src="/images/twitter.svg"
                   alt="트위터"
                   width={20}
                   height={20}
                 />
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="https://www.youtube.com/" target="blank">
+              <Link href="https://www.youtube.com/" target="blank">
                 <Image
                   src="/images/youtube.svg"
                   alt="유튜브"
                   width={20}
                   height={20}
                 />
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="https://www.instagram.com/" target="blank">
+              <Link href="https://www.instagram.com/" target="blank">
                 <Image
                   src="/images/instagram.svg"
                   alt="인스타"
                   width={20}
                   height={20}
                 />
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

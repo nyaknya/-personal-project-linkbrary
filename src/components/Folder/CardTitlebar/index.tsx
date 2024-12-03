@@ -41,15 +41,30 @@ export default function CardTitlebar() {
         <div>
           <ul>
             <li onClick={handleShareClick}>
-              <Image src="/images/share.svg" alt="공유 아이콘" />
+              <Image
+                src="/images/share.svg"
+                alt="공유 아이콘"
+                width={18}
+                height={18}
+              />
               <span>공유</span>
             </li>
             <li onClick={handleEditClick}>
-              <Image src="/images/edit.svg" alt="이름 변경 아이콘" />
+              <Image
+                src="/images/edit.svg"
+                alt="이름 변경 아이콘"
+                width={18}
+                height={18}
+              />
               <span>이름 변경</span>
             </li>
             <li onClick={handleDeleteClick}>
-              <Image src="/images/delete.svg" alt="삭제 아이콘" />
+              <Image
+                src="/images/delete.svg"
+                alt="삭제 아이콘"
+                width={18}
+                height={18}
+              />
               <span>삭제</span>
             </li>
           </ul>

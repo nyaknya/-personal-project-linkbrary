@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
 
 import useOutSideClick from "@/hooks/useOutSideClick";
@@ -28,12 +29,12 @@ export default function Card({ link, isOpen, onToggleDropdown }: CardProps) {
   const handleSrc =
     image_source && image_source.trim() !== ""
       ? image_source
-      : "images/defaultimg.png";
+      : "/images/defaultimg.png";
 
   const handleImageError = (
     event: React.SyntheticEvent<HTMLImageElement, Event>
   ) => {
-    event.currentTarget.src = "images/defaultimg.png";
+    event.currentTarget.src = "/images/defaultimg.png";
   };
 
   useOutSideClick({
@@ -44,7 +45,7 @@ export default function Card({ link, isOpen, onToggleDropdown }: CardProps) {
   });
 
   return (
-    <a href={url} className={cn("card")} target="blank">
+    <Link href={url} className={cn("card")} target="blank">
       {isOpen && (
         <div ref={dropdownRef}>
           <CardDropdown url={url} />
@@ -54,9 +55,17 @@ export default function Card({ link, isOpen, onToggleDropdown }: CardProps) {
         src="/images/star.svg"
         alt="즐겨찾기"
         className={cn("bookmark-icon")}
+        width={34}
+        height={34}
       />
       <div className={cn("image-box")}>
-        <Image src={handleSrc} onError={handleImageError} alt={title} />
+        <Image
+          src={handleSrc}
+          onError={handleImageError}
+          alt={title}
+          width={346}
+          height={200}
+        />
       </div>
       <div className={cn("card-content")}>
         <span className={cn("time-stamp")}>
@@ -69,11 +78,13 @@ export default function Card({ link, isOpen, onToggleDropdown }: CardProps) {
               e.preventDefault();
               onToggleDropdown();
             }}
+            width={21}
+            height={17}
           />
         </span>
         <p>{description}</p>
         <span className={cn("post-date")}>{postDate}</span>
       </div>
-    </a>
+    </Link>
   );
 }

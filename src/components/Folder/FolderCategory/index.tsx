@@ -59,7 +59,7 @@ export default function FolderCategory({ list }: FolderCategoryProps) {
       </ul>
       <div className={cn("folder-add")} onClick={handleAddClick}>
         <span>폴더 추가</span>
-        <Image src="/images/add.svg" alt="폴더 추가" />
+        <Image src="/images/add.svg" alt="폴더 추가" width={16} height={16} />
       </div>
     </section>
   );

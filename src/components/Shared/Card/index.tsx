@@ -22,12 +22,12 @@ export default function Card({ link }: CardProps) {
   const handleSrc =
     imageSource && imageSource.trim() !== ""
       ? imageSource
-      : "images/defaultimg.png";
+      : "/images/defaultimg.png";
 
   const handleImageError = (
     event: React.SyntheticEvent<HTMLImageElement, Event>
   ) => {
-    event.currentTarget.src = "images/defaultimg.png";
+    event.currentTarget.src = "/images/defaultimg.png";
   };
 
   return (
