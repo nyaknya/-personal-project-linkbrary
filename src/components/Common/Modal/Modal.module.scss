@@ -1,0 +1,134 @@
+.modal-background {
+  background: rgba($color: #000000, $alpha: 0.4);
+  width: 100vw;
+  height: 100vh;
+}
+
+.modal-container {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: $white;
+  border-radius: 15px;
+  min-width: 360px;
+  padding: 32px;
+  text-align: center;
+
+  .close-button {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    cursor: pointer;
+  }
+
+  input {
+    width: 100%;
+    padding: 18px 15px;
+    margin-bottom: 15px;
+    background: $white;
+    border: 1px solid $gray03;
+    border-radius: 8px;
+    height: 60px;
+
+    &:focus {
+      border: 1px solid $primary;
+    }
+  }
+
+  button {
+    width: 100%;
+    font-size: 16px;
+  }
+}
+
+.folder-add-modal {
+  h2 {
+    margin-bottom: 24px;
+  }
+}
+
+.folder-delete-modal,
+.link-delete-modal,
+.folder-share-modal {
+  h2 {
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: $gray02;
+    font-size: 1.4rem;
+    margin-bottom: 24px;
+  }
+
+  button {
+    width: 100%;
+    color: $white;
+    background: $red;
+    border-radius: 8px;
+    padding: 16px 20px;
+  }
+}
+
+.folder-share-modal {
+  ul {
+    @include flex-arrange;
+    gap: 32px;
+    text-align: center;
+
+    li {
+      display: flex;
+      flex-direction: column;
+      font-size: 13px;
+      cursor: pointer;
+
+      img {
+        width: 42px;
+        height: 42px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.link-folder-add-modal {
+  h2 {
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: $gray02;
+    font-size: 1.4rem;
+    margin-bottom: 24px;
+  }
+
+  h3 {
+    @include font-style(1.6rem, $gray01, 400);
+  }
+
+  span {
+    @include font-style(1.4rem, $gray02, 400);
+  }
+
+  ul {
+    max-height: 200px;
+    overflow-y: scroll;
+    margin-bottom: 24px;
+
+    li {
+      @include flex-arrange(space-between);
+      padding: 12px;
+      margin-right: 10px;
+      cursor: pointer;
+
+      > div {
+        @include flex-arrange(flex-start);
+        gap: 10px;
+      }
+
+      &.selected {
+        background: $gray05;
+      }
+    }
+  }
+}

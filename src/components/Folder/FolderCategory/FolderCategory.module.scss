@@ -1,0 +1,55 @@
+.folder-category-wrap {
+  @include flex-arrange(space-between, center);
+
+  .folder-category {
+    @include flex-arrange(flex-start);
+    gap: 8px;
+    flex-wrap: wrap;
+
+    li {
+      border: 1px solid $primary;
+      border-radius: 5px;
+      padding: 8px 12px;
+      cursor: pointer;
+
+      &.active {
+        background: $primary;
+        color: $white;
+      }
+    }
+  }
+
+  .folder-add {
+    cursor: pointer;
+
+    span {
+      display: none;
+
+      @media (max-width: 767px) {
+        display: inline-block;
+      }
+    }
+    img {
+      vertical-align: middle;
+    }
+
+    @media (max-width: 767px) {
+      position: fixed;
+      left: 50%;
+      bottom: 101px;
+      transform: translateX(-50%);
+      z-index: 50;
+      width: 130px;
+      height: 36px;
+      @include flex-arrange;
+      gap: 10px;
+      background: $primary;
+      color: $white;
+      border-radius: 30px;
+
+      img {
+        filter: brightness(100);
+      }
+    }
+  }
+}

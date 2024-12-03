@@ -15,13 +15,12 @@ const TIME_IN_MILLISECONDS = {
 };
 
 export default function getElapsedTime(createdAt: string | Date | undefined) {
-  if (!createdAt) return 'Invalid date'; // createdAt이 undefined일 경우 예외 처리
+  if (!createdAt) return "Invalid date";
 
   const now = new Date();
   const createdAtDate = new Date(createdAt);
 
-  // 유효한 Date 객체인지 확인
-  if (isNaN(createdAtDate.getTime())) return 'Invalid date';
+  if (isNaN(createdAtDate.getTime())) return "Invalid date";
 
   const elapsedTime = now.getTime() - createdAtDate.getTime();
   const { MINUTE, HOUR, DAY, MONTH, YEAR } = TIME_IN_MILLISECONDS;

@@ -1,0 +1,43 @@
+.title-bar {
+  padding: 60px 320px 90px;
+  background: $gray05;
+
+  @media (max-width: 767px) {
+    padding: 24px 32px 40px;
+  }
+}
+
+.link-add-bar {
+  display: flex;
+  gap: 10px;
+  margin: 0 auto;
+  width: 800px;
+  height: 70px;
+  padding: 16px 20px;
+  background: $white;
+  border: 1px solid $primary;
+  border-radius: 15px;
+
+  @media (max-width: 767px) {
+    padding: 8px 10px;
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+    padding-left: 35px;
+    font-size: 1.6rem;
+    background: url('../../../../public/images/link.svg') left center no-repeat;
+
+    &::placeholder {
+      color: $gray02;
+    }
+  }
+
+  button {
+    width: 88px;
+    border-radius: 8px;
+    padding: 16px 10px;
+    font-size: 1.4rem;
+  }
+}

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 type ShareKakaoParams = {
   url: string;
@@ -13,7 +13,7 @@ declare const window: Window & {
     isInitialized: () => boolean;
     Link: {
       sendDefault: (params: {
-        objectType: 'feed';
+        objectType: "feed";
         content: {
           title: string;
           description: string;
@@ -45,11 +45,11 @@ export const useKakaoSdk = () => {
     if (window.Kakao) {
       const kakao = window.Kakao;
       if (!kakao.isInitialized()) {
-        kakao.init(process.env.REACT_APP_KAKAO_SDK_KEY);
+        kakao.init(process.env.NEXT_PUBLIC_KAKAO_SDK_KEY);
       }
 
       kakao.Link.sendDefault({
-        objectType: 'feed',
+        objectType: "feed",
         content: {
           title: title,
           description: description,
@@ -73,8 +73,8 @@ export const useKakaoSdk = () => {
   };
 
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://developers.kakao.com/sdk/js/kakao.js';
+    const script = document.createElement("script");
+    script.src = "https://developers.kakao.com/sdk/js/kakao.js";
     script.async = true;
     document.body.appendChild(script);
     return () => {

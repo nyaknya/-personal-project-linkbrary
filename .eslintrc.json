@@ -25,11 +25,19 @@
     "import/order": [
       "error",
       {
-        "groups": ["builtin", "external", "internal"],
+        "groups": [
+          ["builtin", "external"],
+          ["internal"],
+          ["parent", "sibling", "index"],
+          ["object"],
+          ["type"]
+        ],
         "newlines-between": "always",
         "alphabetize": { "order": "asc", "caseInsensitive": true }
       }
-    ]
+    ],
+    "import/newline-after-import": ["error", { "count": 1 }],
+    "import/no-duplicates": "error"
   },
   "settings": {
     "react": { "version": "detect" }

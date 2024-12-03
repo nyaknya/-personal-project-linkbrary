@@ -1,0 +1,34 @@
+.cta-button {
+  @include font-style(1.8rem, $white, 500);
+  @include flex-arrange;
+  width: 128px;
+  border-radius: 8px;
+  padding: 16px 20px;
+  background: linear-gradient(to right, $primary, $skyblue);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  z-index: 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, $primary, $skyblue);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+
+  @media (max-width: 767px) {
+    width: 80px;
+    font-size: 1.4rem;
+  }
+}

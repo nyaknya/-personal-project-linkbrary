@@ -1,0 +1,31 @@
+.search-box {
+  width: 100%;
+  position: relative;
+  margin: 40px auto;
+  background: #f5f5f5;
+  border-radius: 10px;
+
+  input {
+    display: block;
+    background: transparent;
+    width: 100%;
+    height: 54px;
+    padding: 16px 16px 16px 42px;
+    font-size: 1.6rem;
+  }
+
+  img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &.search-icon {
+      left: 16px;
+    }
+
+    &.search-clear {
+      right: 16px;
+      cursor: pointer;
+    }
+  }
+}

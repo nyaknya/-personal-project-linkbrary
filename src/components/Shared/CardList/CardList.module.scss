@@ -1,0 +1,15 @@
+.card-list-box {
+  ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+
+    @media (max-width: 1124px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 512px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
