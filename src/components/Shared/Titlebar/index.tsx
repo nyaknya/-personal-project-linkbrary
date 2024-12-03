@@ -19,7 +19,7 @@ export default function Titlebar({
   return (
     <div className={cn("title-bar")}>
       <div className={cn("image-box")}>
-        <Image src={userImage} alt="프로필 이미지" />
+        <Image src={userImage} alt="프로필 이미지" width={60} height={60} />
         <span>{userName}</span>
       </div>
       <h2>{folderName}</h2>

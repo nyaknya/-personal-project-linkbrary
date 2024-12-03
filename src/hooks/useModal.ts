@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import useModalStore from '../store/useModalStore';
+import useModalStore from "@/store/useModalStore";
 
 function useModal() {
   const { openModal, closeModal } = useModalStore();
