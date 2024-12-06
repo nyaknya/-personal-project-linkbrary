@@ -29,10 +29,12 @@ export default function LinkFolderAddModal({
 
   const fetchFolderListData = async () => {
     try {
-      const data = await apiRequest({ endpoint: "/api/users/1/folders" });
+      const data = await apiRequest<{ data: FolderCategoryData[] }>({
+        endpoint: "/api/users/1/folders",
+      });
       setFolderListData(data.data);
     } catch (error) {
-      console.error(error);
+      console.error("폴더 데이터 가져오기 실패:", error);
     }
   };
 
@@ -40,6 +42,7 @@ export default function LinkFolderAddModal({
     fetchFolderListData();
   }, []);
 
+  // 폴더 선택 핸들러
   const handleFolderClick = (folderId: number) => {
     setSelectedFolderId(folderId);
   };
@@ -59,10 +62,8 @@ export default function LinkFolderAddModal({
               <h3>{listitem.name}</h3>
               <span>{listitem.link.count}개 링크</span>
             </div>
-            {selectedFolderId === listitem.id ? (
+            {selectedFolderId === listitem.id && (
               <Image src="/images/check.svg" alt="체크 아이콘" />
-            ) : (
-              ""
             )}
           </li>
         ))}

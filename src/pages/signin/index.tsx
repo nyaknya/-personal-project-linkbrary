@@ -1,11 +1,14 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 import Button from "@/components/Common/Button";
 import Input from "@/components/Common/Input";
+import { useRedirectIfAuthenticated } from "@/hooks/useRedirectIfAuthenticated";
 import styles from "@/styles/signpage.module.scss";
+import { submitSignIn } from "@/utils/submitSign";
 
 const cn = classNames.bind(styles);
 
@@ -15,6 +18,10 @@ interface SignInFormInputs {
 }
 
 export default function Signin() {
+  useRedirectIfAuthenticated();
+
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -23,15 +30,22 @@ export default function Signin() {
   } = useForm<SignInFormInputs>();
 
   const onSubmit = async (data: SignInFormInputs) => {
-    // 제출 성공한 경우 처리
-    console.log("제출된 데이터:", data);
-    alert("로그인 성공!");
+    await submitSignIn(
+      data,
+      () => {
+        alert("로그인 성공!");
+        router.push("/folder");
+      },
+      (error) => {
+        console.error("로그인 실패:", error);
+        alert("로그인 중 문제가 발생했습니다. 다시 시도해주세요.");
+      }
+    );
   };
 
   const onError = async () => {
-    // 제출 실패 시 모든 필드 유효성 검사
     await trigger();
-    console.log("유효하지 않은 필드들:", errors);
+    alert("입력값을 확인해주세요.");
   };
 
   return (

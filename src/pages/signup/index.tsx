@@ -1,11 +1,15 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 import Button from "@/components/Common/Button";
 import Input from "@/components/Common/Input";
+import { useRedirectIfAuthenticated } from "@/hooks/useRedirectIfAuthenticated";
 import styles from "@/styles/signpage.module.scss";
+import { checkEmailDuplication } from "@/utils/checkEmailDuplication";
+import { submitSignUp } from "@/utils/submitSign";
 
 const cn = classNames.bind(styles);
 
@@ -16,18 +20,47 @@ interface SignUpFormInputs {
 }
 
 export default function Signup() {
+  useRedirectIfAuthenticated();
+
+  const router = useRouter();
+
   const {
     register,
+    handleSubmit,
     trigger,
+    setError,
     watch,
     formState: { errors },
   } = useForm<SignUpFormInputs>();
 
   const handleBlur = async (field: keyof SignUpFormInputs) => {
-    await trigger(field);
+    const isValid = await trigger(field);
+
+    if (field === "email" && isValid) {
+      const email = watch("email");
+      await checkEmailDuplication(email, setError);
+    }
   };
 
   const password = watch("password");
+
+  const onSubmit = async (data: SignUpFormInputs) => {
+    await submitSignUp(
+      data,
+      () => {
+        alert("회원가입 성공!");
+        router.push("/folder");
+      },
+      (error) => {
+        console.error("회원가입 실패:", error);
+        alert("회원가입 중 문제가 발생했습니다. 다시 시도해주세요.");
+      }
+    );
+  };
+
+  const onError = async () => {
+    await trigger();
+  };
 
   return (
     <div className={cn("sign-page", "sign-up-page")}>
@@ -45,7 +78,7 @@ export default function Signup() {
       </header>
       <main>
         <div className="container">
-          <form>
+          <form onSubmit={handleSubmit(onSubmit, onError)}>
             <div className={cn("form-item", "email-area")}>
               <label htmlFor="email">이메일</label>
               <Input
@@ -86,7 +119,7 @@ export default function Signup() {
               <Input
                 id="passwordConfirm"
                 type="password"
-                placeholder="비밀번호를 다시 입력해주세요."
+                placeholder="비밀번호와 일치하는 값을 입력해주세요."
                 error={errors.passwordConfirm?.message}
                 {...register("passwordConfirm", {
                   required: "비밀번호 확인을 입력해주세요.",
@@ -97,7 +130,7 @@ export default function Signup() {
               />
             </div>
             <div className={cn("button-area")}>
-              <Button>회원가입</Button>
+              <Button type="submit">회원가입</Button>
             </div>
           </form>
           <div className={cn("sns-login")}>
