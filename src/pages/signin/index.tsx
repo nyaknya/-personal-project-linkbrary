@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 
 import Button from "@/components/Common/Button";
 import Input from "@/components/Common/Input";
+import { useRedirectIfAuthenticated } from "@/hooks/useRedirectIfAuthenticated";
 import styles from "@/styles/signpage.module.scss";
 import { submitSignIn } from "@/utils/submitSign";
 
@@ -17,6 +18,8 @@ interface SignInFormInputs {
 }
 
 export default function Signin() {
+  useRedirectIfAuthenticated();
+
   const router = useRouter();
 
   const {
