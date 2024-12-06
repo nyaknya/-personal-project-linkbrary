@@ -1,10 +1,10 @@
 export interface LinkDataType {
   id: number;
-  createdAt?: Date | string;
+  created_at?: Date | string;
   url: string;
   title: string;
   description?: string;
-  imageSource?: string;
+  image_source?: string;
 }
 
 export interface FolderLinksType {
