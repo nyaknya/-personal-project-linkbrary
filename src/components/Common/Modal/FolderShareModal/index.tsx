@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import Image from "next/image";
 
+import useUserStore from "@/store/useUserStore";
 import { copyToClipboard } from "@/utils/copyToClipboard";
 import { useKakaoSdk } from "@/utils/useKakaoSdk";
 
@@ -19,6 +20,7 @@ export default function FolderShareModal({
   id,
 }: FolderShareModalProps) {
   const { shareKakao } = useKakaoSdk();
+  const { userId } = useUserStore();
 
   const KAKAO_SHARE_DATA = {
     title: "Linkbrary",
@@ -27,7 +29,7 @@ export default function FolderShareModal({
       "https://codeit-frontend.codeit.com/static/images/brand/og_tag.png",
   };
 
-  const shareLink = `${window.location.origin}/shared?user=1&folder=${id}`;
+  const shareLink = `${window.location.origin}/shared?user=${userId}&folder=${id}`;
 
   const handleKakaoClick = () => {
     shareKakao({ url: shareLink, ...KAKAO_SHARE_DATA });
@@ -38,7 +40,7 @@ export default function FolderShareModal({
 
   return (
     <Modal onClose={onClose} className="folder-share-modal">
-      <h2>폴더 이름 변경</h2>
+      <h2>폴더 공유</h2>
       <p>{folderName}</p>
       <ul>
         <li onClick={handleKakaoClick}>

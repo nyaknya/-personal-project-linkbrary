@@ -25,11 +25,11 @@ export interface FolderOwnerData {
 }
 
 export interface FolderData {
-  count: number;
   id: number;
-  links: LinkDataType[];
+  created_at: string;
   name: string;
-  owner: FolderOwnerData;
+  user_id: number;
+  favorite: boolean;
 }
 
 export interface UserProfileData {
