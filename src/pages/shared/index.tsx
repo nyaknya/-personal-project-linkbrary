@@ -17,19 +17,17 @@ export default function FolderPage() {
 
   const fetchFolderData = async () => {
     try {
-      const data = await apiRequest({ endpoint: "/api/sample/folder" });
+      const data = await apiRequest<{ folder: FolderData }>({
+        endpoint: "/api/sample/folder",
+      });
       setFolderData(data.folder);
     } catch (error) {
-      console.error(error);
+      console.error("폴더 데이터 가져오기 실패:", error);
     }
   };
 
   useEffect(() => {
-    try {
-      fetchFolderData();
-    } catch (error) {
-      console.error(error);
-    }
+    fetchFolderData();
   }, []);
 
   if (!folderData) {
