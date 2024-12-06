@@ -1,40 +1,18 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# -personal-project-linkbrary
 
-## Getting Started
+나만의 링크를 저장해두고 기록하는 사이트
 
-First, run the development server:
+> API 제공 : 코드잇 (코드잇 스프린트: 프론트엔드 트랙 3기 참여)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+`2주차 240828 완료` `3주차 240829 완료` `4주차 240901 완료` `5주차 241020 완료` `6주차 241025 완료` `7주차 241102 완료` `8주차 241104 완료` `12주차 241104 완료`  `13주차 241203 완료`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 13주차
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+- [x]  [기본] '/folder' 페이지를 Next.js 프로젝트에 맞게 변경 및 이전 했나요?
+- [x]  [기본] '/shared' 페이지를 Next.js 프로젝트에 맞게 변경 및 이전 했나요?
+- [x]  [기본] 다른 페이지로 이동이 필요한 곳에 next/link의 Link를 적용했나요?
+- [x]  [기본] Input 컴포넌트에 값이 없는 경우 회색의 placeholder값을 볼 수 있나요?
+- [x]  [기본] Input 컴포넌트에 focus in 하면 파랑색 테두리를 볼 수 있나요?
+- [x]  [기본] Input 컴포넌트에 눈 모양 아이콘을 누르면 비밀번호 가리기/보기 기능이 토글 되나요?
+- [x]  [기본] Input 컴포넌트에 값이 에러케이스일 경우 빨강색 테두리와 에러 메세지를 볼 수 있나요?
+- [x]  [기본] Input 컴포넌트에서 focus out 하면 실행할 함수를 설정할 수 있나요?
