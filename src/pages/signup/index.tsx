@@ -1,12 +1,14 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 import Button from "@/components/Common/Button";
 import Input from "@/components/Common/Input";
 import styles from "@/styles/signpage.module.scss";
 import { checkEmailDuplication } from "@/utils/checkEmailDuplication";
+import { submitSignUp } from "@/utils/submitSign";
 
 const cn = classNames.bind(styles);
 
@@ -17,6 +19,8 @@ interface SignUpFormInputs {
 }
 
 export default function Signup() {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -37,8 +41,18 @@ export default function Signup() {
 
   const password = watch("password");
 
-  const onSubmit = async () => {
-    alert("회원가입 성공!");
+  const onSubmit = async (data: SignUpFormInputs) => {
+    await submitSignUp(
+      data,
+      () => {
+        alert("회원가입 성공!");
+        router.push("/folder");
+      },
+      (error) => {
+        console.error("회원가입 실패:", error);
+        alert("회원가입 중 문제가 발생했습니다. 다시 시도해주세요.");
+      }
+    );
   };
 
   const onError = async () => {
