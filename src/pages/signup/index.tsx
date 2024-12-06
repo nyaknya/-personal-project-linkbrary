@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
 
 import Button from "@/components/Common/Button";
 import Input from "@/components/Common/Input";
@@ -8,7 +9,21 @@ import styles from "@/styles/signpage.module.scss";
 
 const cn = classNames.bind(styles);
 
-export default function signup() {
+interface SignUpFormInputs {
+  email: string;
+}
+
+export default function Signup() {
+  const {
+    register,
+    trigger,
+    formState: { errors },
+  } = useForm<SignUpFormInputs>();
+
+  const handleBlur = async (field: keyof SignUpFormInputs) => {
+    await trigger(field);
+  };
+
   return (
     <div className={cn("sign-page", "sign-up-page")}>
       <header className={cn("sign-header")}>
@@ -19,7 +34,7 @@ export default function signup() {
         </div>
         <div className={cn("text-area")}>
           <p>
-            이미 회원이신가요? <Link href="/signin.html">로그인 하기</Link>
+            이미 회원이신가요? <Link href="/signin">로그인 하기</Link>
           </p>
         </div>
       </header>
@@ -28,7 +43,20 @@ export default function signup() {
           <form>
             <div className={cn("form-item", "email-arae")}>
               <label htmlFor="email">이메일</label>
-              <Input id="email" type="email" />
+              <Input
+                id="email"
+                type="email"
+                placeholder="이메일 입력"
+                error={errors.email?.message}
+                {...register("email", {
+                  required: "이메일을 입력해주세요.",
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+                    message: "유효하지 않은 이메일 형식입니다.",
+                  },
+                })}
+                onBlur={() => handleBlur("email")}
+              />
             </div>
             <div className={cn("form-item", "password-area")}>
               <label htmlFor="password">비밀번호</label>

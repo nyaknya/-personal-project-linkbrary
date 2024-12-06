@@ -1,55 +1,61 @@
+/* eslint-disable react/prop-types */
 import classNames from "classnames/bind";
 import Image from "next/image";
-import { useState } from "react";
+import React, { forwardRef } from "react";
 
 import styles from "./Input.module.scss";
 
 const cn = classNames.bind(styles);
 
-interface InputProps {
-  id: string;
+interface CustomInputProps {
   error?: string;
-  type?: string;
-  placeholder?: string;
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  isPasswordVisible?: boolean;
 }
 
-export default function Input({
-  id,
-  error,
-  type = "text",
-  placeholder = "내용 입력",
-  onBlur,
-}: InputProps) {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> &
+  CustomInputProps;
 
-  const handleToggleVisibility = () => {
-    setIsPasswordVisible((prev) => !prev);
-  };
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      id,
+      type = "text",
+      placeholder = "내용 입력",
+      error,
+      isPasswordVisible,
+      ...props
+    },
+    ref
+  ) => {
+    const inputType = type === "password" && isPasswordVisible ? "text" : type;
 
-  const isPasswordType = type === "password";
-  const inputType = isPasswordType && isPasswordVisible ? "text" : type;
-
-  return (
-    <div className={cn("input-box")}>
-      <input
-        id={id}
-        type={inputType}
-        className={cn("input", { error: !!error })}
-        placeholder={placeholder}
-        onBlur={onBlur}
-      />
-      {isPasswordType && (
-        <Image
-          src={isPasswordVisible ? "/images/eye_off.svg" : "/images/eye_on.svg"}
-          alt={isPasswordVisible ? "비밀번호 숨기기" : "비밀번호 보이기"}
-          width={16}
-          height={16}
-          onClick={handleToggleVisibility}
-          style={{ cursor: "pointer" }}
+    return (
+      <div className={cn("input-box")}>
+        <input
+          id={id}
+          ref={ref} // 부모에서 전달된 ref 연결
+          type={inputType}
+          placeholder={placeholder}
+          className={cn("input", { error: !!error })}
+          {...props} // 부모에서 전달된 모든 props 적용
         />
-      )}
-      {error && <span className={cn("error")}>{error}</span>}
-    </div>
-  );
-}
+        {type === "password" && (
+          <Image
+            src={
+              isPasswordVisible ? "/images/eye_off.svg" : "/images/eye_on.svg"
+            }
+            alt={isPasswordVisible ? "비밀번호 숨기기" : "비밀번호 보이기"}
+            width={16}
+            height={16}
+            style={{ cursor: "pointer" }}
+          />
+        )}
+        {error && <div className={cn("error-message")}>{error}</div>}
+      </div>
+    );
+  }
+);
+
+Input.displayName = "Input";
+
+export default Input;

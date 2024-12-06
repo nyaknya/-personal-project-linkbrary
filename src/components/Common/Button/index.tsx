@@ -8,11 +8,22 @@ interface ButtonProps {
   children: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
+  type?: "button" | "submit";
 }
 
-export default function Button({ children, onClick, disabled }: ButtonProps) {
+export default function Button({
+  children,
+  onClick,
+  disabled,
+  type = "button",
+}: ButtonProps) {
   return (
-    <button onClick={onClick} disabled={disabled} className={cn("cta-button")}>
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      type={type}
+      className={cn("cta-button")}
+    >
       {children}
     </button>
   );

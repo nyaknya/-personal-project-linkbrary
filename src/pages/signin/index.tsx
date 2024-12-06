@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
 
 import Button from "@/components/Common/Button";
 import Input from "@/components/Common/Input";
@@ -8,7 +9,21 @@ import styles from "@/styles/signpage.module.scss";
 
 const cn = classNames.bind(styles);
 
-export default function signin() {
+interface SignInFormInputs {
+  email: string;
+}
+
+export default function Signin() {
+  const {
+    register,
+    trigger,
+    formState: { errors },
+  } = useForm<SignInFormInputs>();
+
+  const handleBlur = async (field: keyof SignInFormInputs) => {
+    await trigger(field);
+  };
+
   return (
     <div className={cn("sign-page", "sign-in-page")}>
       <header className={cn("sign-header")}>
@@ -19,46 +34,38 @@ export default function signin() {
         </div>
         <div className={cn("text-area")}>
           <p>
-            회원이 아니신가요? <Link href="/signup.html">회원 가입하기</Link>
+            회원이 아니신가요? <Link href="/signup">회원 가입하기</Link>
           </p>
         </div>
       </header>
       <main>
         <div className="container">
           <form>
-            <div className={cn("form-item", "email-arae")}>
+            <div className={cn("form-item", "email-area")}>
               <label htmlFor="email">이메일</label>
-              <Input id="email" type="email" />
+              <Input
+                id="email"
+                type="email"
+                placeholder="이메일 입력"
+                error={errors.email?.message}
+                {...register("email", {
+                  required: "이메일을 입력해주세요.",
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+                    message: "유효하지 않은 이메일 형식입니다.",
+                  },
+                })}
+                onBlur={() => handleBlur("email")}
+              />
             </div>
             <div className={cn("form-item", "password-area")}>
               <label htmlFor="password">비밀번호</label>
               <Input id="password" type="password" />
             </div>
             <div className={cn("button-area")}>
-              <Button>로그인</Button>
+              <Button type="submit">로그인</Button>
             </div>
           </form>
-          <div className={cn("sns-login")}>
-            <span>소셜 로그인</span>
-            <div className={cn("image-area")}>
-              <Link href="https://www.google.com/">
-                <Image
-                  src="/images/sns_google.png"
-                  alt="구글 아이콘"
-                  width={44}
-                  height={44}
-                />
-              </Link>
-              <Link href="https://www.kakaocorp.com/page/">
-                <Image
-                  src="/images/sns_cacao.png"
-                  alt="카카오 아이콘"
-                  width={44}
-                  height={44}
-                />
-              </Link>
-            </div>
-          </div>
         </div>
       </main>
     </div>

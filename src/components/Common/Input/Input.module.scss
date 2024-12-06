@@ -31,4 +31,9 @@
     display: block;
     @include font-style(1.4rem, $red, 400);
   }
+
+  .error-message {
+    margin-top: 10px;
+    @include font-style(1.4rem, $red, 400);
+  }
 }
