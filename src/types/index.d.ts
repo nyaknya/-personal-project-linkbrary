@@ -62,3 +62,26 @@ export interface FolderCategoryData {
 export interface CardProps {
   link: LinkDataType;
 }
+
+export interface ApiFolderListResponse {
+  data: {
+    folder: FolderCategoryData[];
+  };
+}
+
+export interface ApiFolderLinksResponse {
+  data: FolderLinksType[];
+}
+
+export interface UserData {
+  id: number;
+  created_at: string;
+  name: string;
+  image_source: string;
+  email: string;
+  auth_id: string;
+}
+
+export interface ApiUserListResponse {
+  data: UserData[];
+}

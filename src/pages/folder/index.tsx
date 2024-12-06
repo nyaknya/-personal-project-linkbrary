@@ -12,16 +12,13 @@ import NotSavedLink from "@/components/Folder/NotSavedLink";
 import Titlebar from "@/components/Folder/Titlebar";
 import useFolderStore from "@/store/useFolderStore";
 import useSearchStore from "@/store/useSearchStore";
-import { FolderCategoryData, FolderLinksType } from "@/types";
+import {
+  FolderCategoryData,
+  FolderLinksType,
+  ApiFolderListResponse,
+  ApiFolderLinksResponse,
+} from "@/types";
 import apiRequest from "@/utils/apiRequest";
-
-interface ApiFolderListResponse {
-  data: FolderCategoryData[];
-}
-
-interface ApiFolderLinksResponse {
-  data: FolderLinksType[];
-}
 
 export default function FolderPage() {
   const [folderListData, setFolderListData] = useState<
@@ -34,23 +31,19 @@ export default function FolderPage() {
   const { searchTerm } = useSearchStore();
 
   const fetchData = useCallback(async () => {
-    try {
-      const folderList = await apiRequest<ApiFolderListResponse>({
-        endpoint: "/api/users/1/folders",
-      });
-      setFolderListData(folderList.data);
+    const folderList = await apiRequest<ApiFolderListResponse>({
+      endpoint: "/api/folders",
+    });
+    setFolderListData(folderList.data.folder);
 
-      const linksEndpoint =
-        selectedCategory === "전체"
-          ? "/api/users/1/links"
-          : `/api/users/1/links?folderId=${selectedCategoryId}`;
-      const folderLinks = await apiRequest<ApiFolderLinksResponse>({
-        endpoint: linksEndpoint,
-      });
-      setFolderLinksData(folderLinks.data);
-    } catch (error) {
-      console.error("데이터 가져오기 실패:", error);
-    }
+    const linksEndpoint =
+      selectedCategory === "전체"
+        ? "/api/users/1/links"
+        : `/api/users/1/links?folderId=${selectedCategoryId}`;
+    const folderLinks = await apiRequest<ApiFolderLinksResponse>({
+      endpoint: linksEndpoint,
+    });
+    setFolderLinksData(folderLinks.data);
   }, [selectedCategory, selectedCategoryId]);
 
   useEffect(() => {
