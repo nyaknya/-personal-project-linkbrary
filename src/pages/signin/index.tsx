@@ -38,7 +38,7 @@ export default function Signin() {
       const response = await apiRequest<SignInResponse>({
         endpoint: "/api/sign-in",
         method: "POST",
-        body: data, // 요청 데이터
+        body: data,
       });
 
       if (response?.data?.accessToken) {

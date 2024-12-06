@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import Button from "@/components/Common/Button";
 import Input from "@/components/Common/Input";
 import styles from "@/styles/signpage.module.scss";
+import { checkEmailDuplication } from "@/utils/checkEmailDuplication";
 
 const cn = classNames.bind(styles);
 
@@ -20,12 +21,18 @@ export default function Signup() {
     register,
     handleSubmit,
     trigger,
+    setError,
     watch,
     formState: { errors },
   } = useForm<SignUpFormInputs>();
 
   const handleBlur = async (field: keyof SignUpFormInputs) => {
-    await trigger(field);
+    const isValid = await trigger(field);
+
+    if (field === "email" && isValid) {
+      const email = watch("email");
+      await checkEmailDuplication(email, setError);
+    }
   };
 
   const password = watch("password");
