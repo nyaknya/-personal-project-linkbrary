@@ -1,9 +1,10 @@
 .input-box {
   position: relative;
-  width: 350px;
+  width: 100%;
 
   .input {
     width: 100%;
+    height: 60px;
     padding: 18px 15px;
     border-radius: 8px;
     border: 1px solid $gray02;
@@ -19,7 +20,7 @@
 
   img {
     position: absolute;
-    top: 18px;
+    top: 22px;
     right: 15px;
     cursor: pointer;
   }
@@ -28,6 +29,11 @@
     color: $red;
     padding-top: 5px;
     display: block;
+    @include font-style(1.4rem, $red, 400);
+  }
+
+  .error-message {
+    margin-top: 10px;
     @include font-style(1.4rem, $red, 400);
   }
 }
