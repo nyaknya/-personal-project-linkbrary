@@ -12,18 +12,22 @@ const cn = classNames.bind(styles);
 interface SignUpFormInputs {
   email: string;
   password: string;
+  passwordConfirm: string;
 }
 
 export default function Signup() {
   const {
     register,
     trigger,
+    watch,
     formState: { errors },
   } = useForm<SignUpFormInputs>();
 
   const handleBlur = async (field: keyof SignUpFormInputs) => {
     await trigger(field);
   };
+
+  const password = watch("password");
 
   return (
     <div className={cn("sign-page", "sign-up-page")}>
@@ -42,12 +46,12 @@ export default function Signup() {
       <main>
         <div className="container">
           <form>
-            <div className={cn("form-item", "email-arae")}>
+            <div className={cn("form-item", "email-area")}>
               <label htmlFor="email">이메일</label>
               <Input
                 id="email"
                 type="email"
-                placeholder="이메일 입력"
+                placeholder="이메일을 입력해주세요."
                 error={errors.email?.message}
                 {...register("email", {
                   required: "이메일을 입력해주세요.",
@@ -64,7 +68,7 @@ export default function Signup() {
               <Input
                 id="password"
                 type="password"
-                placeholder="비밀번호 입력"
+                placeholder="비밀번호를 입력해주세요."
                 error={errors.password?.message}
                 {...register("password", {
                   required: "비밀번호를 입력해주세요.",
@@ -79,7 +83,18 @@ export default function Signup() {
             </div>
             <div className={cn("form-item", "password-confirm-area")}>
               <label htmlFor="passwordConfirm">비밀번호 확인</label>
-              <Input id="passwordConfirm" type="password" />
+              <Input
+                id="passwordConfirm"
+                type="password"
+                placeholder="비밀번호를 다시 입력해주세요."
+                error={errors.passwordConfirm?.message}
+                {...register("passwordConfirm", {
+                  required: "비밀번호 확인을 입력해주세요.",
+                  validate: (value) =>
+                    value === password || "비밀번호가 일치하지 않습니다.",
+                })}
+                onBlur={() => handleBlur("passwordConfirm")}
+              />
             </div>
             <div className={cn("button-area")}>
               <Button>회원가입</Button>

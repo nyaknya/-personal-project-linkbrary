@@ -17,12 +17,21 @@ interface SignInFormInputs {
 export default function Signin() {
   const {
     register,
+    handleSubmit,
     trigger,
     formState: { errors },
   } = useForm<SignInFormInputs>();
 
-  const handleBlur = async (field: keyof SignInFormInputs) => {
-    await trigger(field); // 유효성 검사 실행
+  const onSubmit = async (data: SignInFormInputs) => {
+    // 제출 성공한 경우 처리
+    console.log("제출된 데이터:", data);
+    alert("로그인 성공!");
+  };
+
+  const onError = async () => {
+    // 제출 실패 시 모든 필드 유효성 검사
+    await trigger();
+    console.log("유효하지 않은 필드들:", errors);
   };
 
   return (
@@ -41,13 +50,13 @@ export default function Signin() {
       </header>
       <main>
         <div className="container">
-          <form>
+          <form onSubmit={handleSubmit(onSubmit, onError)}>
             <div className={cn("form-item", "email-area")}>
               <label htmlFor="email">이메일</label>
               <Input
                 id="email"
                 type="email"
-                placeholder="이메일 입력"
+                placeholder="이메일을 입력해주세요."
                 error={errors.email?.message}
                 {...register("email", {
                   required: "이메일을 입력해주세요.",
@@ -56,7 +65,7 @@ export default function Signin() {
                     message: "유효하지 않은 이메일 형식입니다.",
                   },
                 })}
-                onBlur={() => handleBlur("email")}
+                onBlur={() => trigger("email")}
               />
             </div>
             <div className={cn("form-item", "password-area")}>
@@ -64,7 +73,7 @@ export default function Signin() {
               <Input
                 id="password"
                 type="password"
-                placeholder="비밀번호 입력"
+                placeholder="비밀번호를 입력해주세요."
                 error={errors.password?.message}
                 {...register("password", {
                   required: "비밀번호를 입력해주세요.",
@@ -74,7 +83,7 @@ export default function Signin() {
                       "비밀번호는 최소 8자 이상이며, 문자와 숫자를 포함해야 합니다.",
                   },
                 })}
-                onBlur={() => handleBlur("password")}
+                onBlur={() => trigger("password")}
               />
             </div>
             <div className={cn("button-area")}>
