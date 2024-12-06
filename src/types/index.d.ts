@@ -70,7 +70,9 @@ export interface ApiFolderListResponse {
 }
 
 export interface ApiFolderLinksResponse {
-  data: FolderLinksType[];
+  data: {
+    folder: FolderLinksType[];
+  };
 }
 
 export interface UserData {

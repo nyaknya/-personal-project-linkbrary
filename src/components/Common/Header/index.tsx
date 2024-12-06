@@ -1,7 +1,8 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
+import useUserStore from "@/store/useUserStore";
 import { UserData, ApiUserListResponse } from "@/types";
 import apiRequest from "@/utils/apiRequest";
 
@@ -18,17 +19,19 @@ interface HeaderProps {
 
 export default function Header({ isSticky = true }: HeaderProps) {
   const [userProfile, setUserProfile] = useState<UserData>();
+  const { setUserId } = useUserStore();
 
-  const fetchUserData = async () => {
+  const fetchUserData = useCallback(async () => {
     const data = await apiRequest<ApiUserListResponse>({
       endpoint: "/api/users",
     });
-    setUserProfile(data.data[0]);
-  };
+    const user = data.data[0];
+    setUserProfile(user);
+  }, [setUserId]);
 
   useEffect(() => {
     fetchUserData();
-  }, []);
+  }, [fetchUserData]);
 
   if (!userProfile) {
     return <Loading />;

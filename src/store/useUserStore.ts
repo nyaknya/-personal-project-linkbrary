@@ -1,15 +1,19 @@
 import { create } from "zustand";
 
-interface UserStore {
+interface UserState {
   userId: number | null;
-  setUserId: (id: number) => void;
-  clearUserId: () => void;
+  isUserIdSet: boolean;
+  setUserId: (id: number | null) => void;
 }
 
-const useUserStore = create<UserStore>((set) => ({
+const useUserStore = create<UserState>((set) => ({
   userId: null,
-  setUserId: (id: number) => set({ userId: id }),
-  clearUserId: () => set({ userId: null }),
+  isUserIdSet: false,
+  setUserId: (id) =>
+    set({
+      userId: id,
+      isUserIdSet: id !== null,
+    }),
 }));
 
 export default useUserStore;
