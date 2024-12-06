@@ -17,11 +17,12 @@ interface CardTitlebarProps {
 export default function CardTitlebar({ folderName }: CardTitlebarProps) {
   const { openModal } = useModal();
   const router = useRouter();
+  const id = router.query.id;
 
   const handleShareClick = () => {
     openModal({
       type: "folderShare",
-      props: { folderName },
+      props: { folderName, id },
     });
   };
 
