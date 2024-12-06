@@ -1,35 +1,32 @@
-interface ApiRequestProps {
+interface ApiRequestProps<T = unknown> {
   endpoint: string;
-  method?: string;
-  body?: Record<string, unknown>;
+  method?: "GET" | "POST" | "PATCH" | "DELETE";
+  body?: T;
 }
 
-export default async function apiRequest({
+export default async function apiRequest<TResponse>({
   endpoint,
   method = "GET",
   body,
-}: ApiRequestProps) {
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-    const url = `${baseUrl}${endpoint}`;
+}: ApiRequestProps): Promise<TResponse> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-    const options: RequestInit = {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+  const options: RequestInit = {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
 
-    if (method !== "GET" && body) {
-      options.body = JSON.stringify(body);
-    }
-
-    const response = await fetch(url, options);
-    const data = await response.json();
-
-    return data;
-  } catch (error) {
-    console.error("API 요청 중 오류 발생:", error);
-    return null;
+  if (method !== "GET" && body) {
+    options.body = JSON.stringify(body);
   }
+
+  const response = await fetch(`${baseUrl}${endpoint}`, options);
+
+  if (!response.ok) {
+    throw new Error(`API 요청 실패: ${response.status}`);
+  }
+
+  return response.json();
 }

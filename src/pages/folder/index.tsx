@@ -15,6 +15,14 @@ import useSearchStore from "@/store/useSearchStore";
 import { FolderCategoryData, FolderLinksType } from "@/types";
 import apiRequest from "@/utils/apiRequest";
 
+interface ApiFolderListResponse {
+  data: FolderCategoryData[];
+}
+
+interface ApiFolderLinksResponse {
+  data: FolderLinksType[];
+}
+
 export default function FolderPage() {
   const [folderListData, setFolderListData] = useState<
     FolderCategoryData[] | null
@@ -27,17 +35,21 @@ export default function FolderPage() {
 
   const fetchData = useCallback(async () => {
     try {
-      const folderList = await apiRequest({ endpoint: "/api/users/1/folders" });
+      const folderList = await apiRequest<ApiFolderListResponse>({
+        endpoint: "/api/users/1/folders",
+      });
       setFolderListData(folderList.data);
 
       const linksEndpoint =
         selectedCategory === "전체"
           ? "/api/users/1/links"
           : `/api/users/1/links?folderId=${selectedCategoryId}`;
-      const folderLinks = await apiRequest({ endpoint: linksEndpoint });
+      const folderLinks = await apiRequest<ApiFolderLinksResponse>({
+        endpoint: linksEndpoint,
+      });
       setFolderLinksData(folderLinks.data);
     } catch (error) {
-      console.error(error);
+      console.error("데이터 가져오기 실패:", error);
     }
   }, [selectedCategory, selectedCategoryId]);
 
@@ -64,7 +76,6 @@ export default function FolderPage() {
           <NotSavedLink />
         )}
       </main>
-
       <Footer />
     </>
   );

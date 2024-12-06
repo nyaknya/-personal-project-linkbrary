@@ -1,11 +1,13 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 import Button from "@/components/Common/Button";
 import Input from "@/components/Common/Input";
 import styles from "@/styles/signpage.module.scss";
+import apiRequest from "@/utils/apiRequest";
 
 const cn = classNames.bind(styles);
 
@@ -14,7 +16,16 @@ interface SignInFormInputs {
   password: string;
 }
 
+interface SignInResponse {
+  data: {
+    accessToken: string;
+    refreshToken: string;
+  };
+}
+
 export default function Signin() {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -23,15 +34,31 @@ export default function Signin() {
   } = useForm<SignInFormInputs>();
 
   const onSubmit = async (data: SignInFormInputs) => {
-    // 제출 성공한 경우 처리
-    console.log("제출된 데이터:", data);
-    alert("로그인 성공!");
+    try {
+      const response = await apiRequest<SignInResponse>({
+        endpoint: "/api/sign-in",
+        method: "POST",
+        body: data, // 요청 데이터
+      });
+
+      if (response?.data?.accessToken) {
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
+
+        alert("로그인 성공!");
+        router.push("/folder");
+      } else {
+        alert("로그인 실패: 서버로부터 유효한 응답을 받지 못했습니다.");
+      }
+    } catch (error) {
+      console.error("API 요청 실패:", error);
+      alert("로그인 중 문제가 발생했습니다. 다시 시도해주세요.");
+    }
   };
 
   const onError = async () => {
-    // 제출 실패 시 모든 필드 유효성 검사
     await trigger();
-    console.log("유효하지 않은 필드들:", errors);
+    alert("입력값을 확인해주세요.");
   };
 
   return (

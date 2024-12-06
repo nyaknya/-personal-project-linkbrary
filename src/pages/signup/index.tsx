@@ -18,6 +18,7 @@ interface SignUpFormInputs {
 export default function Signup() {
   const {
     register,
+    handleSubmit,
     trigger,
     watch,
     formState: { errors },
@@ -28,6 +29,14 @@ export default function Signup() {
   };
 
   const password = watch("password");
+
+  const onSubmit = async () => {
+    alert("회원가입 성공!");
+  };
+
+  const onError = async () => {
+    await trigger();
+  };
 
   return (
     <div className={cn("sign-page", "sign-up-page")}>
@@ -45,7 +54,7 @@ export default function Signup() {
       </header>
       <main>
         <div className="container">
-          <form>
+          <form onSubmit={handleSubmit(onSubmit, onError)}>
             <div className={cn("form-item", "email-area")}>
               <label htmlFor="email">이메일</label>
               <Input
@@ -86,7 +95,7 @@ export default function Signup() {
               <Input
                 id="passwordConfirm"
                 type="password"
-                placeholder="비밀번호를 다시 입력해주세요."
+                placeholder="비밀번호와 일치하는 값을 입력해주세요."
                 error={errors.passwordConfirm?.message}
                 {...register("passwordConfirm", {
                   required: "비밀번호 확인을 입력해주세요.",
@@ -97,7 +106,7 @@ export default function Signup() {
               />
             </div>
             <div className={cn("button-area")}>
-              <Button>회원가입</Button>
+              <Button type="submit">회원가입</Button>
             </div>
           </form>
           <div className={cn("sns-login")}>
