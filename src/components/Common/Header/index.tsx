@@ -15,12 +15,20 @@ interface HeaderProps {
   isSticky?: boolean;
 }
 
+interface UserProfileData {
+  name: string;
+  email: string;
+  profileImageSource: string;
+}
+
 export default function Header({ isSticky = true }: HeaderProps) {
-  const [userProfile, setUserProfile] = useState(null);
+  const [userProfile, setUserProfile] = useState<UserProfileData | null>(null);
 
   const fetchUserData = async () => {
     try {
-      const data = await apiRequest({ endpoint: "/api/sample/user" });
+      const data = await apiRequest<UserProfileData>({
+        endpoint: "/api/sample/user",
+      });
       setUserProfile(data);
     } catch (error) {
       console.error(error);
@@ -28,16 +36,13 @@ export default function Header({ isSticky = true }: HeaderProps) {
   };
 
   useEffect(() => {
-    try {
-      fetchUserData();
-    } catch (error) {
-      console.error(error);
-    }
+    fetchUserData();
   }, []);
 
   if (!userProfile) {
     return <Loading />;
   }
+
   const { name, email, profileImageSource } = userProfile;
 
   return (
