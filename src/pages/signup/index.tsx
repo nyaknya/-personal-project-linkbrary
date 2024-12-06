@@ -11,6 +11,7 @@ const cn = classNames.bind(styles);
 
 interface SignUpFormInputs {
   email: string;
+  password: string;
 }
 
 export default function Signup() {
@@ -60,7 +61,21 @@ export default function Signup() {
             </div>
             <div className={cn("form-item", "password-area")}>
               <label htmlFor="password">비밀번호</label>
-              <Input id="password" type="password" />
+              <Input
+                id="password"
+                type="password"
+                placeholder="비밀번호 입력"
+                error={errors.password?.message}
+                {...register("password", {
+                  required: "비밀번호를 입력해주세요.",
+                  pattern: {
+                    value: /(?=.*[0-9])(?=.*[A-Za-z])^.{8,}$/,
+                    message:
+                      "비밀번호는 최소 8자 이상이며, 문자와 숫자를 포함해야 합니다.",
+                  },
+                })}
+                onBlur={() => handleBlur("password")}
+              />
             </div>
             <div className={cn("form-item", "password-confirm-area")}>
               <label htmlFor="passwordConfirm">비밀번호 확인</label>

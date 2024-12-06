@@ -11,6 +11,7 @@ const cn = classNames.bind(styles);
 
 interface SignInFormInputs {
   email: string;
+  password: string;
 }
 
 export default function Signin() {
@@ -21,7 +22,7 @@ export default function Signin() {
   } = useForm<SignInFormInputs>();
 
   const handleBlur = async (field: keyof SignInFormInputs) => {
-    await trigger(field);
+    await trigger(field); // 유효성 검사 실행
   };
 
   return (
@@ -60,7 +61,21 @@ export default function Signin() {
             </div>
             <div className={cn("form-item", "password-area")}>
               <label htmlFor="password">비밀번호</label>
-              <Input id="password" type="password" />
+              <Input
+                id="password"
+                type="password"
+                placeholder="비밀번호 입력"
+                error={errors.password?.message}
+                {...register("password", {
+                  required: "비밀번호를 입력해주세요.",
+                  pattern: {
+                    value: /(?=.*[0-9])(?=.*[A-Za-z])^.{8,}$/,
+                    message:
+                      "비밀번호는 최소 8자 이상이며, 문자와 숫자를 포함해야 합니다.",
+                  },
+                })}
+                onBlur={() => handleBlur("password")}
+              />
             </div>
             <div className={cn("button-area")}>
               <Button type="submit">로그인</Button>
