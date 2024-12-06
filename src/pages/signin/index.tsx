@@ -7,20 +7,13 @@ import { useForm } from "react-hook-form";
 import Button from "@/components/Common/Button";
 import Input from "@/components/Common/Input";
 import styles from "@/styles/signpage.module.scss";
-import apiRequest from "@/utils/apiRequest";
+import { submitSignIn } from "@/utils/submitSign";
 
 const cn = classNames.bind(styles);
 
 interface SignInFormInputs {
   email: string;
   password: string;
-}
-
-interface SignInResponse {
-  data: {
-    accessToken: string;
-    refreshToken: string;
-  };
 }
 
 export default function Signin() {
@@ -34,26 +27,17 @@ export default function Signin() {
   } = useForm<SignInFormInputs>();
 
   const onSubmit = async (data: SignInFormInputs) => {
-    try {
-      const response = await apiRequest<SignInResponse>({
-        endpoint: "/api/sign-in",
-        method: "POST",
-        body: data,
-      });
-
-      if (response?.data?.accessToken) {
-        localStorage.setItem("accessToken", response.data.accessToken);
-        localStorage.setItem("refreshToken", response.data.refreshToken);
-
+    await submitSignIn(
+      data,
+      () => {
         alert("로그인 성공!");
         router.push("/folder");
-      } else {
-        alert("로그인 실패: 서버로부터 유효한 응답을 받지 못했습니다.");
+      },
+      (error) => {
+        console.error("로그인 실패:", error);
+        alert("로그인 중 문제가 발생했습니다. 다시 시도해주세요.");
       }
-    } catch (error) {
-      console.error("API 요청 실패:", error);
-      alert("로그인 중 문제가 발생했습니다. 다시 시도해주세요.");
-    }
+    );
   };
 
   const onError = async () => {
