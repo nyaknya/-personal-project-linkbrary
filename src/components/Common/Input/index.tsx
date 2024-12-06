@@ -7,6 +7,7 @@ import styles from "./Input.module.scss";
 const cn = classNames.bind(styles);
 
 interface InputProps {
+  id: string;
   error?: string;
   type?: string;
   placeholder?: string;
@@ -14,6 +15,7 @@ interface InputProps {
 }
 
 export default function Input({
+  id,
   error,
   type = "text",
   placeholder = "내용 입력",
@@ -31,6 +33,7 @@ export default function Input({
   return (
     <div className={cn("input-box")}>
       <input
+        id={id}
         type={inputType}
         className={cn("input", { error: !!error })}
         placeholder={placeholder}
