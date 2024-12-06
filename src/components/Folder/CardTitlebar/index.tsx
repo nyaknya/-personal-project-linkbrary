@@ -2,42 +2,48 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import classNames from "classnames/bind";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import useModal from "@/hooks/useModal";
-import useFolderStore from "@/store/useFolderStore";
 
 import styles from "./CardTitlebar.module.scss";
 
 const cn = classNames.bind(styles);
 
-export default function CardTitlebar() {
-  const { selectedCategory } = useFolderStore();
+interface CardTitlebarProps {
+  folderName: string | null;
+}
+
+export default function CardTitlebar({ folderName }: CardTitlebarProps) {
   const { openModal } = useModal();
+  const router = useRouter();
+  const id = router.query.id;
 
   const handleShareClick = () => {
     openModal({
       type: "folderShare",
-      props: { folderName: selectedCategory },
+      props: { folderName, id },
     });
   };
 
   const handleEditClick = () => {
     openModal({
       type: "folderEdit",
+      props: { folderName },
     });
   };
 
   const handleDeleteClick = () => {
     openModal({
       type: "folderDelete",
-      props: { folderName: selectedCategory },
+      props: { folderName },
     });
   };
 
   return (
     <section className={`container ${cn("card-titlebar")}`}>
-      <h2>{selectedCategory}</h2>
-      {selectedCategory === "전체" ? null : (
+      <h2>{folderName}</h2>
+      {router.asPath === "/folder" ? null : (
         <div>
           <ul>
             <li onClick={handleShareClick}>

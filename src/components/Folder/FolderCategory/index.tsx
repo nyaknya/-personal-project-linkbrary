@@ -3,10 +3,11 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import classNames from "classnames/bind";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 import Loading from "@/components/Common/Loading";
 import useModal from "@/hooks/useModal";
-import useFolderStore from "@/store/useFolderStore";
 import { FolderCategoryData } from "@/types";
 
 import styles from "./FolderCategory.module.scss";
@@ -18,8 +19,7 @@ interface FolderCategoryProps {
 }
 
 export default function FolderCategory({ list }: FolderCategoryProps) {
-  const { selectedCategory, setSelectedCategory, setSelectedCategoryId } =
-    useFolderStore();
+  const router = useRouter();
 
   if (!list) {
     return <Loading />;
@@ -32,26 +32,23 @@ export default function FolderCategory({ list }: FolderCategoryProps) {
     openModal({ type: "folderAdd" });
   };
 
+  const handleFolderClick = (folderId: number) => {
+    router.push(`/folder/${folderId}`);
+  };
+
   return (
     <section className={`container ${cn("folder-category-wrap")}`}>
       <ul className={cn("folder-category")}>
-        <li
-          className={selectedCategory === "전체" ? cn("active") : ""}
-          onClick={() => {
-            setSelectedCategory("전체");
-            setSelectedCategoryId(null);
-          }}
-        >
-          전체
+        <li className={router.pathname === "/folder" ? cn("active") : ""}>
+          <Link href="/folder">전체</Link>
         </li>
         {list.map((listitem) => (
           <li
             key={listitem.id}
-            className={selectedCategory === listitem.name ? cn("active") : ""}
-            onClick={() => {
-              setSelectedCategory(listitem.name);
-              setSelectedCategoryId(listitem.id);
-            }}
+            className={
+              router.asPath === `/folder/${listitem.id}` ? cn("active") : ""
+            }
+            onClick={() => handleFolderClick(listitem.id)}
           >
             {listitem.name}
           </li>

@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 import Footer from "@/components/Common/Footer";
@@ -20,15 +21,18 @@ import {
 } from "@/types";
 import apiRequest from "@/utils/apiRequest";
 
-export default function FolderPage() {
+export default function FolderDetailPage() {
   const [folderListData, setFolderListData] = useState<
     FolderCategoryData[] | null
   >(null);
   const [folderLinksData, setFolderLinksData] = useState<
     FolderLinksType[] | null
   >(null);
+  const [folderName, setFolderName] = useState<string>("전체"); // 폴더 이름 상태 추가
   const { searchTerm } = useSearchStore();
   const { isUserIdSet } = useUserStore();
+  const router = useRouter();
+  const id = router.query.id;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,8 +42,14 @@ export default function FolderPage() {
         });
         setFolderListData(folderList.data.folder);
 
+        // 폴더 이름 설정
+        const currentFolder = folderList.data.folder.find(
+          (folder) => folder.id === Number(id)
+        );
+        setFolderName(currentFolder ? currentFolder.name : "전체");
+
         const folderLinks = await apiRequest<ApiFolderLinksResponse>({
-          endpoint: `/api/links`,
+          endpoint: `/api/links?folderId=${id}`,
         });
         setFolderLinksData(folderLinks.data.folder);
       } catch (error) {
@@ -47,10 +57,10 @@ export default function FolderPage() {
       }
     };
 
-    if (isUserIdSet) {
+    if (isUserIdSet && id) {
       fetchData();
     }
-  }, [isUserIdSet]);
+  }, [isUserIdSet, id]);
 
   if (!isUserIdSet || !folderLinksData) {
     return <Loading />;
@@ -64,7 +74,7 @@ export default function FolderPage() {
         <Searchbar />
         {searchTerm && <SearchMessage />}
         <FolderCategory list={folderListData} />
-        <CardTitlebar folderName="전체" />
+        <CardTitlebar folderName={folderName} />
         {folderLinksData.length > 0 ? (
           <CardList data={folderLinksData} />
         ) : (

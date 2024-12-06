@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
+import Link from "next/link";
 
 import styles from "./Titlebar.module.scss";
 
@@ -19,7 +20,9 @@ export default function Titlebar({
   return (
     <div className={cn("title-bar")}>
       <div className={cn("image-box")}>
-        <Image src={userImage} alt="프로필 이미지" width={60} height={60} />
+        <Link href={"/"}>
+          <Image src={userImage} alt="프로필 이미지" width={60} height={60} />
+        </Link>
         <span>{userName}</span>
       </div>
       <h2>{folderName}</h2>
