@@ -13,7 +13,7 @@ export default function signup() {
     <div className={cn("sign-page", "sign-up-page")}>
       <header className={cn("sign-header")}>
         <div className={cn("image-area")}>
-          <Link href="/index.html">
+          <Link href="/">
             <Image src="/images/logo.svg" alt="로고" width={210} height={38} />
           </Link>
         </div>
