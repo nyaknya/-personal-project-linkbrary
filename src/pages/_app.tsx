@@ -1,6 +1,11 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 
 import ModalContainer from "@/components/Common/Modal/ModalContainer";
 import "../styles/globals.scss";
@@ -11,36 +16,53 @@ import type { AppProps } from "next/app";
 
 const queryClient = new QueryClient();
 
-export default function App({ Component, pageProps }: AppProps) {
+interface FetchUserResponse {
+  id: number;
+}
+
+const fetchUser = async (): Promise<FetchUserResponse> => {
+  const token = localStorage.getItem("accessToken");
+  if (!token) throw new Error("No access token found");
+
+  return await apiRequest<FetchUserResponse>({
+    endpoint: "/users",
+  });
+};
+
+interface InitializeUserProps {
+  children: ReactNode;
+}
+
+const InitializeUser = ({ children }: InitializeUserProps) => {
   const { setUserId } = useUserStore();
+  const queryClient = useQueryClient();
+
+  const { data, error } = useQuery<FetchUserResponse, Error>({
+    queryKey: ["user"],
+    queryFn: fetchUser,
+    retry: false,
+  });
 
   useEffect(() => {
-    const initializeUser = async () => {
-      const token = localStorage.getItem("accessToken");
+    if (data?.id) {
+      setUserId(data.id);
+      queryClient.setQueryData(["user"], data);
+    }
+    if (error) {
+      console.error("유저 초기화 실패:", error.message);
+    }
+  }, [data, error, setUserId, queryClient]);
 
-      if (token) {
-        try {
-          const response = await apiRequest<{ data: { id: number }[] }>({
-            endpoint: "/api/users",
-          });
+  return <>{children}</>;
+};
 
-          const userId = response.data?.[0]?.id;
-          if (userId) {
-            setUserId(userId);
-          }
-        } catch (error) {
-          console.error("유저 초기화 실패:", error);
-        }
-      }
-    };
-
-    initializeUser();
-  }, [setUserId]);
-
+export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
-      <ModalContainer />
+      <InitializeUser>
+        <Component {...pageProps} />
+        <ModalContainer />
+      </InitializeUser>
       {process.env.NODE_ENV === "development" && <ReactQueryDevtools />}
     </QueryClientProvider>
   );

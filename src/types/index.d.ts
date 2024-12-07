@@ -33,10 +33,10 @@ export interface FolderData {
 }
 
 export interface UserProfileData {
-  email: string;
   id: number;
   name: string;
-  profileImageSource?: string;
+  image_source?: string;
+  email: string;
 }
 
 export interface FolderUserData {

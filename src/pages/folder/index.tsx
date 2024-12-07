@@ -34,12 +34,12 @@ export default function FolderPage() {
     const fetchData = async () => {
       try {
         const folderList = await apiRequest<ApiFolderListResponse>({
-          endpoint: `/api/folders`,
+          endpoint: `/sample/folders/1`, //샘플. 바꿔야함
         });
         setFolderListData(folderList.data.folder);
 
         const folderLinks = await apiRequest<ApiFolderLinksResponse>({
-          endpoint: `/api/links`,
+          endpoint: `/sample/links`, //샘플. 바꿔야함
         });
         setFolderLinksData(folderLinks.data.folder);
       } catch (error) {

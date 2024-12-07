@@ -23,7 +23,7 @@ export default function Header({ isSticky = true }: HeaderProps) {
 
   const fetchUserData = useCallback(async () => {
     const data = await apiRequest<ApiUserListResponse>({
-      endpoint: "/api/users",
+      endpoint: "/sample/users",
     });
     const user = data.data[0];
     setUserProfile(user);
