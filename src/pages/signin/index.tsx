@@ -7,8 +7,8 @@ import { useForm } from "react-hook-form";
 import Button from "@/components/Common/Button";
 import Input from "@/components/Common/Input";
 import { useRedirectIfAuthenticated } from "@/hooks/useRedirectIfAuthenticated";
+import { useSignIn } from "@/hooks/useSignIn";
 import styles from "@/styles/signpage.module.scss";
-import { submitSignIn } from "@/utils/submitSign";
 
 const cn = classNames.bind(styles);
 
@@ -21,6 +21,7 @@ export default function Signin() {
   useRedirectIfAuthenticated();
 
   const router = useRouter();
+  const { mutate: signIn, status } = useSignIn();
 
   const {
     register,
@@ -30,23 +31,26 @@ export default function Signin() {
   } = useForm<SignInFormInputs>();
 
   const onSubmit = async (data: SignInFormInputs) => {
-    await submitSignIn(
-      data,
-      () => {
+    signIn(data, {
+      onSuccess: () => {
         alert("로그인 성공!");
         router.push("/folder");
       },
-      (error) => {
-        console.error("로그인 실패:", error);
-        alert("로그인 중 문제가 발생했습니다. 다시 시도해주세요.");
-      }
-    );
+      onError: (err) => {
+        console.error("로그인 실패:", err.message);
+        alert(
+          err.message || "로그인 중 문제가 발생했습니다. 다시 시도해주세요."
+        );
+      },
+    });
   };
 
   const onError = async () => {
     await trigger();
     alert("입력값을 확인해주세요.");
   };
+
+  const isLoading = status === "pending";
 
   return (
     <div className={cn("sign-page", "sign-in-page")}>
@@ -101,7 +105,9 @@ export default function Signin() {
               />
             </div>
             <div className={cn("button-area")}>
-              <Button type="submit">로그인</Button>
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? "로그인 중..." : "로그인"}
+              </Button>
             </div>
           </form>
         </div>

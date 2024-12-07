@@ -6,10 +6,10 @@ import { useForm } from "react-hook-form";
 
 import Button from "@/components/Common/Button";
 import Input from "@/components/Common/Input";
+import { useCheckEmailDuplication } from "@/hooks/useCheckEmailDuplication";
 import { useRedirectIfAuthenticated } from "@/hooks/useRedirectIfAuthenticated";
+import { useSignUp } from "@/hooks/useSignUp";
 import styles from "@/styles/signpage.module.scss";
-import { checkEmailDuplication } from "@/utils/checkEmailDuplication";
-import { submitSignUp } from "@/utils/submitSign";
 
 const cn = classNames.bind(styles);
 
@@ -23,6 +23,8 @@ export default function Signup() {
   useRedirectIfAuthenticated();
 
   const router = useRouter();
+  const { mutate: signUp, status: signUpStatus } = useSignUp();
+  const { mutate: checkEmail } = useCheckEmailDuplication();
 
   const {
     register,
@@ -33,27 +35,45 @@ export default function Signup() {
     formState: { errors },
   } = useForm<SignUpFormInputs>();
 
-  const handleBlur = async (field: keyof SignUpFormInputs) => {
-    const isValid = await trigger(field);
-
-    if (field === "email" && isValid) {
+  const handleBlur = async () => {
+    const isValid = await trigger("email");
+    if (isValid) {
       const email = watch("email");
-      await checkEmailDuplication(email, setError);
+      checkEmail(email, {
+        onSuccess: () => {
+          console.log("이메일 중복 확인 성공");
+        },
+        onError: () => {
+          setError("email", {
+            type: "custom",
+            message: "이미 존재하는 이메일입니다.",
+          });
+        },
+      });
     }
   };
 
   const password = watch("password");
 
   const onSubmit = async (data: SignUpFormInputs) => {
-    await submitSignUp(
-      data,
-      () => {
-        alert("회원가입 성공!");
-        router.push("/folder");
-      },
-      (error) => {
-        console.error("회원가입 실패:", error);
-        alert("회원가입 중 문제가 발생했습니다. 다시 시도해주세요.");
+    if (data.password !== data.passwordConfirm) {
+      alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+      return;
+    }
+
+    signUp(
+      { email: data.email, password: data.password },
+      {
+        onSuccess: () => {
+          alert("회원가입 성공!");
+          router.push("/folder");
+        },
+        onError: (err) => {
+          console.error("회원가입 실패:", err.message);
+          alert(
+            err.message || "회원가입 중 문제가 발생했습니다. 다시 시도해주세요."
+          );
+        },
       }
     );
   };
@@ -93,7 +113,7 @@ export default function Signup() {
                     message: "유효하지 않은 이메일 형식입니다.",
                   },
                 })}
-                onBlur={() => handleBlur("email")}
+                onBlur={handleBlur}
               />
             </div>
             <div className={cn("form-item", "password-area")}>
@@ -111,7 +131,7 @@ export default function Signup() {
                       "비밀번호는 최소 8자 이상이며, 문자와 숫자를 포함해야 합니다.",
                   },
                 })}
-                onBlur={() => handleBlur("password")}
+                onBlur={() => trigger("password")}
               />
             </div>
             <div className={cn("form-item", "password-confirm-area")}>
@@ -126,34 +146,15 @@ export default function Signup() {
                   validate: (value) =>
                     value === password || "비밀번호가 일치하지 않습니다.",
                 })}
-                onBlur={() => handleBlur("passwordConfirm")}
+                onBlur={() => trigger("passwordConfirm")}
               />
             </div>
             <div className={cn("button-area")}>
-              <Button type="submit">회원가입</Button>
+              <Button type="submit" disabled={signUpStatus === "pending"}>
+                {signUpStatus === "pending" ? "회원가입 중..." : "회원가입"}
+              </Button>
             </div>
           </form>
-          <div className={cn("sns-login")}>
-            <span>다른 방식으로 가입하기</span>
-            <div className={cn("image-area")}>
-              <Link href="https://www.google.com/">
-                <Image
-                  src="/images/sns_google.png"
-                  alt="구글 아이콘"
-                  width={44}
-                  height={44}
-                />
-              </Link>
-              <Link href="https://www.kakaocorp.com/page/">
-                <Image
-                  src="/images/sns_cacao.png"
-                  alt="카카오 아이콘"
-                  width={44}
-                  height={44}
-                />
-              </Link>
-            </div>
-          </div>
         </div>
       </main>
     </div>
