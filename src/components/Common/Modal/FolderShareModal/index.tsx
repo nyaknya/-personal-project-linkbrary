@@ -2,11 +2,11 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import Image from "next/image";
 
+import useUserStore from "@/store/useUserStore";
 import { copyToClipboard } from "@/utils/copyToClipboard";
 import { useKakaoSdk } from "@/utils/useKakaoSdk";
 
 import Modal from "../Modal";
-import useUserStore from "@/store/useUserStore";
 
 interface FolderShareModalProps {
   onClose: () => void;
