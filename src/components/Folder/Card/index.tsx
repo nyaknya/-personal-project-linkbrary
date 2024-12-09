@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import useOutSideClick from "@/hooks/useOutSideClick";
 import { FolderLinksType } from "@/types";
@@ -23,18 +23,15 @@ export default function Card({ link, isOpen, onToggleDropdown }: CardProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { url, image_source, title, description, created_at } = link;
 
+  const [currentSrc, setCurrentSrc] = useState(
+    image_source?.trim() || "/images/defaultimg.png"
+  );
+
   const postDate = sliceDate(created_at);
   const getTimeAgo = getElapsedTime(created_at);
 
-  const handleSrc =
-    image_source && image_source.trim() !== ""
-      ? image_source
-      : "/images/defaultimg.png";
-
-  const handleImageError = (
-    event: React.SyntheticEvent<HTMLImageElement, Event>
-  ) => {
-    event.currentTarget.src = "/images/defaultimg.png";
+  const handleImageError = () => {
+    setCurrentSrc("/images/defaultimg.png");
   };
 
   useOutSideClick({
@@ -45,7 +42,7 @@ export default function Card({ link, isOpen, onToggleDropdown }: CardProps) {
   });
 
   return (
-    <Link href={url} className={cn("card")} target="blank">
+    <Link href={url} className={cn("card")} target="_blank">
       {isOpen && (
         <div ref={dropdownRef}>
           <CardDropdown url={url} />
@@ -60,11 +57,12 @@ export default function Card({ link, isOpen, onToggleDropdown }: CardProps) {
       />
       <div className={cn("image-box")}>
         <Image
-          src={handleSrc}
-          onError={handleImageError}
-          alt={title}
+          src={currentSrc}
+          alt={title || "Default Image"}
           width={346}
           height={200}
+          onError={handleImageError}
+          priority
         />
       </div>
       <div className={cn("card-content")}>

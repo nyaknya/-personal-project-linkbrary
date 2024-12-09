@@ -8,17 +8,22 @@ const cn = classNames.bind(styles);
 interface UserProfileProps {
   name: string;
   email: string;
-  ImageSource: string;
+  image_source?: string;
 }
 
 export default function UserProfile({
   name,
   email,
-  ImageSource,
+  image_source,
 }: UserProfileProps) {
   return (
     <div className={cn("user-profile")}>
-      <Image src={ImageSource} alt={name} width={28} height={28} />
+      <Image
+        src={image_source || "/images/profile.svg"}
+        alt={name}
+        width={28}
+        height={28}
+      />
       <span>{email}</span>
     </div>
   );

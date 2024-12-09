@@ -1,9 +1,8 @@
+import { useQuery } from "@tanstack/react-query";
 import classNames from "classnames/bind";
 import Image from "next/image";
-import { useEffect, useState, useCallback } from "react";
 
-import useUserStore from "@/store/useUserStore";
-import { UserData, ApiUserListResponse } from "@/types";
+import { UserProfileData } from "@/types";
 import apiRequest from "@/utils/apiRequest";
 
 import styles from "./Header.module.scss";
@@ -18,33 +17,29 @@ interface HeaderProps {
 }
 
 export default function Header({ isSticky = true }: HeaderProps) {
-  const [userProfile, setUserProfile] = useState<UserData>();
-  const { setUserId } = useUserStore();
+  const { data: userProfile, status } = useQuery<UserProfileData[]>({
+    queryKey: ["userProfile"],
+    queryFn: async () => {
+      return await apiRequest<UserProfileData[]>({ endpoint: "/users" });
+    },
+  });
 
-  const fetchUserData = useCallback(async () => {
-    const data = await apiRequest<ApiUserListResponse>({
-      endpoint: "/api/users",
-    });
-    const user = data.data[0];
-    setUserProfile(user);
-  }, [setUserId]);
-
-  useEffect(() => {
-    fetchUserData();
-  }, [fetchUserData]);
-
-  if (!userProfile) {
+  if (status === "pending") {
     return <Loading />;
   }
 
-  const { name, email, image_source } = userProfile;
+  console.log(userProfile);
 
   return (
     <header className={cn(isSticky ? "sticky" : "", "header")}>
       <div className={cn("container")}>
         <Image src="/images/logo.svg" alt="로고" width={133} height={24} />
         {userProfile ? (
-          <UserProfile name={name} email={email} ImageSource={image_source} />
+          <UserProfile
+            name={userProfile[0].name}
+            email={userProfile[0].email}
+            image_source={userProfile[0].image_source}
+          />
         ) : (
           <Button>로그인</Button>
         )}

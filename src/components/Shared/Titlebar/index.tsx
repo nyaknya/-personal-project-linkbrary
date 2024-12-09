@@ -21,7 +21,12 @@ export default function Titlebar({
     <div className={cn("title-bar")}>
       <div className={cn("image-box")}>
         <Link href={"/"}>
-          <Image src={userImage} alt="프로필 이미지" width={60} height={60} />
+          <Image
+            src={userImage || "/images/profile.svg"}
+            alt="프로필 이미지"
+            width={60}
+            height={60}
+          />
         </Link>
         <span>{userName}</span>
       </div>
