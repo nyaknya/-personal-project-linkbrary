@@ -15,7 +15,7 @@ import styles from "./FolderCategory.module.scss";
 const cn = classNames.bind(styles);
 
 interface FolderCategoryProps {
-  list: FolderCategoryData[] | null;
+  list?: FolderCategoryData[];
 }
 
 export default function FolderCategory({ list }: FolderCategoryProps) {

@@ -9,13 +9,12 @@ export interface LinkDataType {
 
 export interface FolderLinksType {
   id: number;
+  favorite: boolean;
   created_at: string;
-  updated_at: string | null;
   url: string;
   title: string;
-  description: string;
   image_source?: string;
-  folder_id: number;
+  description: string;
 }
 
 export interface FolderOwnerData {
@@ -51,28 +50,13 @@ export interface FolderUserData {
 export interface FolderCategoryData {
   id: number;
   created_at: string;
-  name: string;
-  user_id: number;
   favorite: boolean;
-  link: {
-    count: number;
-  };
+  name: string;
+  link_count: number;
 }
 
 export interface CardProps {
   link: LinkDataType;
-}
-
-export interface ApiFolderListResponse {
-  data: {
-    folder: FolderCategoryData[];
-  };
-}
-
-export interface ApiFolderLinksResponse {
-  data: {
-    folder: FolderLinksType[];
-  };
 }
 
 export interface UserData {
@@ -82,8 +66,4 @@ export interface UserData {
   image_source: string;
   email: string;
   auth_id: string;
-}
-
-export interface ApiUserListResponse {
-  data: UserData[];
 }

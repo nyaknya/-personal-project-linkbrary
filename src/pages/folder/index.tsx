@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import Footer from "@/components/Common/Footer";
 import Header from "@/components/Common/Header";
@@ -11,49 +11,36 @@ import FolderCategory from "@/components/Folder/FolderCategory";
 import NotSavedLink from "@/components/Folder/NotSavedLink";
 import Titlebar from "@/components/Folder/Titlebar";
 import useSearchStore from "@/store/useSearchStore";
-import useUserStore from "@/store/useUserStore";
-import {
-  FolderCategoryData,
-  FolderLinksType,
-  ApiFolderListResponse,
-  ApiFolderLinksResponse,
-} from "@/types";
+import { FolderCategoryData, FolderLinksType } from "@/types";
 import apiRequest from "@/utils/apiRequest";
 
 export default function FolderPage() {
-  const [folderListData, setFolderListData] = useState<
-    FolderCategoryData[] | null
-  >(null);
-  const [folderLinksData, setFolderLinksData] = useState<
-    FolderLinksType[] | null
-  >(null);
   const { searchTerm } = useSearchStore();
-  const { isUserIdSet } = useUserStore();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const folderList = await apiRequest<ApiFolderListResponse>({
-          endpoint: `/sample/folders/1`, //샘플. 바꿔야함
-        });
-        setFolderListData(folderList.data.folder);
+  const { data: folderListData, isLoading: isFolderListLoading } = useQuery<
+    FolderCategoryData[]
+  >({
+    queryKey: ["folderList"],
+    queryFn: async () => {
+      return await apiRequest<FolderCategoryData[]>({ endpoint: `/folders` });
+    },
+  });
 
-        const folderLinks = await apiRequest<ApiFolderLinksResponse>({
-          endpoint: `/sample/links`, //샘플. 바꿔야함
-        });
-        setFolderLinksData(folderLinks.data.folder);
-      } catch (error) {
-        console.error("데이터를 불러오는 중 오류가 발생했습니다:", error);
-      }
-    };
+  const { data: folderLinksData, isLoading: isFolderLinksLoading } = useQuery<
+    FolderLinksType[]
+  >({
+    queryKey: ["folderLinks"],
+    queryFn: async () => {
+      return await apiRequest<FolderLinksType[]>({ endpoint: `/links` });
+    },
+  });
 
-    if (isUserIdSet) {
-      fetchData();
-    }
-  }, [isUserIdSet]);
-
-  if (!isUserIdSet || !folderLinksData) {
+  if (isFolderListLoading || isFolderLinksLoading) {
     return <Loading />;
+  }
+
+  if (!folderLinksData || !folderListData) {
+    return <p>데이터를 불러오지 못했습니다.</p>;
   }
 
   return (
