@@ -6,6 +6,7 @@ import { copyToClipboard } from "@/utils/copyToClipboard";
 import { useKakaoSdk } from "@/utils/useKakaoSdk";
 
 import Modal from "../Modal";
+import useUserStore from "@/store/useUserStore";
 
 interface FolderShareModalProps {
   onClose: () => void;
