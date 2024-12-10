@@ -2,7 +2,7 @@ import apiClient from "./apiClient";
 
 interface ApiRequestProps<T = unknown> {
   endpoint: string;
-  method?: "GET" | "POST" | "PATCH" | "DELETE";
+  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: T;
 }
 

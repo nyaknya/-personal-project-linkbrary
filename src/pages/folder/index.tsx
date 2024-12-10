@@ -10,11 +10,13 @@ import CardTitlebar from "@/components/Folder/CardTitlebar";
 import FolderCategory from "@/components/Folder/FolderCategory";
 import NotSavedLink from "@/components/Folder/NotSavedLink";
 import Titlebar from "@/components/Folder/Titlebar";
+import { useRedirectIfNotAuthenticated } from "@/hooks/useRedirectIfNotAuthenticated";
 import useSearchStore from "@/store/useSearchStore";
 import { FolderCategoryData, FolderLinksType } from "@/types";
 import apiRequest from "@/utils/apiRequest";
 
 export default function FolderPage() {
+  useRedirectIfNotAuthenticated();
   const { searchTerm } = useSearchStore();
 
   const { data: folderListData, isLoading: isFolderListLoading } = useQuery<

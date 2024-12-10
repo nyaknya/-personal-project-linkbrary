@@ -21,7 +21,7 @@ interface CardProps {
 
 export default function Card({ link, isOpen, onToggleDropdown }: CardProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { url, image_source, title, description, created_at } = link;
+  const { id, url, image_source, title, description, created_at } = link;
 
   const [currentSrc, setCurrentSrc] = useState(
     image_source?.trim() || "/images/defaultimg.png"
@@ -45,7 +45,7 @@ export default function Card({ link, isOpen, onToggleDropdown }: CardProps) {
     <Link href={url} className={cn("card")} target="_blank">
       {isOpen && (
         <div ref={dropdownRef}>
-          <CardDropdown url={url} />
+          <CardDropdown id={id} url={url} />
         </div>
       )}
       <Image

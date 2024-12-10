@@ -9,15 +9,16 @@ import styles from "./CardDropdown.module.scss";
 const cn = classNames.bind(styles);
 
 interface CardDropdownProps {
+  id: number;
   url: string;
 }
 
-export default function CardDropdown({ url }: CardDropdownProps) {
+export default function CardDropdown({ id, url }: CardDropdownProps) {
   const { openModal } = useModal();
 
   const handleDeleteClick = (e: React.MouseEvent<HTMLLIElement>) => {
     e.preventDefault();
-    openModal({ type: "linkDelete", props: { linkUrl: url } });
+    openModal({ type: "linkDelete", props: { id, linkUrl: url } });
   };
 
   const handleAddClick = (e: React.MouseEvent<HTMLLIElement>) => {
