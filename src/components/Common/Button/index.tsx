@@ -1,11 +1,12 @@
 import classNames from "classnames/bind";
+import { ReactNode } from "react";
 
 import styles from "./Button.module.scss";
 
 const cn = classNames.bind(styles);
 
 interface ButtonProps {
-  children: string;
+  children: ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
   type?: "button" | "submit";

@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
+import Link from "next/link";
 
 import { LinkDataType } from "@/types";
 import getElapsedTime from "@/utils/getElapsedTime";
@@ -19,26 +20,25 @@ export default function Card({ link }: CardProps) {
   const postDate = sliceDate(created_at);
   const getTimeAgo = getElapsedTime(created_at);
 
-  const handleSrc =
-    image_source && image_source.trim() !== ""
-      ? image_source
-      : "/images/defaultimg.png";
-
-  const handleImageError = (
-    event: React.SyntheticEvent<HTMLImageElement, Event>
-  ) => {
-    event.currentTarget.src = "/images/defaultimg.png";
+  const imageLoader = ({ src }: { src: string }) => {
+    return src && src.trim() !== "" ? src : "/images/defaultimg.png";
   };
 
   return (
-    <a href={url} className={cn("card")} target="blank">
+    <Link
+      href={url}
+      className={cn("card")}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <div className={cn("image-box")}>
         <Image
-          src={handleSrc}
-          onError={handleImageError}
+          loader={imageLoader}
+          src={image_source || "/images/defaultimg.png"}
           alt={title}
           width={346}
           height={200}
+          unoptimized
         />
       </div>
       <div className={cn("card-content")}>
@@ -46,6 +46,6 @@ export default function Card({ link }: CardProps) {
         <p>{description}</p>
         <span className={cn("post-date")}>{postDate}</span>
       </div>
-    </a>
+    </Link>
   );
 }

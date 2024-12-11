@@ -1,10 +1,9 @@
 import classNames from "classnames/bind";
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 import Button from "@/components/Common/Button";
+import SignHeader from "@/components/Common/Header/SignHedaer";
 import Input from "@/components/Common/Input";
 import { useCheckEmailDuplication } from "@/hooks/useCheckEmailDuplication";
 import { useRedirectIfAuthenticated } from "@/hooks/useRedirectIfAuthenticated";
@@ -40,9 +39,6 @@ export default function Signup() {
     if (isValid) {
       const email = watch("email");
       checkEmail(email, {
-        onSuccess: () => {
-          console.log("이메일 중복 확인 성공");
-        },
         onError: () => {
           setError("email", {
             type: "custom",
@@ -83,23 +79,12 @@ export default function Signup() {
   };
 
   return (
-    <div className={cn("sign-page", "sign-up-page")}>
-      <header className={cn("sign-header")}>
-        <div className={cn("image-area")}>
-          <Link href="/">
-            <Image src="/images/logo.svg" alt="로고" width={210} height={38} />
-          </Link>
-        </div>
-        <div className={cn("text-area")}>
-          <p>
-            이미 회원이신가요? <Link href="/signin">로그인 하기</Link>
-          </p>
-        </div>
-      </header>
+    <div className={cn("sign-page")}>
+      <SignHeader>로그인 하기</SignHeader>
       <main>
         <div className="container">
           <form onSubmit={handleSubmit(onSubmit, onError)}>
-            <div className={cn("form-item", "email-area")}>
+            <div className={cn("form-item")}>
               <label htmlFor="email">이메일</label>
               <Input
                 id="email"
@@ -116,7 +101,7 @@ export default function Signup() {
                 onBlur={handleBlur}
               />
             </div>
-            <div className={cn("form-item", "password-area")}>
+            <div className={cn("form-item")}>
               <label htmlFor="password">비밀번호</label>
               <Input
                 id="password"
@@ -134,7 +119,7 @@ export default function Signup() {
                 onBlur={() => trigger("password")}
               />
             </div>
-            <div className={cn("form-item", "password-confirm-area")}>
+            <div className={cn("form-item")}>
               <label htmlFor="passwordConfirm">비밀번호 확인</label>
               <Input
                 id="passwordConfirm"

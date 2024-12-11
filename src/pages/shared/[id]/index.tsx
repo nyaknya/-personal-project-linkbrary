@@ -29,7 +29,7 @@ export default function FolderPage() {
         endpoint: `/folders/${folderId}`,
       });
     },
-    enabled: !!folderId,
+    enabled: router.isReady && !!folderId,
   });
 
   const { data: ownerData, status: ownerStatus } = useQuery<
@@ -53,7 +53,7 @@ export default function FolderPage() {
         endpoint: `/folders/${folderId}/links`,
       });
     },
-    enabled: !!folderId,
+    enabled: router.isReady && !!folderId,
   });
 
   if (folderStatus === "error" || ownerStatus === "error") {

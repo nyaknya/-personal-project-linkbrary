@@ -1,10 +1,9 @@
 import classNames from "classnames/bind";
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 import Button from "@/components/Common/Button";
+import SignHeader from "@/components/Common/Header/SignHedaer";
 import Input from "@/components/Common/Input";
 import { useRedirectIfAuthenticated } from "@/hooks/useRedirectIfAuthenticated";
 import { useSignIn } from "@/hooks/useSignIn";
@@ -54,22 +53,11 @@ export default function Signin() {
 
   return (
     <div className={cn("sign-page", "sign-in-page")}>
-      <header className={cn("sign-header")}>
-        <div className={cn("image-area")}>
-          <Link href="/">
-            <Image src="/images/logo.svg" alt="로고" width={210} height={38} />
-          </Link>
-        </div>
-        <div className={cn("text-area")}>
-          <p>
-            회원이 아니신가요? <Link href="/signup">회원 가입하기</Link>
-          </p>
-        </div>
-      </header>
+      <SignHeader>회원 가입하기</SignHeader>
       <main>
         <div className="container">
           <form onSubmit={handleSubmit(onSubmit, onError)}>
-            <div className={cn("form-item", "email-area")}>
+            <div className={cn("form-item")}>
               <label htmlFor="email">이메일</label>
               <Input
                 id="email"
@@ -86,7 +74,7 @@ export default function Signin() {
                 onBlur={() => trigger("email")}
               />
             </div>
-            <div className={cn("form-item", "password-area")}>
+            <div className={cn("form-item")}>
               <label htmlFor="password">비밀번호</label>
               <Input
                 id="password"
