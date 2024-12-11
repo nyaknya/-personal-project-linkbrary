@@ -57,7 +57,7 @@ export default function Signin() {
       <main>
         <div className="container">
           <form onSubmit={handleSubmit(onSubmit, onError)}>
-            <div className={cn("form-item", "email-area")}>
+            <div className={cn("form-item")}>
               <label htmlFor="email">이메일</label>
               <Input
                 id="email"
@@ -74,7 +74,7 @@ export default function Signin() {
                 onBlur={() => trigger("email")}
               />
             </div>
-            <div className={cn("form-item", "password-area")}>
+            <div className={cn("form-item")}>
               <label htmlFor="password">비밀번호</label>
               <Input
                 id="password"
