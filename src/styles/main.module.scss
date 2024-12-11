@@ -1,0 +1,141 @@
+.visual-container {
+  padding-top: 70px;
+  margin-bottom: 70px;
+  height: 953px;
+  background: $gray05 url("../../public/images/visual_image.png") no-repeat
+    center bottom;
+
+  h2 {
+    text-align: center;
+    font-size: 6.4rem;
+    line-height: 1.2em;
+
+    strong {
+      background: linear-gradient(to right, $blue, $pink);
+      color: transparent;
+      -webkit-background-clip: text;
+    }
+  }
+
+  a {
+    @include flex-arrange;
+
+    button {
+      width: 350px;
+    }
+  }
+}
+
+.cta-button {
+  margin: 40px auto 0;
+  text-align: center;
+}
+
+.main-container {
+  @include flex-arrange(space-between, center);
+
+  .text-area {
+    h2 {
+      font-size: 4.8rem;
+      font-weight: 700;
+      padding-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.6rem;
+      line-height: 1.5em;
+      color: #6b6b6b;
+    }
+  }
+
+  .image-area img {
+    padding: 50px 0;
+    max-width: 550px;
+  }
+}
+
+.main-section-save strong {
+  background: linear-gradient(to right, $pink, $blue);
+}
+
+.main-section-manage strong {
+  background: linear-gradient(to right, $yellow, $blue);
+}
+
+.main-section-share strong {
+  background: linear-gradient(to right, $primary, $skyblue);
+}
+
+.main-section-search strong {
+  background: linear-gradient(to right, $blue, $skyblue);
+}
+
+.main-container strong {
+  color: transparent;
+  -webkit-background-clip: text;
+}
+
+@media all and (min-width: 768px) and (max-width: 1199px) {
+  .visual-container {
+    height: 768px;
+    background-size: 698px;
+  }
+}
+
+@media (max-width: 767px) {
+  .visual-container {
+    height: 400px;
+    padding-top: 28px;
+    background-size: 325px;
+    margin-bottom: 40px;
+  }
+
+  .visual-container h2 {
+    font-size: 3.2rem;
+  }
+
+  .visual-container .cta-button {
+    margin-top: 24px;
+  }
+
+  .visual-container .cta-button a {
+    width: 200px;
+  }
+
+  .main-container {
+    padding: 0 32px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-container:last-child {
+    padding-bottom: 40px;
+  }
+
+  .main-container .text-area h2 {
+    font-size: 2.4rem;
+  }
+
+  .main-container .text-area h2 br {
+    display: none;
+  }
+
+  .main-container .text-area p {
+    font-size: 1.5rem;
+  }
+
+  .main-container .text-area p br {
+    display: none;
+  }
+
+  .main-container .image-area img {
+    width: 100%;
+    max-width: unset;
+    padding: 24px 0;
+  }
+
+  .main-section-manage .image-area,
+  .main-section-search .image-area {
+    order: 3;
+  }
+}
