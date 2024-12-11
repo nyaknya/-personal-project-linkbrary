@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
+import Link from "next/link";
 
 import { LinkDataType } from "@/types";
 import getElapsedTime from "@/utils/getElapsedTime";
@@ -24,7 +25,7 @@ export default function Card({ link }: CardProps) {
   };
 
   return (
-    <a
+    <Link
       href={url}
       className={cn("card")}
       target="_blank"
@@ -45,6 +46,6 @@ export default function Card({ link }: CardProps) {
         <p>{description}</p>
         <span className={cn("post-date")}>{postDate}</span>
       </div>
-    </a>
+    </Link>
   );
 }
