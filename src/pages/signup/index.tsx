@@ -1,10 +1,9 @@
 import classNames from "classnames/bind";
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 import Button from "@/components/Common/Button";
+import SignHeader from "@/components/Common/Header/SignHedaer";
 import Input from "@/components/Common/Input";
 import { useCheckEmailDuplication } from "@/hooks/useCheckEmailDuplication";
 import { useRedirectIfAuthenticated } from "@/hooks/useRedirectIfAuthenticated";
@@ -84,18 +83,7 @@ export default function Signup() {
 
   return (
     <div className={cn("sign-page", "sign-up-page")}>
-      <header className={cn("sign-header")}>
-        <div className={cn("image-area")}>
-          <Link href="/">
-            <Image src="/images/logo.svg" alt="로고" width={210} height={38} />
-          </Link>
-        </div>
-        <div className={cn("text-area")}>
-          <p>
-            이미 회원이신가요? <Link href="/signin">로그인 하기</Link>
-          </p>
-        </div>
-      </header>
+      <SignHeader>로그인 하기</SignHeader>
       <main>
         <div className="container">
           <form onSubmit={handleSubmit(onSubmit, onError)}>

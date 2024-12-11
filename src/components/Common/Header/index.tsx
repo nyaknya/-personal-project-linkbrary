@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import classNames from "classnames/bind";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import { UserProfileData } from "@/types";
 import apiRequest from "@/utils/apiRequest";
@@ -17,31 +18,38 @@ interface HeaderProps {
 }
 
 export default function Header({ isSticky = true }: HeaderProps) {
-  const { data: userProfile, status } = useQuery<UserProfileData[]>({
+  const router = useRouter();
+
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+
+  const { data: userProfile, status } = useQuery<UserProfileData[] | null>({
     queryKey: ["userProfile"],
     queryFn: async () => {
+      if (!token) {
+        return null;
+      }
       return await apiRequest<UserProfileData[]>({ endpoint: "/users" });
     },
+    enabled: !!token,
   });
 
   if (status === "pending") {
     return <Loading />;
   }
 
-  console.log(userProfile);
-
   return (
     <header className={cn(isSticky ? "sticky" : "", "header")}>
       <div className={cn("container")}>
         <Image src="/images/logo.svg" alt="로고" width={133} height={24} />
-        {userProfile ? (
+        {userProfile && userProfile.length > 0 ? (
           <UserProfile
             name={userProfile[0].name}
             email={userProfile[0].email}
             image_source={userProfile[0].image_source}
           />
         ) : (
-          <Button>로그인</Button>
+          <Button onClick={() => router.push("/signin")}>로그인</Button>
         )}
       </div>
     </header>
