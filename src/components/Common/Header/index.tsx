@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 
 import { UserProfileData } from "@/types";
 import apiRequest from "@/utils/apiRequest";
@@ -9,7 +10,6 @@ import apiRequest from "@/utils/apiRequest";
 import styles from "./Header.module.scss";
 import Button from "../Button";
 import UserProfile from "./UserProfile";
-import Loading from "../Loading";
 
 const cn = classNames.bind(styles);
 
@@ -19,24 +19,20 @@ interface HeaderProps {
 
 export default function Header({ isSticky = true }: HeaderProps) {
   const router = useRouter();
+  const [token, setToken] = useState<string | null>(null);
 
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    setToken(accessToken);
+  }, []);
 
-  const { data: userProfile, status } = useQuery<UserProfileData[] | null>({
+  const { data: userProfile } = useQuery<UserProfileData[] | null>({
     queryKey: ["userProfile"],
     queryFn: async () => {
-      if (!token) {
-        return null;
-      }
       return await apiRequest<UserProfileData[]>({ endpoint: "/users" });
     },
     enabled: !!token,
   });
-
-  if (status === "pending") {
-    return <Loading />;
-  }
 
   return (
     <header className={cn(isSticky ? "sticky" : "", "header")}>
